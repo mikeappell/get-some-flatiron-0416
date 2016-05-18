@@ -1,4 +1,34 @@
 Rails.application.routes.draw do
+
+  resources 'sessions', only: :create
+  get 'login', to: 'sessions#new'
+  delete 'logout', to: 'sessions#destroy'
+
+  get 'signup', to: 'registrations#new'
+  post 'signup', to: 'registrations#create'
+
+  # get 'email_addresses/new'
+
+  # get 'email_addresses/edit'
+  resources 'email_addresses', only: [:create, :destroy, :update] # No views needed, updated through user edit page
+  resources 'organizations', only: [:new, :show, :index, :edit, :update]
+
+  # get 'organizations/show'
+
+  # get 'organizations/index'
+
+  # get 'organizations/new'
+
+  # get 'organizations/edit'
+
+  resources 'users', only: [:show, :index, :edit] # Create/new is through registrations
+
+  # get 'users/show'
+
+  # get 'users/index'
+
+  # get 'users/edit'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
