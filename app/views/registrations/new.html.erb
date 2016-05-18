@@ -1,7 +1,7 @@
 <h1>Create your account</h1>
-<% if flash[:alert] %>
-  <%= flash[:alert] %>
-<% end %>
+
+<%= render 'shared/errors' %>
+
 <%= form_for @user do |f| %>
 
   <%= f.label :username %>
