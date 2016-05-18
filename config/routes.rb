@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources 'email_addresses', only: [:create, :destroy, :update] # No views needed, updated through user edit page
   resources 'organizations', only: [:new, :show, :index, :edit, :update]
-
-  resources 'users', only: [:show, :index, :edit] # Create/new is through registrations
+  resources 'orders'
+  resources 'users', only: [:show, :index, :edit, :create, :update] # Create/new is through registrations
 
 end

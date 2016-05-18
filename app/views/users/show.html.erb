@@ -2,13 +2,11 @@
 
 <div id='my-orders'>
   <ul>
-  <% @user.orders.each do |order| %>
-    <% if order.current? %>
-      <div class='order' id='<%= order.id %>'> 
-        <li><%=link_to order.name, order_path(order) %></li>
-        <li><%=order.description%></li>
-      </div> 
-    <% end %>
+  <% @user.sorted_recent_orders.each do |order| %>
+    <div class='order' id='<%= order.id %>'> 
+      <li><%= link_to order.restaurant.name, order_path(order) %><br>
+        <%= order.description %></li>
+    </div> 
   <% end %>
   </ul>
 </div>
@@ -18,9 +16,16 @@
   <button id='create-order-btn'>Create New Order</button> 
 </div>
 
-<div id='org-orders'>
+<div id='org-list'>
   <div id='org-select'>
-    <%=collection_select :user, :organization_ids, @user.organizations, :id, :name %>
+    <%= collection_select(:user, :organization_ids, @user.organizations, :id, :name, {include_blank: "All Organizations", selected: 0}) %>
+  </div>
+  <div id='org-orders'>
+    <ul>
+    <% @user.organizations.each do |organization| %>
+    
+    <% end %>
+    </ul>
   </div>
 </div>
 

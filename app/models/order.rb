@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   belongs_to :organization
   belongs_to :admin, class_name: "User"
 
-  def current? 
+  def recent? 
     (Time.now - expiration) < 12.hours
   end
 end
