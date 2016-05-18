@@ -5,4 +5,8 @@ class Order < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :organization
   belongs_to :admin, class_name: "User"
+
+  def current? 
+    
+  end
 end
