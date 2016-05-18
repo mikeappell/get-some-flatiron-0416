@@ -1,7 +1,7 @@
 <h1>Login</h1>
-<% if flash[:alert] %>
-  <%= flash[:alert] %>
-<% end %>
+
+<%= render 'shared/errors' %>
+
 <%= form_for(@user, url: sessions_path) do |f| %>
 
   <%= f.label :username %>
