@@ -1,2 +1,15 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Login</h1>
+<% if flash[:alert] %>
+  <%= flash[:alert] %>
+<% end %>
+<%= form_for(@user, url: sessions_path) do |f| %>
+
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <br>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br>
+  <%= f.submit %>
+
+<% end %>
