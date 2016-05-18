@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  root '/', to: 'users#show'
 
   resources 'sessions', only: :create
   get 'login', to: 'sessions#new'
@@ -13,5 +12,4 @@ Rails.application.routes.draw do
   resources 'organizations', only: [:new, :show, :index, :edit, :update]
 
   resources 'users', only: [:show, :index, :edit] # Create/new is through registrations
-
 end
