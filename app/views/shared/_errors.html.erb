@@ -1,0 +1,13 @@
+<% if flash[:alert] %>
+  <%= flash[:alert] %>
+<% end %>
+
+<% if @user.errors.any? %>
+  <div>
+    <ul>
+      <% @user.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
