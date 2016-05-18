@@ -31,4 +31,7 @@ EmailAddress.create(user_id: u3, organization_id: o2, email_address: Faker::Inte
 EmailAddress.create(user_id: u4, organization_id: o2, email_address: Faker::Internet.email(u4.name))
 EmailAddress.create(user_id: u5, organization_id: o3, email_address: Faker::Internet.email(u5.name))
 
-order1 = Order.create(organization_id: o1, date_ordered: DateTime.new(2015, 8, 29))
+order1 = Order.create(organization_id: o1, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin_id: u1, restaurant_id: r1 )
+order2 = Order.create(organization_id: o1, date_ordered: DateTime.new(2015, 8, 29, 3, 55, 5), expiration: DateTime.new(2015, 8, 29, 4, 20, 4), admin_id:  u1, restaurant_id: r2 )
+order3 = Order.create(organization_id: o2, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin_id: u1, restaurant_id: r1 )
+order4 = Order.create(organization_id: o3, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin_id: u1, restaurant_id: r1 )
