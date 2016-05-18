@@ -1,10 +1,28 @@
 <h1>Hello, <%= @user.name %></h1>
 
 <div id='my-orders'>
-    <%= @user.orders.each do | %>
-
+  <ul>
+  <% @user.orders.each do |order| %>
+    <% if order.current? %>
+      <div class='order' id='<%= order.id %>'> 
+        <li><%=link_to order.name, order_path(order) %></li>
+        <li><%=order.description%></li>
+      </div> 
+    <% end %>
+  <% end %>
+  </ul>
 </div>
 
+<div id='create-order'>
+  <!-- on click, redirect to order new action -->
+  <button id='create-order-btn'>Create New Order</button> 
+</div>
 
-<div id='org-orders'></div>
+<div id='org-orders'>
+  <div id='org-select'>
+    <%=collection_select :user, :organization_ids, @user.organizations, :id, :name %>
+  </div>
+</div>
+
+<script scr='users.js'></script>
 
