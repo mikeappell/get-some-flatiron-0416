@@ -1,0 +1,6 @@
+Hi <%= @user.name %>,
+
+Thanks for registering for GetSome™ Lunch! To confirm your registration click the URL below.
+
+http://localhost:3000/<%= registration_confirmation_path(@user.confirm_token) %>
+

@@ -8,5 +8,20 @@ class User < ActiveRecord::Base
   has_many :items
 
   has_secure_password
+  accepts_nested_attributes_for :email_addresses
+  before_create :confirmation_token
+  
+  def email_activate
+    self.email_confirmed = true
+    self.confirm_token = nil
+    save
+  end
 
+
+  private
+  def confirmation_token
+      if self.confirm_token.blank?
+          self.confirm_token = SecureRandom.urlsafe_base64.to_s
+      end
+  end
 end
