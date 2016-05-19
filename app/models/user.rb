@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Sortable
   has_many :email_addresses
   has_many :organizations, through: :email_addresses
   has_many :user_orders
@@ -7,4 +8,5 @@ class User < ActiveRecord::Base
   has_many :items
 
   has_secure_password
+
 end
