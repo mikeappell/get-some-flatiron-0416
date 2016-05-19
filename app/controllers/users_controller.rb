@@ -3,12 +3,13 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
 
   def show
-    
+
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
+      binding.pry
       RegistrationMailer.registration_confirmation(@user).deliver
       flash[:notice] = "Almost there! Please click the link in your email to complete your registration"
       redirect_to login_path
