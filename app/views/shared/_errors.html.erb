@@ -2,6 +2,14 @@
   <%= flash[:alert] %>
 <% end %>
 
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+
+<% if flash[:success] %>
+  <%= flash[:success] %>
+<% end %>
+
 <% if @user.errors.any? %>
   <div>
     <ul>

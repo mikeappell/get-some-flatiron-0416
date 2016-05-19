@@ -16,6 +16,11 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
   <br>
+  <%= f.fields_for :email_addresses do |email| %>
+    <%= email.label :email_address %>
+    <%= email.text_field :email_address %>
+  <% end %>
+  <br>
   <%= f.label :venmo %>
   <%= f.text_field :venmo %>
   <br>
