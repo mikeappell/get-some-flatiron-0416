@@ -4,19 +4,22 @@
 <h3>Your Recent Orders</h3>
   <ul>
     <% @user.sorted_recent_orders.each do |order| %>
-    <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'> 
+    <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
       <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
         Description: <%= order.description %><br>
         Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
         Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
-      </div> 
+      </div>
       <% end %>
     </ul>
   </div>
 
+  <%= form_tag new_order_path, method: :get do %>
+
   <div id='create-order'>
     <!-- on click, redirect to order new action -->
-    <button id='create-order-btn'>Create New Order</button>
+  <%= submit_tag "Create New Order", id: 'create-order-btn' %>
+    <!-- <button id='create-order-btn'>Create New Order</button> -->
     <br><br>
   </div>
 
@@ -26,18 +29,19 @@
     <h5>Select your organization</h5>
       <%= collection_select(:user, :organization_ids, @user.organizations, :id, :name, {include_blank: "All Organizations", selected: 0}) %>
     </div>
+    <% end %>
     <br>
     <div id='org-orders'>
       <ul>
         <% @user.organizations.each do |organization| %>
         <% organization.sorted_recent_orders.each do |order| %>
           <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
-            <div class='org-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'> 
+            <div class='org-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'>
               <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
                 Description: <%= order.description %><br>
                 Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
                 Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
-            </div> 
+            </div>
             <% end %>
           <% end %>
           <% end %>
@@ -46,4 +50,3 @@
     </div>
 
     <script scr='users.js'></script>
-
