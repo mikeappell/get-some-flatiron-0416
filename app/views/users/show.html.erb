@@ -4,7 +4,7 @@
 <h3>Your Recent Orders</h3>
   <ul>
     <% @user.sorted_recent_orders.each do |order| %>
-    <div class='user-order' id='<%= order.id %>'> 
+    <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'> 
       <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
         Description: <%= order.description %><br>
         Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
@@ -31,12 +31,14 @@
       <ul>
         <% @user.organizations.each do |organization| %>
         <% organization.sorted_recent_orders.each do |order| %>
-        <div class='org-order' id='<%= order.id %>'> 
-          <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
-            Description: <%= order.description %><br>
-            Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
-            Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
-          </div> 
+          <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
+            <div class='org-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'> 
+              <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
+                Description: <%= order.description %><br>
+                Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
+                Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
+            </div> 
+            <% end %>
           <% end %>
           <% end %>
         </ul>

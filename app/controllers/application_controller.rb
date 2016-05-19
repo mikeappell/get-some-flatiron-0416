@@ -7,8 +7,4 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id])
   end
 
-  def sorted_recent_orders
-    sorted_orders = orders.all.order(expiration: :desc)
-    thing = sorted_orders.select { |order| (Time.now - order.expiration) < 300.days }
-  end
 end

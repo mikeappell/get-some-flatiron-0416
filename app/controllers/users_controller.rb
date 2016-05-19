@@ -1,11 +1,9 @@
 class UsersController < ApplicationController
 
-  # before_action :set_user, only: [:show, :edit, :update]
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update]
 
   def show
-    # will replace this with login specific 'before action'
-    @user = User.all.first 
+    
   end
 
   def create
