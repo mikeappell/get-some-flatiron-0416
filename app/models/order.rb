@@ -5,4 +5,8 @@ class Order < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :organization
   belongs_to :admin, class_name: "User"
+
+  def expired? 
+    (Time.zone.now - expiration) > 0
+  end
 end
