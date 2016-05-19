@@ -2,4 +2,4 @@ Hi <%= @user.name %>,
 
 Thanks for registering for GetSome™ Lunch! To confirm your registration click the URL below.
 
-https://getsome-lunch.herokuapp.com/<%= registration_confirmation_path(@user.confirm_token) %>
+https://getsome-lunch.herokuapp.com<%= registration_confirmation_path(@user.confirm_token) %>
