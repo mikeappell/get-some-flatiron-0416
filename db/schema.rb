@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518195946) do
+ActiveRecord::Schema.define(version: 20160519132250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20160518195946) do
     t.integer  "organization_id"
   end
 
+  add_index "email_addresses", ["organization_id"], name: "index_email_addresses_on_organization_id", using: :btree
+  add_index "email_addresses", ["user_id"], name: "index_email_addresses_on_user_id", using: :btree
+
   create_table "items", force: :cascade do |t|
     t.string   "name"
     t.decimal  "cost"
@@ -32,6 +35,9 @@ ActiveRecord::Schema.define(version: 20160518195946) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
   end
+
+  add_index "items", ["order_id"], name: "index_items_on_order_id", using: :btree
+  add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "organization_id"
@@ -44,6 +50,10 @@ ActiveRecord::Schema.define(version: 20160518195946) do
     t.string   "description"
     t.decimal  "minimum_cost"
   end
+
+  add_index "orders", ["admin_id"], name: "index_orders_on_admin_id", using: :btree
+  add_index "orders", ["organization_id"], name: "index_orders_on_organization_id", using: :btree
+  add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
@@ -65,6 +75,9 @@ ActiveRecord::Schema.define(version: 20160518195946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "user_orders", ["order_id"], name: "index_user_orders_on_order_id", using: :btree
+  add_index "user_orders", ["user_id"], name: "index_user_orders_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
