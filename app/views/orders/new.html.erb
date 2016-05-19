@@ -1,0 +1,36 @@
+<div class="col-md-8">
+
+<%= form_for @order do |f| %>
+
+  Organization:<%= order_organizations %>
+  <br><br>
+  <span id="time-until-expire" class="text-right">Order will be placed at:</span>
+  <br><br>
+  <div class="input-group">
+  <span class="input-group-addon" id="sizing-addon1">Order will close in:</span>
+  <%= f.number_field :expiration, id: "expiration-time", class: "form-control", placeholder: "Minutes until close" %>
+  </div>
+
+  <div class="input-group">
+  <span class="input-group-addon" id="sizing-addon1">Restaurant:</span>
+  <%= f.text_field :restaurant, list: 'restaurant-name', class: "form-control", placeholder: "Restaurant name" %>
+  <datalist id="restaurant-name">
+    <% Restaurant.all.each do |restaurant| %>
+      <option value="<%= restaurant.name %>"></option>
+    <% end %>
+  </datalist>
+  </div>
+
+  <div class="input-group">
+  <span class="input-group-addon" id="sizing-addon1">Order description:</span>
+  <%= f.text_area :description, class: "form-control", placeholder: "Description of your order" %>
+  </div>
+
+  <div class="input-group">
+  <span class="input-group-addon" id="sizing-addon1">Order's minimum cost:</span>
+  <%= f.text_field :minimum_cost, class: "form-control", placeholder: "Minimum cost to place order" %>
+  </div>
+  <br>
+  <%= f.submit %>
+<% end %>
+</div>
