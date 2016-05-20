@@ -11,6 +11,11 @@ class OrganizationsController < ApplicationController
   def edit
   end
 
+  def manage_organizations
+    @user_organizations = current_user.organizations
+    @domains = @user_organizations.map {|organization| organization.domain_name}
+  end
+
   def find_org_names
     domain = params[:domain]
     org = Organization.where(domain_name: domain)

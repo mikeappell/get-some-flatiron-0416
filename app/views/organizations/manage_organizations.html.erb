@@ -1,0 +1,22 @@
+<h2>Manage Your Organizations</h2>
+<br>
+<% if !@user_organizations.empty? %>
+  <h3>Current Organizations</h3>
+   <ul>
+    <% @domains.each do |domain| %>
+      <% domain_organizations = @user_organizations.where(domain_name: domain) %>
+      <h5>Domain Name: <strong><%= domain %></strong></h5>
+      <% domain_organizations.each do |organization| %>
+        <li><%= organization.name %></li>
+      <% end %> 
+      <br>
+    <% end %>
+  </ul>
+<% else %>
+  <h1>Please Join or Create a Group!!</h1>
+  <!-- put select box for organizations within your current domain name -->
+<% end %>
+
+
+
+
