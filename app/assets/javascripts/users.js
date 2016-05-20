@@ -3,12 +3,6 @@ $(document).on('ready', function() {
   // onOrderCreate()
 })
 
-// function onOrderCreate(){
-//   $('button#create-order-btn').on('click', function(event) {
-//     var organization = $('select#user_organization_ids').val()
-//   })
-// }
-
 function onOrgSelect() {
   $('div#org-select').on('change', function(e) {
     var selected = $('select#user_organization_ids').val()

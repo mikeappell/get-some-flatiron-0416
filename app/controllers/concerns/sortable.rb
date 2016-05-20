@@ -4,5 +4,4 @@ module Sortable
     thing = sorted_orders.select { |order| (Time.zone.now - order.expiration) < 12.hours }
   end
 
-  
 end
