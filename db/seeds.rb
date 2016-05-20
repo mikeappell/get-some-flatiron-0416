@@ -8,11 +8,11 @@
 names = []
 5.times { names << Faker::Name.name }
 
-u1 = User.create(name: names.pop, username: "angelface232", venmo: "mrAngel", password: "angels")
-u2 = User.create(name: names.pop, username: "bawbby82", venmo: "mrbob", password: "yellow")
-u3 = User.create(name: names.pop, username: "daunte29", venmo: "daunting", password: "bananna")
-u4 = User.create(name: names.pop, username: "mcGrowler", venmo: "growlerFace", password: "123456")
-u5 = User.create(name: names.pop, username: "Roxanna", venmo: "FoxyRoxy", password: "password")
+u1 = User.create(name: names.pop, username: "angelface232", venmo: "mrAngel", password: "angels", email_confirmed: true)
+u2 = User.create(name: names.pop, username: "bawbby82", venmo: "mrbob", password: "yellow", email_confirmed: true)
+u3 = User.create(name: names.pop, username: "daunte29", venmo: "daunting", password: "bananna", email_confirmed: true)
+u4 = User.create(name: names.pop, username: "mcGrowler", venmo: "growlerFace", password: "123456", email_confirmed: true)
+u5 = User.create(name: names.pop, username: "Roxanna", venmo: "FoxyRoxy", password: "password", email_confirmed: true)
 
 r1 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
 r2 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
