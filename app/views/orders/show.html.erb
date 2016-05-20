@@ -1,0 +1,15 @@
+<h1>Order for: <%= @order.restaurant.name %></h1>
+<h2>Created by: <%= @order.admin.name %></h2>
+<br>
+<h2>Time until ordered: <%= @order.expiration.strftime('%l:%M: %p') %></h2>
+
+<h2>Items: <%# @order.items.each %></h2>
+  <%# end %>
+
+
+<%#= form_for @item do |f| %>
+
+  <%#= f.text_field :item_name %>
+
+  <%#= f.submit %>
+<%# end %>
