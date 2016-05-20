@@ -1,11 +1,16 @@
-<h1>Order for: <%= @order.restaurant.name %></h1>
-<h2>Created by: <%= @order.admin.name %></h2>
+<h1>Order for Restaurant: <%= @order.restaurant.name %></h1>
+<h4>Order description: <%= @order.description %></h4>
+<h5>Created by: <%= @order.admin.name %></h5>
 <br>
-<h2>Time until ordered: <%= @order.expiration.strftime('%l:%M: %p') %></h2>
-
+<h3>Order was created at: <%= @order.date_ordered.strftime('%I:%M %p') %></h3>
+<h3>Order will be placed at: <%= @order.expiration.strftime('%I:%M %p') %></h3>
+<br>
+<h2>Amount until threshold: <%= @order.minimum_cost %></h2>
+<br>
 <h2>Items: <%# @order.items.each %></h2>
   <%# end %>
-
+<br>
+<h3>Time until ordered: <%= ((@order.expiration - @order.date_ordered) / 60).round %> minutes</h3>
 
 <%#= form_for @item do |f| %>
 

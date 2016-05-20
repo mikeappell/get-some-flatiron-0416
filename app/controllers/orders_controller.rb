@@ -10,11 +10,9 @@ class OrdersController < ApplicationController
     expiration = Time.now + params[:order][:expiration].to_i.minutes
     restaurant = Restaurant.find_or_create_by(name: params[:order][:restaurant])
     @order = Order.new(order_params)
-    @order.admin_id = current_user.id
-    @order.date_ordered = Time.now
-    @order.restaurant_id = restaurant.id
-    @order.expiration = expiration
+    @order.set_order_params(restaurant, expiration, current_user)
     if @order.save
+      binding.pry
       redirect_to order_path(@order)
     else
       render 'show', alert: "Please fill in the highlighted field"
