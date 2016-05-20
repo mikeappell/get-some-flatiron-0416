@@ -2,7 +2,7 @@
 
 <%= form_for @order do |f| %>
 
-  Organization:<%= order_organizations %>
+  Organization: <%= order_organizations(f) %>
   <br><br>
   <span id="time-until-expire" class="text-right">Order will be placed at:</span>
   <br><br>
@@ -31,6 +31,7 @@
   <%= f.text_field :minimum_cost, class: "form-control", placeholder: "Minimum cost to place order" %>
   </div>
   <br>
+
   <%= f.submit %>
 <% end %>
 </div>
