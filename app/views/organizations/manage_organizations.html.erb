@@ -13,10 +13,12 @@
    <ul>
     <% @domains.each do |domain| %>
       <% domain_organizations = @user_organizations.where(domain_name: domain) %>
-      <h5>Group Domain: <strong>@<%= domain %></strong></h5>
-      <h5> Group Name: </h5> <% domain_organizations.each do |organization| %>
-        <li><%= organization.name %> (Members: <%= organization.users.length %>)</li>
-        Member Of Organization: <%= check_box_tag(:member) %>
+      <h5>Organization Domain: <strong>@<%= domain %></strong></h5>
+       <% domain_organizations.each do |organization| %>
+        <h5> Organization Name
+          <%= organization.name %> (Members: <%= organization.users.length %>)
+        </h5>
+         <h5>Join: <%= check_box_tag(:member) %></h5>
       <% end %>
       <br>
     <% end %>

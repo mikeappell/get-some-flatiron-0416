@@ -14,5 +14,5 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require bootstrap-switch
-//= require turbolinks
+// require turbolinks
 //= require_tree .
