@@ -1,22 +1,28 @@
 <h2>Manage Your Organizations</h2>
 <br>
+<h5> To create a new group for your existing organization</h5>
+<%= link_to "Create a Group", new_organization_path %>
+<h5>To join groups in other organizations. Please add an associated email address.</h5>
+<%= link_to "Add email", new_email_address_path %>
+
+<br>
 <% if !@user_organizations.empty? %>
-  <h3>Current Organizations</h3>
+  <h3>Organizations</h3>
    <ul>
     <% @domains.each do |domain| %>
       <% domain_organizations = @user_organizations.where(domain_name: domain) %>
-      <h5>Domain Name: <strong><%= domain %></strong></h5>
-      <% domain_organizations.each do |organization| %>
-        <li><%= organization.name %></li>
-      <% end %> 
+      <h5>Group Domain: <strong>@<%= domain %></strong></h5>
+      <h5> Group Name: </h5> <% domain_organizations.each do |organization| %>
+        <li><%= organization.name %> (Members: <%= organization.users.length %>)</li>
+        <%= radio_button_tag(:member, "Join") %>
+        <%= label_tag(:member, true) %>
+        <%= radio_button_tag(:member, "Leave") %>
+        <%= label_tag(:member, false) %>
+      <% end %>
       <br>
     <% end %>
   </ul>
 <% else %>
-  <h1>Please Join or Create a Group!!</h1>
+  <h1>Please Create a Group!!</h1>
   <!-- put select box for organizations within your current domain name -->
 <% end %>
-
-
-
-
