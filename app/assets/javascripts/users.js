@@ -44,7 +44,7 @@ function onOrgSelect() {
 //
 //         if (response.organizations !== false) {
 //           var htmlString = `<select name="organization_id">`
-//           organizations = response.organizations
+//           var organizations = response.organizations
 //           for (var id in organizations) {
 //               htmlString += `<option value="${id}"> ${organizations[id]} </option>`
 //           }
