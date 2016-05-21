@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :set_user
 
   def show
 
@@ -37,10 +36,6 @@ class UsersController < ApplicationController
 end
 
   private
-
-  def set_user
-    @current_user = current_user
-  end
 
   def user_params
     params.require(:user).permit(:name, :password, :password_confirmation, :username, :venmo, email_addresses_attributes: [:email_address])
