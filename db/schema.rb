@@ -11,22 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520181727) do
+ActiveRecord::Schema.define(version: 20160521012428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "domains", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "email_addresses", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "email_address"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "organization_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.boolean  "confirmed"
+    t.integer  "domain_id"
   end
 
-  add_index "email_addresses", ["organization_id"], name: "index_email_addresses_on_organization_id", using: :btree
+  add_index "email_addresses", ["domain_id"], name: "index_email_addresses_on_domain_id", using: :btree
   add_index "email_addresses", ["user_id"], name: "index_email_addresses_on_user_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string  "name"
+    t.integer "organization_id"
+  end
+
+  add_index "groups", ["organization_id"], name: "index_groups_on_organization_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
@@ -58,11 +69,13 @@ ActiveRecord::Schema.define(version: 20160520181727) do
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
-    t.string   "domain_name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "address"
+    t.integer  "domain_id"
   end
+
+  add_index "organizations", ["domain_id"], name: "index_organizations_on_domain_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
@@ -92,4 +105,5 @@ ActiveRecord::Schema.define(version: 20160520181727) do
     t.string   "confirm_token"
   end
 
+  add_foreign_key "groups", "organizations"
 end
