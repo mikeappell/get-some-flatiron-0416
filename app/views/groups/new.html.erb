@@ -1,1 +1,13 @@
 <h1>Create a new group</h1>
+
+<%= form_for @group do |f| %>
+
+  Domain:
+  <%= f.collection_select :organization_id, @organizations, :id, :domain_name %>
+  <br>
+  <br>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.submit %>
+<% end %>
