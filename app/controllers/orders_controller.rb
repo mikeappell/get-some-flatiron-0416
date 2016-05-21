@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.set_order_params(restaurant, expiration, current_user)
     if @order.save
-      binding.pry
       redirect_to order_path(@order)
     else
       render 'show', alert: "Please fill in the highlighted field"
