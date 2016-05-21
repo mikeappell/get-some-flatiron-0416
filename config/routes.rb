@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources 'orders', only: [:new, :show, :create, :edit, :update, :destroy]
   resources 'users', only: [:show, :index, :edit, :create, :update] # Create/new is through registrations
   resources 'groups', only: [:new, :create]
-  
-  get '/:user_id/manage_organizations' => 'organizations#manage_organizations', as: 'manage_organizations'
+
+  get '/:username/organizations' => 'organizations#manage_organizations', as: 'manage_organizations'
   post '/find_org_names' => 'organizations#find_org_names'
 end

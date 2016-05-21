@@ -1,4 +1,6 @@
 class OrganizationsController < ApplicationController
+  before_action :set_user
+
   def show
   end
 
@@ -31,5 +33,9 @@ class OrganizationsController < ApplicationController
     render json: {
       organizations: send_back
     }
+  end
+
+  def set_user
+    @current_user = current_user
   end
 end
