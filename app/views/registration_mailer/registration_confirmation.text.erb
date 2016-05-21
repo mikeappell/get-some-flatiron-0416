@@ -2,4 +2,4 @@ Hi <%= @user.name %>,
 
 Thanks for registering for GetSome™ Lunch! To confirm your registration click the URL below.
 
-ENV["EMAIL_HOST"]<%= registration_confirmation_path(@user.confirm_token) %>
+<%= ENV["EMAIL_HOST"] + registration_confirmation_path(@user.confirm_token) %>

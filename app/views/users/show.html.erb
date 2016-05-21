@@ -1,9 +1,11 @@
-<h1>Get Some, <%= @user.name %> ;)</h1>
+<%= render 'shared/errors' %>
+
+<h1>Get Some, <%= @current_user.name %> ;)</h1>
 
 <div id='my-orders'>
 <h3>Your Recent Orders</h3>
   <ul>
-    <% @user.sorted_recent_orders.each do |order| %>
+    <% @current_user.sorted_recent_orders.each do |order| %>
     <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
       <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
         Description: <%= order.description %><br>
@@ -27,13 +29,13 @@
   <h3>Orders You Can Join</h3>
     <div id='org-select'>
     <h5>Select your organization</h5>
-      <%= collection_select(:user, :organization_ids, @user.organizations, :id, :name, {include_blank: "All Organizations", selected: 0}) %>
+      <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :name, {include_blank: "All Organizations", selected: 0}) %>
     </div>
     <% end %>
     <br>
     <div id='org-orders'>
       <ul>
-        <% @user.organizations.each do |organization| %>
+        <% @current_user.organizations.each do |organization| %>
         <% organization.sorted_recent_orders.each do |order| %>
           <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
             <div class='org-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'>

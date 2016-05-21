@@ -29,7 +29,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.3.6'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'bootstrap-switch-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'faker'
