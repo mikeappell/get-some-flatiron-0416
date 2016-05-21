@@ -26,11 +26,11 @@ class UsersController < ApplicationController
 
   def confirm_email
     user = User.find_by_confirm_token(params[:confirmation_token])
-    if user 
+    if user
       user.email_activate
       session[:user_id] = user.id
       flash[:success] = "Your registration has been successful. Welcome to the GetSome™ Lunch!"
-      redirect_to manage_organizations_path
+      redirect_to manage_organizations_path(user)
     else
       flash[:error] = "Sorry. User does not exist"
       redirect_to root_path
