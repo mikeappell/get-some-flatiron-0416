@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   
   def email_activate
     self.email_confirmed = true
+    self.email_addresses.first.confirmed = true
     self.confirm_token = nil
     save
   end

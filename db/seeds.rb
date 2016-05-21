@@ -20,16 +20,16 @@ r3 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Inter
 r4 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
 r5 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
 
-o1 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name)
-o2 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name)
-o3 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name)
+o1 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
+o2 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
+o3 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
 
 
-EmailAddress.create(user: u1, organization: o1, email_address: Faker::Internet.email(u1.name))
-EmailAddress.create(user: u2, organization: o1, email_address: Faker::Internet.email(u2.name))
-EmailAddress.create(user: u3, organization: o2, email_address: Faker::Internet.email(u3.name))
-EmailAddress.create(user: u4, organization: o2, email_address: Faker::Internet.email(u4.name))
-EmailAddress.create(user: u5, organization: o3, email_address: Faker::Internet.email(u5.name))
+EmailAddress.create(user: u1, organization: o1, email_address: Faker::Internet.email(u1.name), confirmed: true)
+EmailAddress.create(user: u2, organization: o1, email_address: Faker::Internet.email(u2.name), confirmed: true)
+EmailAddress.create(user: u3, organization: o2, email_address: Faker::Internet.email(u3.name), confirmed: true)
+EmailAddress.create(user: u4, organization: o2, email_address: Faker::Internet.email(u4.name), confirmed: true)
+EmailAddress.create(user: u5, organization: o3, email_address: Faker::Internet.email(u5.name), confirmed: true)
 
 order1 = Order.create(organization: o1, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin: u1, restaurant: r1, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2))
 order2 = Order.create(organization: o1, date_ordered: DateTime.new(2015, 8, 29, 3, 55, 5), expiration: DateTime.new(2015, 8, 29, 4, 20, 4), admin: u2, restaurant: r2, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2))

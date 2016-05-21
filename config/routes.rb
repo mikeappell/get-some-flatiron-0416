@@ -10,8 +10,12 @@ Rails.application.routes.draw do
   post 'signup', to: 'registrations#create'
   get '/registration/:confirmation_token' => 'users#confirm_email', as: 'registration_confirmation'
 
-  resources 'email_addresses', only: [:create, :destroy, :update] # No views needed, updated through user edit page
+  resources 'email_addresses', only: [:create, :new, :destroy, :update] # No views needed, updated through user edit page
   resources 'organizations', only: [:new, :show, :index, :edit, :update]
   resources 'orders', only: [:new, :show, :create, :edit, :update, :destroy]
   resources 'users', only: [:show, :index, :edit, :create, :update] # Create/new is through registrations
+  resources 'groups', only: [:new, :create]
+  
+  get '/:user_id/manage_organizations' => 'organizations#manage_organizations', as: 'manage_organizations'
+  post '/find_org_names' => 'organizations#find_org_names'
 end
