@@ -1,12 +1,12 @@
 module OrdersHelper
-  def order_organizations
+  def order_organizations(f)
     if @user.organizations.count == 1
-      @user.organizations.first.name
+      "#{f.hidden_field(:organization_id, value: @user.organizations.first.id)} #{@user.organizations.first.name}".html_safe
     else
       if @organization
-        collection_select(:user, :organization_ids, @user.organizations, :id, :name, {selected: @organization.id})
+        f.collection_select(:organization_id, @user.organizations, :id, :name, {selected: @organization.id})
       else
-        collection_select(:user, :organization_ids, @user.organizations, :id, :name, {selected: 0})
+        f.collection_select(:organization_id, @user.organizations, :id, :name, {selected: 0})
       end
     end
   end
