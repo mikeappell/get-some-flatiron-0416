@@ -21,6 +21,37 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @email_address = EmailAddress.new
+  end
+
+  def update
+    if params[:user][:username]
+      if @current_user.update(username: params[:user][:username])
+        redirect_to edit_user_path
+      else
+        render 'edit', alert: "The username you entered has already been taken"
+      end
+    elsif params[:user][:password] && params[:user][:password_confirmation]
+      if @current_user.update(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+        redirect_to edit_user_path
+      else
+        render 'edit', alert: "The field you entered was incorrect"
+      end
+    # elsif params[:user][:email_addresses_attributes]["0"]
+    #   if
+    #     redirect_to edit_user_path
+    #   else
+    #     render 'edit', alert: "The field you entered was incorrect"
+    #   end
+    elsif params[:user][:venmo]
+      if @current_user.update(venmo: params[:user][:venmo])
+        redirect_to edit_user_path
+      else
+        render 'edit', alert: "The field you entered was incorrect"
+      end
+    else
+      render "edit", alert: "The highlighted field was entered incorrectly"
+    end
   end
 
   def confirm_email
@@ -28,13 +59,14 @@ class UsersController < ApplicationController
     if user
       user.email_activate
       session[:user_id] = user.id
-      flash[:success] = "Your registration has been successful. Welcome to the GetSome™ Lunch!"
+      flash[:success] = "Your email has been successfully registered. Welcome to the GetSome™ Lunch!"
       redirect_to manage_organizations_path(user)
     else
       flash[:error] = "Sorry. User does not exist"
       redirect_to root_path
     end
-end
+  end
+
 
   private
 

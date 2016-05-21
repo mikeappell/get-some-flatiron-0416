@@ -1,2 +1,35 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<h1>Hello <%= @current_user.name %></h1>
+<br>
+<%= form_for @current_user do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <br>
+  <%= f.submit "Change Username" %>
+<% end %>
+<br>
+<%= form_for @current_user do |f| %>
+
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+  <br>
+  <%= f.label :password_confirmation %>
+  <%= f.text_field :password_confirmation %>
+  <br>
+  <%= f.submit "Change Password" %>
+<% end %>
+<br>
+<%= form_for @email_address do |f| %>
+
+  <%= f.label :email_address %>
+  <%= f.text_field :email_address %>
+  <br>
+  <%= f.submit "Add email" %>
+<% end %>
+<br>
+<%= form_for @current_user do |f| %>
+
+  <%= f.label :venmo %>
+  <%= f.text_field :venmo %>
+  <br>
+  <%= f.submit "Change Venmo" %>
+<% end %>
