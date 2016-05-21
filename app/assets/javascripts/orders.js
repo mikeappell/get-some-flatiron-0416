@@ -22,10 +22,10 @@ function formatTimeStr(){
     hours += Math.floor(newMinutes / 60)
     newMinutes = newMinutes % 60
   }
-  if (hours > 12){
+  if (hours > 11){
     amPM = 'PM'
-    hours -= 12
-  }else{
+    if (hours > 12) hours -= 12
+  } else {
     amPM = 'AM'
   }
   if (newMinutes < 10){

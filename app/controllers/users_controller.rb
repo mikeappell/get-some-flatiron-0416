@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user
 
   def show
 
@@ -28,9 +27,9 @@ class UsersController < ApplicationController
     user = User.find_by_confirm_token(params[:confirmation_token])
     if user
       user.email_activate
-      flash[:success] = "Welcome to the GetSome™ Lunch! Your registration has been confirmed.
-      Please sign in to continue."
-      redirect_to login_path
+      session[:user_id] = user.id
+      flash[:success] = "Your registration has been successful. Welcome to the GetSome™ Lunch!"
+      redirect_to manage_organizations_path(user)
     else
       flash[:error] = "Sorry. User does not exist"
       redirect_to root_path
@@ -40,7 +39,7 @@ end
   private
 
   def set_user
-    @user = current_user
+    @current_user = current_user
   end
 
   def user_params

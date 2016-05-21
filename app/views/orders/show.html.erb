@@ -2,10 +2,10 @@
 <h4>Order description: <%= @order.description %></h4>
 <h5>Created by: <%= @order.admin.name %></h5>
 <br>
-<h3>Order was created at: <%= @order.date_ordered.strftime('%I:%M %p') %></h3>
-<h3>Order will be placed at: <%= @order.expiration.strftime('%I:%M %p') %></h3>
+<h3>Order was created at: <%= (@order.date_ordered + Time.now.utc_offset).strftime('%I:%M %p') %></h3>
+<h3>Order will be placed at: <%= (@order.expiration + Time.now.utc_offset).strftime('%I:%M %p') %></h3>
 <br>
-<h2>Amount until threshold: <%= @order.minimum_cost %></h2>
+<h2>Amount until threshold: $<%= @order.minimum_cost %></h2>
 <br>
 <h2>Items: <%# @order.items.each %></h2>
   <%# end %>
