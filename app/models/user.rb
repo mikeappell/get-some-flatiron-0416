@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
 
   has_secure_password
   accepts_nested_attributes_for :email_addresses
-  before_save :confirmation_token
+
+  before_create :confirmation_token
 
   def email_activate
     self.email_confirmed = true
@@ -18,10 +19,14 @@ class User < ActiveRecord::Base
     save
   end
 
+  def available_groups
+    self.organizations.groups
+  end
+
 
   private
   def confirmation_token
-      if self.confirm_token.blank?
+       if self.confirm_token.blank?
           self.confirm_token = SecureRandom.urlsafe_base64.to_s
       end
   end

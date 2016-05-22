@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources 'organizations', only: [:new, :show, :index, :edit, :update]
   resources 'orders', only: [:new, :show, :create, :update, :destroy]
   resources 'users', only: [:show, :index, :edit, :create, :update] # Create/new is through registrations
+
   resources 'groups', only: [:new, :create]
 
   get '/:username/settings' => 'users#edit', as: 'user_settings'
