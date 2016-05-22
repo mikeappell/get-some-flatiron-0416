@@ -2,4 +2,4 @@ Hi <%= @user.name %>,
 
 Thanks for adding a new email for GetSome™ Lunch! To confirm your email click the URL below.
 
-ENV["EMAIL_HOST"]<%= email_confirmation_path(@user.confirm_token) %>
+<%= ENV["EMAIL_HOST"] %><%= email_address_confirmation_path(@email.confirm_token) %>
