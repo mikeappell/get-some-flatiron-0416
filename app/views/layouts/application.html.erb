@@ -15,6 +15,10 @@
     <%= render 'layouts/logged_out_nav' %>
   <% end %>
 
+  <div class="errors">
+  <%= render partial: 'shared/errors' %>
+  </div>
+
   <div class="container">
     <%= yield %>
   </div>
