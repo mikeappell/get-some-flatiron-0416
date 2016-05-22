@@ -24,7 +24,18 @@ class EmailAddressesController < ApplicationController
         render 'users/edit', alert: "That Email is not valid"
       end
     end
+  end
 
+  def confirm_email
+    email = EmailAddress.find_by_confirm_token(params[:confirmation_token])
+    if email
+      email.email_address_activate
+      flash[:success] = "Your email has been successfully added."
+      redirect_to manage_organizations_path(@current_user)
+    else
+      flash[:error] = "Sorry. That confirmation code didn't work."
+      redirect_to root_path
+    end
   end
 
   def edit
