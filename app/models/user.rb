@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :orders, through: :user_orders
   has_many :admin_orders, class_name: "Order", foreign_key: "admin_id"
   has_many :items
+  has_many :user_groups
+  has_many :groups, through: :user_groups
 
   has_secure_password
   accepts_nested_attributes_for :email_addresses
