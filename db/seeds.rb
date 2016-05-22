@@ -13,9 +13,14 @@ r3 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Inter
 r4 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
 r5 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
 
-o1 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
-o2 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
-o3 = Organization.create(name: Faker::Name.first_name.pluralize, domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
+o1 = Organization.create(domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
+o2 = Organization.create(domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
+o3 = Organization.create(domain_name: Faker::Internet.domain_name, address: Faker::Address.street_address)
+
+g1 = Group.create(name: Faker::Name.first_name.pluralize, organization: o1)
+g2 = Group.create(name: Faker::Name.first_name.pluralize, organization: o1)
+g3 = Group.create(name: Faker::Name.first_name.pluralize, organization: o2)
+g4 = Group.create(name: Faker::Name.first_name.pluralize, organization: o2)
 
 
 EmailAddress.create(user: u1, organization: o1, email_address: Faker::Internet.email(u1.name), confirmed: true)
@@ -44,3 +49,7 @@ u1.orders << order1 << order2
 u2.orders << order1 << order2
 u3.orders << order3
 u5.orders << order4
+
+u1.groups << g1 << g2
+u2.groups << g3
+u4.groups << g4

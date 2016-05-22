@@ -9,14 +9,15 @@
 <% if !@user_organizations.empty? %>
   <h3>Your Organizations</h3>
    <ul>
-    <% @domains.each do |domain| %>
-      <% domain_organizations = @user_organizations.where(domain_name: domain) %>
-      <h4>Organization Domain: <strong>@<%= domain %></strong></h4>
+    <% @user_organizations.each do |organization| %>
+      <h4>Organization Domain: <strong>@<%= organization.domain_name %></strong></h4>
       <h4>&ensp;Organization Name: </h4>
-       <% domain_organizations.each do |organization| %>
-        
-          <h4>&emsp;&emsp;&emsp;- <%= organization.name %> (Members: <%= organization.users.length %>) &emsp;&ensp; <%= check_box_tag(:member) %>
-        </h4>
+       <% organization.groups.each do |group| %>
+         <% if group.users.include?(@current_user) %>
+           <h4>&emsp;&emsp;&emsp;- <%= group.name %> (Members: <%= group.users.length %>) &emsp;&ensp; <%= check_box_tag 'member', group.id, true , class: 'member' %></h4>
+         <% else %>
+           <h4>&emsp;&emsp;&emsp;- <%= group.name %> (Members: <%= group.users.length %>) &emsp;&ensp; <%= check_box_tag 'member', group.id, false , class: 'member' %></h4>
+         <% end %>
       <% end %>
       <br>
     <% end %>

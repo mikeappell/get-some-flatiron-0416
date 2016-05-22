@@ -10,6 +10,16 @@ class GroupsController < ApplicationController
     redirect_to user_path(@current_user)
   end
 
+  def update
+    group = Group.find(params[:id])
+    if params[:member] == "true"
+      @current_user.groups << group
+    else
+      binding.pry
+      @current_user.groups.nullify(group)
+      @current_user.save
+    end
+  end
 
   private
 
