@@ -33,7 +33,7 @@ class EmailAddressesController < ApplicationController
       flash[:success] = "Your email has been successfully added."
       redirect_to manage_organizations_path(@current_user)
     else
-      flash[:error] = "Sorry. User does not exist"
+      flash[:error] = "Sorry. That confirmation code didn't work."
       redirect_to root_path
     end
   end
