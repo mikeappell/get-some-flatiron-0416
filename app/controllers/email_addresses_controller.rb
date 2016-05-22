@@ -3,7 +3,6 @@ class EmailAddressesController < ApplicationController
   end
 
   def create
-    binding.pry
     domain = /@(\w+)/.match(params[:email_address][:email_address])
     if !!@organization = Organization.find_by(domain_name: domain[1])
       @email_address = EmailAddress.new(email_address: params[:email_address][:email_address], user_id: @current_user.id, organization_id: @organization.id)
