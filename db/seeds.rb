@@ -51,5 +51,5 @@ u3.orders << order3
 u5.orders << order4
 
 u1.groups << g1 << g2
-u2.groups << g3
+u2.groups << g3 << g1
 u4.groups << g4

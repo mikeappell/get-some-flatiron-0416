@@ -15,8 +15,7 @@ class GroupsController < ApplicationController
     if params[:member] == "true"
       @current_user.groups << group
     else
-      binding.pry
-      @current_user.groups.nullify(group)
+      @current_user.groups.delete(group)
       @current_user.save
     end
   end
