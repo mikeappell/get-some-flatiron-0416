@@ -8,7 +8,7 @@ class RegistrationMailer < ApplicationMailer
   def email_confirmation(user, email)
     @user = user
     @email = email
-    mail(:to => "#{user.name} <#{email.email_address}>", :subject => "Registration Confirmation")
+    mail(:to => "#{user.name} <#{email.email_address}>", :subject => "New Email Confirmation")
   end
 
 end
