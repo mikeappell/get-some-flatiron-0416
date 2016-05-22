@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :organization
   belongs_to :admin, class_name: "User"
+  validates :minimum_cost, numericality: true, :format => { :with => /\A\d{1,6}(\.\d{0,2})?\z/ }
 
   def expired?
     (Time.zone.now - expiration) > 0
@@ -18,9 +19,8 @@ class Order < ActiveRecord::Base
   end
 
 private
-
   def set_date_ordered
-    self.date_ordered = Time.now
+    self.date_ordered = Time.zone.now
   end
 
   def set_admin(current_user)
