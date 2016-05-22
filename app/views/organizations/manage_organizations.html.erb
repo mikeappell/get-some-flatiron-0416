@@ -14,9 +14,9 @@
       <h4>&ensp;Organization Name: </h4>
        <% organization.groups.each do |group| %>
          <% if group.users.include?(@current_user) %>
-           <h4>&emsp;&emsp;&emsp;- <%= group.name %> (Members: <%= group.users.length %>) &emsp;&ensp; <%= check_box_tag 'member', true, true , class: 'member' %></h4>
+           <h4>&emsp;&emsp;&emsp;- <%= group.name %> (Members: <%= group.users.length %>) &emsp;&ensp; <%= check_box_tag 'member', group.id, true , class: 'member' %></h4>
          <% else %>
-           <h4>&emsp;&emsp;&emsp;- <%= group.name %> (Members: <%= group.users.length %>) &emsp;&ensp; <%= check_box_tag 'member', true, false , class: 'member' %></h4>
+           <h4>&emsp;&emsp;&emsp;- <%= group.name %> (Members: <%= group.users.length %>) &emsp;&ensp; <%= check_box_tag 'member', group.id, false , class: 'member' %></h4>
          <% end %>
       <% end %>
       <br>
