@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521012428) do
+
+ActiveRecord::Schema.define(version: 20160522174654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +24,10 @@ ActiveRecord::Schema.define(version: 20160521012428) do
     t.datetime "updated_at",      null: false
     t.integer  "organization_id"
     t.boolean  "confirmed"
+<<<<<<< HEAD
+=======
+    t.string   "confirm_token"
+>>>>>>> fe3f6e162c604b0cd1ba0c520532db7f92ab799e
   end
 
   add_index "email_addresses", ["organization_id"], name: "index_email_addresses_on_organization_id", using: :btree
