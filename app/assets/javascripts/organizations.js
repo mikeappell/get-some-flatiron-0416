@@ -11,11 +11,17 @@ function toggle() {
   $.fn.bootstrapSwitch.defaults.onColor= 'success'
   $(".member").bootstrapSwitch()
   $(".member").on('switchChange.bootstrapSwitch', function() {
-    if ($(this).parent().parent().hasClass('bootstrap-switch-off')) {
-        var member = false
-      } else {
-          var member = true
-      }
+
+  var memberCount = $(this).parent().parent().parent().find('.member_count')
+  var count = parseInt(memberCount.html())
+  debugger
+  if ($(this).parent().parent().hasClass('bootstrap-switch-off')) {
+      var member = false
+      memberCount.html(count -= 1)
+  } else {
+      var member = true
+      memberCount.html(count += 1)
+  }
 
     var groupId = $(this).val()
 
