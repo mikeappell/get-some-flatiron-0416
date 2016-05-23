@@ -1,7 +1,11 @@
 <%= render 'shared/errors' %>
+
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-lg-8">
     <h1> Get Some, <%= @current_user.name %> ;) </h1>
+  </div>
+  <div class="col-lg-4 text-right" style="padding-right: 40px">
+    <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :domain_name, {class: "selectpicker show-menu-arrow" }) %>
   </div>
 </div>
 
@@ -34,20 +38,20 @@
 
       </div>
 
-      <div id='org-list' class="lead">
+      <div id='group-list' class="lead">
       <h3>Orders You Can Join</h3>
-        <div id='org-select'>
-        <h5>Select your organization</h5>
-          <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :domain_name, {include_blank: "All Organizations", selected: 0}) %>
+        <div id='group-select'>
+        <h5>Select your groups</h5>
+          <%= collection_select(:user, :group_ids, @current_user.groups, :id, :name, {include_blank: "All Groups", selected: 0}) %>
         </div>
         <% end %>
         <br>
-        <div id='org-orders'>
+        <div id='group-orders'>
           <ul>
             <% @current_user.organizations.each do |organization| %>
             <% organization.sorted_recent_orders.each do |order| %>
               <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
-                <div class='org-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'>
+                <div class='group-order' id='<%= order.id %>' group-id='<%= order.group_id %>'>
                   <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
                     Description: <%= order.description %><br>
                     Expires In: <%= (order.expiration - Time.current).to_i/60 %> minutes (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
