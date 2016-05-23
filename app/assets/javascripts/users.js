@@ -1,4 +1,5 @@
 $(document).on('ready', function() {
+  // setOrganizationToDefault()
   onOrganizationSelect()
   onGroupSelect()
   // onOrderCreate()
@@ -29,9 +30,11 @@ function onOrganizationSelect() {
   var select = $('#user_organization_ids')
   select.on('change', function() {
     var organizationId = parseInt(select.val())
+
     $.ajax({
 	    url: "/groups/" + organizationId,
 	    type: 'GET',
+      data: { current_org: organizationId },
 	    success: function(response) {
         var htmlString = '<option value="">All Groups</option>'
 
@@ -43,6 +46,15 @@ function onOrganizationSelect() {
     })
   })
 }
+
+// function setOrganizationToDefault() {
+//   var orgId = $.session.get("current_org")
+//   if (orgId) {
+//     // var groupName =
+//     // var option = "<option value='" + orgId + '">' + ernserprosacco.name + "</option>"
+//     $("#user_organization_ids option[value='" + orgId + "']").attr('selected', true)
+//   }
+// }
 
 
 // function emailOrganizations() {
