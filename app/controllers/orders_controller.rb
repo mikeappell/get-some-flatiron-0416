@@ -19,6 +19,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.new
+  end
+
   private
 
   def set_order

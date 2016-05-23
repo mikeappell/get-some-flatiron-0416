@@ -18,6 +18,10 @@ class Order < ActiveRecord::Base
     self.expiration = expiration
   end
 
+  # def minimum_cost=(cost)
+    
+  # end
+
 private
   def set_date_ordered
     self.date_ordered = Time.zone.now

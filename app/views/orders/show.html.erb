@@ -8,14 +8,22 @@
 <br>
 <h2>Minimum order Amount: $<%= @order.minimum_cost %></h2>
 <br>
-<h2>Items: <%# @order.items.each %></h2>
-  <%# end %>
+<ol>
+  <div id="item-list">
+    <h2>Items: <% @order.items.each do |item| %></h2>
+    <li><%= item.name %> - $<%= item.cost %></li>
+    <% end %>
+  </div>
+</ol>
+<div id="item-errors">
+</div>
 <br>
 <h3>Time until ordered: <%= ((@order.expiration - @order.date_ordered) / 60).round %> minutes</h3></div>
 
-<%#= form_for @item do |f| %>
+<%= form_for @item do |f| %>
+<%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
+Item name: <%= f.text_field :name, id: 'item-name' %>
+Cost: <%= f.text_field :cost, id: 'item-cost' %>
+<%= f.submit "Add Item", :id => 'item-create-btn' %>
+<% end %>
 
-  <%#= f.text_field :item_name %>
-
-  <%#= f.submit %>
-<%# end %>
