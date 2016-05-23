@@ -6,18 +6,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
-    # path = request.env['PATH_INFO']
-    # binding.pry
-    # if false @current_user
-    # if [login_path, logout_path, root_path].include?(path) is false
-    # unless [login_path, logout_path, root_path, sessions_path].include?(path)
-    #   unless @current_user
-    #     session[:user_id] = nil
-    #     redirect_to login_path
-    #   end
-    # else 
-    #   @current_user
-    # end
+    path = request.env['PATH_INFO']
+    if @current_user.nil? && ![login_path, logout_path, root_path, signup_path, sessions_path].include?(path)
+      session[:user_id] = nil
+      redirect_to login_path
+    else 
+      @current_user
+    end
   end
 
   def logged_in?
