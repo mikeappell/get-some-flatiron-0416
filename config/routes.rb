@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   post '/items', to: 'items#create'
 
-  resources 'groups', only: [:new, :create]
+  resources 'groups', only: [:new, :create, :update]
 
   get '/:username/settings' => 'users#edit', as: 'user_settings'
 

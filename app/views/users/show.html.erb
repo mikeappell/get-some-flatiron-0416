@@ -1,23 +1,24 @@
 <%= render 'shared/errors' %>
 
 <h1>Get Some, <%= @current_user.name %> ;)</h1>
-
-<div id='my-orders'>
-<h3>Your Recent Orders</h3>
-  <ul>
-    <% @current_user.sorted_recent_orders.each do |order| %>
-    <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
-      <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
-        Description: <%= order.description %><br>
-        Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
-        Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
-      </div>
+<br>
+<% unless @current_user.sorted_recent_orders.empty? %>
+  <div id='my-orders'>
+  <h3>Your Recent Orders</h3>
+    <ul>
+      <% @current_user.sorted_recent_orders.each do |order| %>
+        <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
+          <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
+            Description: <%= order.description %><br>
+            Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
+            Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
+        </div>
       <% end %>
     </ul>
   </div>
-
+<% end %>
+<br>
   <%= form_tag new_order_path, method: :get do %>
-
   <div id='create-order'>
     <!-- on click, redirect to order new action -->
   <%= submit_tag "Create New Order", id: 'create-order-btn' %>
@@ -29,7 +30,7 @@
   <h3>Orders You Can Join</h3>
     <div id='org-select'>
     <h5>Select your organization</h5>
-      <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :name, {include_blank: "All Organizations", selected: 0}) %>
+      <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :domain_name, {include_blank: "All Organizations", selected: 0}) %>
     </div>
     <% end %>
     <br>

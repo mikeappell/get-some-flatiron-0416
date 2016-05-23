@@ -1,11 +1,12 @@
-<h1>Order for Restaurant: <%= @order.restaurant.name %></h1>
-<h4>Order description: <%= @order.description %></h4>
+<h1>Order from <%= @order.restaurant.name %></h1>
 <h5>Created by: <%= @order.admin.name %></h5>
+<div class='well'>
+<h4>Order description: <%= @order.description %></h4>
 <br>
-<h3>Order was created at: <%= (@order.date_ordered + Time.now.utc_offset).strftime('%I:%M %p') %></h3>
-<h3>Order will be placed at: <%= (@order.expiration + Time.now.utc_offset).strftime('%I:%M %p') %></h3>
+<h3>Order was created at <%= (@order.date_ordered + Time.now.utc_offset).strftime('%l:%M %p') %></h3>
+<h3>Order will be placed at <%= (@order.expiration + Time.now.utc_offset).strftime('%l:%M %p') %></h3>
 <br>
-<h2>Amount until threshold: $<%= @order.minimum_cost %></h2>
+<h2>Minimum order Amount: $<%= @order.minimum_cost %></h2>
 <br>
 <ol>
   <div id="item-list">
@@ -17,6 +18,7 @@
 <div id="item-errors">
 </div>
 <br>
+<h3>Time until ordered: <%= ((@order.expiration - @order.date_ordered) / 60).round %> minutes</h3></div>
 
 <%= form_for @item do |f| %>
 <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
