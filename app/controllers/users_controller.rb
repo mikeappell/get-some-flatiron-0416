@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Almost there! Please click the link in your email to complete your registration"
       redirect_to login_path
     else
-      flash[:alert] = "Signup Failed"
+      flash.now[:alert] = "Signup Failed"
       render 'registrations/new'
     end
   end

@@ -8,10 +8,8 @@ class ItemsController < ApplicationController
         item_cost: @item.cost
       }
     else
-      # binding.pry
-      flash[:alert] = @item.errors.messages
-      render partial: 'shared/errors', locals: { errors: flash[:alert] }
-      # Ask if we can render fail from else
+      error_message = @item.errors.messages
+      render partial: 'shared/errors', locals: { errors: flash.now[:alert] = "Item " + error_message[:name][0] }
     end
   end
 
@@ -21,3 +19,4 @@ class ItemsController < ApplicationController
     params.permit(:order_id, :cost, :name)
   end
 end
+
