@@ -21,6 +21,7 @@ class OrdersController < ApplicationController
 
   def show
     @item = Item.new
+    @message = Message.new
   end
 
   private

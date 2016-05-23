@@ -19,7 +19,7 @@ function formatTimeStr(){
   var timeStr
 
   if (isNaN(userTime)) return 'That is not a valid time'
-    
+
   if (newMinutes >= 60){
     hours += Math.floor(newMinutes / 60)
     newMinutes = newMinutes % 60

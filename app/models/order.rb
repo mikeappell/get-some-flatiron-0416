@@ -2,6 +2,7 @@ class Order < ActiveRecord::Base
   has_many :user_orders
   has_many :users, through: :user_orders
   has_many :items
+  has_many :messages
   belongs_to :restaurant
   belongs_to :organization
   belongs_to :admin, class_name: "User"
@@ -19,7 +20,7 @@ class Order < ActiveRecord::Base
   end
 
   # def minimum_cost=(cost)
-    
+
   # end
 
 private
