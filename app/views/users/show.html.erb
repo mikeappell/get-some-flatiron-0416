@@ -52,7 +52,11 @@
             <% @current_user.organizations.each do |organization| %>
             <% organization.sorted_recent_orders.each do |order| %>
             <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
+<<<<<<< HEAD
             <div class='group-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'>
+=======
+            <div class='org-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'>
+>>>>>>> force-logout-bad-cookie
               <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
                 Description: <%= order.description %><br>
                 Expires In: <%= (order.expiration - Time.current).to_i/60 %> minutes (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
