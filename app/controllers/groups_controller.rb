@@ -11,6 +11,9 @@ class GroupsController < ApplicationController
   end
 
   def update
+  end
+
+  def handle_toggle
     group = Group.find(params[:id])
     if params[:member] == "true"
       @current_user.groups << group
