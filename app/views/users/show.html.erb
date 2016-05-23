@@ -12,34 +12,38 @@
 
 
     <% unless @current_user.sorted_recent_orders.empty? %>
-      <div id='my-orders'>
+    <div id='my-orders'>
       <h3>Your Recent Orders</h3>
-        <ul>
-          <% @current_user.sorted_recent_orders.each do |order| %>
-            <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
-              <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
-                Description: <%= order.description %><br>
-                Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
-                Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
-            </div>
+      <ul>
+        <% @current_user.sorted_recent_orders.each do |order| %>
+        <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
+          <li>Restaurant: <%= link_to order.restaurant.name, order_path(order) %><br>
+            Description: <%= order.description %><br>
+            Date Ordered: <%= order.date_ordered.strftime("%A, %d %b %Y %l:%M %p")  %><br>
+            Expires On: <%= order.expiration.strftime("%A, %d %b %Y %l:%M %p") %></li><br>
+          </div>
           <% end %>
         </ul>
       </div>
-    <% end %>
-    <br>
+      <% end %>
+      <br>
       <%= form_tag new_order_path, method: :get do %>
       <div id='create-order' >
         <!-- on click, redirect to order new action -->
-      <%= submit_tag "Create New Order", id: 'create-order-btn', class: "btn btn-default" %>
+        <%= submit_tag "Create New Order", id: 'create-order-btn', class: "btn btn-default" %>
         <!-- <button id='create-order-btn'>Create New Order</button> -->
 
       </div>
 
       <div id='group-list' class="lead">
-      <h3>Orders You Can Join</h3>
+        <h3>Orders You Can Join</h3>
         <div id='group-select'>
-        <h5>Select your groups</h5>
+          <h5>Select your groups</h5>
+          <% if session[:current_org].nil? %>
+          <%= collection_select(:user, :group_ids, Organization.find(@current_user.organizations.first.id).groups, :id, :name, {include_blank: "All Groups", selected: 0 }) %>
+          <% else %>
           <%= collection_select(:user, :group_ids, Organization.find(session[:current_org]).groups, :id, :name, {include_blank: "All Groups", selected: 0 }) %>
+          <% end %>
         </div>
         <% end %>
         <br>
@@ -47,29 +51,29 @@
           <ul>
             <% @current_user.organizations.each do |organization| %>
             <% organization.sorted_recent_orders.each do |order| %>
-              <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
-                <div class='group-order' id='<%= order.id %>' organization-id='<%= order.group_id %>'>
-                  <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
-                    Description: <%= order.description %><br>
-                    Expires In: <%= (order.expiration - Time.current).to_i/60 %> minutes (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
-                    Reached $<%= order.items.inject(0){|sum, item| sum + item.cost } %> out of $<%= order.minimum_cost.to_i %> minimum needed <br>
-                  <button 'btn-xs'><%= link_to "Join This Order!", order_path(order) %></button></li><br>
-                </div>
-                <% end %>
+            <% unless order.expired? %> <!-- comment this out for testing purposes. uncomment for production-->
+            <div class='group-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>'>
+              <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
+                Description: <%= order.description %><br>
+                Expires In: <%= (order.expiration - Time.current).to_i/60 %> minutes (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
+                Reached $<%= order.items.inject(0){|sum, item| sum + item.cost } %> out of $<%= order.minimum_cost.to_i %> minimum needed <br>
+                <button 'btn-xs'><%= link_to "Join This Order!", order_path(order) %></button></li><br>
+              </div>
+              <% end %>
               <% end %>
               <% end %>
             </ul>
           </div>
         </div>
+      </div>
+      <div class="col-lg-4">
+        <h1> Chat </h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue, efficitur sit amet fermentum id, gravida vel libero. Vestibulum rhoncus blandit dapibus. Aliquam bibendum dolor finibus imperdiet pretium. Pellentesque ipsum purus, tristique vel placerat sit amet, convallis id justo. Fusce posuere placerat ipsum, sed aliquet quam volutpat malesuada. Donec a viverra nisi, vel congue felis. Nullam pharetra nisi id mi commodo, sagittis ultrices lacus aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+          Pellentesque porta augue eu eros lobortis, quis feugiat turpis ornare. Maecenas ante ex, luctus non faucibus quis, pretium non est. Aenean et ex quis urna hendrerit tincidunt congue non erat. Aenean ante arcu, venenatis et viverra at, dignissim vitae diam. Ut consequat quis neque nec tempor. Nullam hendrerit dapibus lacus quis fringilla. Duis euismod ipsum ut metus tristique, ut accumsan nisl aliquam.
+
+          Praesent sit amet felis nec velit venenatis mattis vitae elementum nisl. Cras sed posuere elit. Aliquam diam sem, dictum quis facilisis ac, fermentum eu nunc. Nunc varius, ligula eget vestibulum venenatis, tellus quam cursus tortor, nec feugiat mauris massa et lorem. Quisque ac nibh velit. Pellentesque maximus turpis a turpis sagittis luctus. Curabitur id lacinia nulla, nec tincidunt ligula. Suspendisse potenti. In ex eros, mattis mollis luctus tristique, elementum in augue. Cras ex quam, placerat vel tincidunt non, luctus quis tellus.
+        </p>
+      </div>
     </div>
-  <div class="col-lg-4">
-    <h1> Chat </h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue, efficitur sit amet fermentum id, gravida vel libero. Vestibulum rhoncus blandit dapibus. Aliquam bibendum dolor finibus imperdiet pretium. Pellentesque ipsum purus, tristique vel placerat sit amet, convallis id justo. Fusce posuere placerat ipsum, sed aliquet quam volutpat malesuada. Donec a viverra nisi, vel congue felis. Nullam pharetra nisi id mi commodo, sagittis ultrices lacus aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-        Pellentesque porta augue eu eros lobortis, quis feugiat turpis ornare. Maecenas ante ex, luctus non faucibus quis, pretium non est. Aenean et ex quis urna hendrerit tincidunt congue non erat. Aenean ante arcu, venenatis et viverra at, dignissim vitae diam. Ut consequat quis neque nec tempor. Nullam hendrerit dapibus lacus quis fringilla. Duis euismod ipsum ut metus tristique, ut accumsan nisl aliquam.
-
-        Praesent sit amet felis nec velit venenatis mattis vitae elementum nisl. Cras sed posuere elit. Aliquam diam sem, dictum quis facilisis ac, fermentum eu nunc. Nunc varius, ligula eget vestibulum venenatis, tellus quam cursus tortor, nec feugiat mauris massa et lorem. Quisque ac nibh velit. Pellentesque maximus turpis a turpis sagittis luctus. Curabitur id lacinia nulla, nec tincidunt ligula. Suspendisse potenti. In ex eros, mattis mollis luctus tristique, elementum in augue. Cras ex quam, placerat vel tincidunt non, luctus quis tellus.
-    </p>
-  </div>
-</div>
     <script scr='users.js'></script>
