@@ -24,7 +24,7 @@
 <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
 Item name: <%= f.text_field :name, id: 'item-name' %>
 Cost: <%= f.text_field :cost, id: 'item-cost' %>
-<%= f.submit "Create Item", :id => 'item-create-btn' %>
+<%= f.submit "Add Item", :id => 'item-create-btn' %>
 <% end %>
 
 <h3>Time until ordered: <%= ((@order.expiration - @order.date_ordered) / 60).round %> minutes</h3>
