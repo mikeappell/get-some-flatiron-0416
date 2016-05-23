@@ -66,8 +66,8 @@ function itemAdded(event) {
       $('div#item-list').append("<li>" + response.item_name + " - $" + response.item_cost + "</li>" )
     },
     error: function(response) {
-      // debugger;
-      $('div#item-errors').html(response.responseText).show();
+      $('div#item-errors').html(response.responseText).show()
+      $('div#item-errors').delay(5000).fadeOut('slow').html(response.responseText)
     }
   });
   // Stop submit from happening
