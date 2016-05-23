@@ -25,4 +25,5 @@ Rails.application.routes.draw do
 
   get '/:username/organizations' => 'organizations#manage_organizations', as: 'manage_organizations'
   post '/find_org_names' => 'organizations#find_org_names'
+  patch '/groups/:id/toggle' => 'groups#handle_toggle'
 end

@@ -14,7 +14,7 @@ function toggle() {
 
   var memberCount = $(this).parent().parent().parent().find('.member_count')
   var count = parseInt(memberCount.html())
-  debugger
+
   if ($(this).parent().parent().hasClass('bootstrap-switch-off')) {
       var member = false
       memberCount.html(count -= 1)
@@ -26,7 +26,7 @@ function toggle() {
     var groupId = $(this).val()
 
     $.ajax({
-       url: '/groups/' + groupId,
+       url: '/groups/' + groupId + '/toggle',
        type: 'PATCH',
        data: {member: member}
     })
