@@ -1,19 +1,21 @@
 $(document).on('ready', function() {
-  onOrgSelect()
+  // setOrganizationToDefault()
+  onOrganizationSelect()
+  onGroupSelect()
   // onOrderCreate()
 })
 
-function onOrgSelect() {
-  $('div#org-select').on('change', function(e) {
-    var selected = $('select#user_organization_ids').val()
-    var all_orders = $('.org-order')
+function onGroupSelect() {
+  $('div#group-select').on('change', function(e) {
+    var selected = $('select#user_group_ids').val()
+    var all_orders = $('.group-order')
 
     if (selected === "") {
       all_orders.show(500)
     } else {
       $(all_orders).each(function() {
 
-        if ($(this).attr('organization-id') === selected){
+        if ($(this).attr('group-id') === selected){
           $(this).show(500)
         } else {
           $(this).hide(350)
@@ -22,6 +24,38 @@ function onOrgSelect() {
     }
   })
 }
+
+
+function onOrganizationSelect() {
+  var select = $('#user_organization_ids')
+  select.on('change', function() {
+    var organizationId = parseInt(select.val())
+
+    $.ajax({
+	    url: "/groups/" + organizationId,
+	    type: 'GET',
+      data: { current_org: organizationId },
+	    success: function(response) {
+        var htmlString = '<option value="">All Groups</option>'
+
+        $.each(response.groups, function(index, group) {
+          htmlString += '<option value="' + group.id + '">' + group.name + '</option>'
+        })
+        $('#user_group_ids').html(htmlString)
+    	}
+    })
+  })
+}
+
+// function setOrganizationToDefault() {
+//   var orgId = $.session.get("current_org")
+//   if (orgId) {
+//     // var groupName =
+//     // var option = "<option value='" + orgId + '">' + ernserprosacco.name + "</option>"
+//     $("#user_organization_ids option[value='" + orgId + "']").attr('selected', true)
+//   }
+// }
+
 
 // function emailOrganizations() {
 //   var emailInput = $('#user_email_addresses_attributes_0_email_address')

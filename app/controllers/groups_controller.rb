@@ -23,6 +23,14 @@ class GroupsController < ApplicationController
     end
   end
 
+  def organization_groups
+    organization = Organization.find(params[:organization_id].to_i)
+    session[:current_org] = params[:current_org]
+    groups = organization.groups
+
+    render json: { groups: groups }
+  end
+
   private
 
   def group_params

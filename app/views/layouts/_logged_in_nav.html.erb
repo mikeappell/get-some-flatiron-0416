@@ -16,6 +16,7 @@
         <li role="presentation"><%= link_to "Organizations", manage_organizations_path(@current_user.username) %></li>
         <li role="presentation"></li>
         <ul class="nav nav-tabs pull-right">
+          <li role="presentation"><%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :domain_name, {class: "selectpicker show-menu-arrow", selected: session[:current_org] }) %></li>
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                <%= @current_user.name%> <span class="caret"></span></a>

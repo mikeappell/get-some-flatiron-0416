@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   post '/find_org_names' => 'organizations#find_org_names'
   patch '/groups/:id/toggle' => 'groups#handle_toggle'
 
+  get '/groups/:organization_id' => 'groups#organization_groups'
   mount ActionCable.server => '/cable'
 end
