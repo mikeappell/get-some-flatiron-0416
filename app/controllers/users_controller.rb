@@ -7,11 +7,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      RegistrationMailer.registration_confirmation(@user).deliver
+      RegistrationMailer.registration_confirmation(@user).deliver_now
       flash[:notice] = "Almost there! Please click the link in your email to complete your registration"
       redirect_to login_path
     else
-      flash[:alert] = "Signup Failed"
+      flash.now[:alert] = "Signup Failed"
       render 'registrations/new'
     end
   end

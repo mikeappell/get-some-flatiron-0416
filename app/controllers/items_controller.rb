@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
       }
     else
       error_message = @item.errors.messages
-      render partial: 'shared/errors', locals: { errors: flash[:alert] = "Item " + error_message[:name][0] }
+      render partial: 'shared/errors', locals: { errors: flash.now[:alert] = "Item " + error_message[:name][0] }
     end
   end
 
