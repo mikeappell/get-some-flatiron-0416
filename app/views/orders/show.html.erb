@@ -27,4 +27,3 @@ Cost: <%= f.text_field :cost, id: 'item-cost' %>
 <%= f.submit "Add Item", :id => 'item-create-btn' %>
 <% end %>
 
-<h3>Time until ordered: <%= ((@order.expiration - @order.date_ordered) / 60).round %> minutes</h3>
