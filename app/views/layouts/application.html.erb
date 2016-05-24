@@ -1,25 +1,265 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>GetSome</title>
-  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+    <head>
+        <title>GetSome</title>
+        <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= csrf_meta_tags %>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--google web fonts css-->
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,800' rel='stylesheet' type='text/css'>
 
-  <% if @current_user %>
-    <%= render 'layouts/logged_in_nav' %>
-  <% else %>
-    <%= render 'layouts/logged_out_nav' %>
-  <% end %>
+        <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body data-spy="scroll" data-target="#navigation" data-offset="75">
 
-  <div class="container">
-    <%= yield %>
-  </div>
+      <% if @current_user %>
+        <%= render 'layouts/logged_in_nav' %>
+      <% else %>
+        <%= render 'layouts/logged_out_nav' %>
+      <% end %>
 
-</body>
+      <div class="container">
+        <%= yield %>
+      </div>
+
+        <section id="navigation">
+            <div class="navbar navbar-default navbar-static-top sticky" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="demo-default.html">codeon</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+
+                        <ul class="nav navbar-nav navbar-right scrollto">
+                            <li><a href="demo-default.html#home">Home</a></li>
+                            <li><a href="demo-default.html#about">About</a></li>
+                            <li><a href="demo-default.html#services">Services</a></li>
+                            <li><a href="demo-default.html#work">Work</a></li>
+
+                            <li class="dropdown active">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle js-activated">Pages <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="blog-list.html">Blog List</a></li>
+                                    <li><a href="blog-post.html">Blog Post</a></li>
+                                    <li><a href="portfolio-3.html">Portfolio 3 columns</a></li>
+                                    <li><a href="portfolio-full.html">Portfolio Full width</a></li>
+                                    <li><a href="portfolio-masonry.html">Portfolio Masonry</a></li>
+                                    <li><a href="single-work.html">Portfolio Single</a></li>
+                                    <li><a href="soon.html">Coming Soon</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="demo-default.html#pricing">Pricing</a></li>
+                            <li><a href="demo-default.html#contact">Contact</a></li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle js-activated">Demos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="demo-default.html">Slider revolution</a></li>
+                                    <li><a href="video-slider.html">Slider Video</a></li>
+                                    <li><a href="fullscreen-parallax-bg-demo.html">Full screen parallax</a></li>
+                                    <li><a href="demo-video-bg.html">Video background</a></li>
+
+                                    <li><a href="transparent-header-demo.html">Header transparent</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div><!--/.nav-collapse -->
+                </div><!--/.container -->
+            </div>
+        </section><!--navigation section end here-->
+
+        <section id="page-head-bg">
+            <div class="container">
+                <h1>Portfolio Masonry</h1>
+            </div>
+        </section><!--page-head bg end-->
+
+        <section id="portfolio-masonry">
+            <div>
+                <ul class="filter list-inline text-center">
+                    <li><a class="active" href="#" data-filter="*">Show All</a></li>
+                    <li><a href="#" data-filter=".photography">Photography</a></li>
+                    <li><a href="#" data-filter=".illustration">illustration</a></li>
+                    <li><a href="#" data-filter=".branding">branding</a></li>
+                    <li><a href="#" data-filter=".web-design">web design</a></li>
+                </ul>
+                    <div class="portfolio-box iso-call work-masonry">
+                        <div class="project-post photography branding">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/masonry-1.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+
+                        <div class="project-post photography web-design">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img3.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+
+                        <div class="project-post branding">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img4.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+                        <div class="project-post  illustration">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img5.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+
+                        <div class="project-post  branding">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img6.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+
+
+                        <div class="project-post   web-design">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img7.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+
+                        <div class="project-post  illustration">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img8.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+                        <div class="project-post  photography">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/masonry-1.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+                         <div class="project-post  illustration">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img1.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+                         <div class="project-post  illustration">
+                            <a href="single-work.html">
+                                <div class="image-wrapper">
+                                    <%= image_tag "img/sec-img2.jpg", class: "img-responsive", alt: "work-1" %>
+                                    <div class="image-overlay">
+                                        <p>
+                                            View Detail
+                                        </p>
+                                    </div><!--.image-overlay-->
+                                </div><!--.image-wrapper-->
+                            </a>
+
+                        </div><!--project post-->
+                    </div>
+            </div>
+            </section>
+
+                 <section id="footer" class="padding-50">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 copyright">
+                            <span>&copy;2014.Design_mylife. All right reserved</span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 footer-nav">
+                            <ul class="list-inline">
+                                <li><a href="demo-default.html">Home</a></li>
+                                <li><a href="blog-list.html">Latest news</a></li>
+                                <li><a href="typography.html">Typography</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section><!--footer end-->
+            <!--back to top-->
+            <a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+            <!--back to top end-->
+
+            <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    </body>
 </html>
