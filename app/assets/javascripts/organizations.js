@@ -1,5 +1,7 @@
 $(document).ready(function() {
   switchToggle()
+  hideNShowOrg()
+  hideNShowOnSwitch()
 })
 
 
@@ -37,3 +39,39 @@ function handleToggling() {
        data: {member: member}
     })
 })}
+
+function hideNShowOrg() {
+  $('.domain-group').hide()
+  var pageDomain = $('input[type="hidden"]').attr("value")
+
+  $('.domains').each(function(index) {
+    var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
+    if (domainName === pageDomain) {
+      $(this).parent().show()
+    }
+  })
+}
+
+function hideNShowOnSwitch() {
+  var select = $('#user_organization_ids')
+  select.on('change', function() {
+    var organizationId = parseInt(select.val())
+
+    $.ajax({
+	    url: "/groups/" + organizationId,
+	    type: 'GET',
+      data: { current_org: organizationId },
+	    success: function(response) {
+        var pageDomain = response.organization
+        $('.domains').each(function(index) {
+          var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
+          if (domainName === pageDomain) {
+            $('.domain-group').hide()
+            $(this).parent().show()
+          }
+        })
+      }
+    })
+  })
+
+}
