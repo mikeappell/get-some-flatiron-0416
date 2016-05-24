@@ -128,10 +128,8 @@ function deleteItemListener() {
       method: "delete",
       url: "/items/" + id,
       success: function(response) {
-        debugger;
         $('li#item-' + id).remove();
       }
     });
   });
 }
-
