@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:edit, :show, :update, :destroy]
 
   def new
-    binding.pry
     @user = current_user
     @order = Order.new
     @organization = Organization.find_by(id: params[:user][:organization_ids])
