@@ -92,7 +92,7 @@ function createOrderTimer() {
 }
 
 function secondsToTimeString(seconds) {
-  // var hours = Math.floor(seconds / (60*60));
+  var hours = Math.floor(seconds / (60*60));
   var minutes = Math.floor(seconds / 60) % 60;
   seconds %= 60;
   if (seconds < 10) seconds = "0" + seconds;
