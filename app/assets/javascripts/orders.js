@@ -1,7 +1,9 @@
 $(document).ready(function(){
   onExpirationTimeChanged()
   itemAddedListener();
-})
+  if ($('#order-expiration').length) createOrderTimer();
+
+});
 
 function onExpirationTimeChanged() {
   $('input#expiration-time').focusout(function() {
@@ -18,7 +20,9 @@ function formatTimeStr(){
   var amPM
   var timeStr
 
-  if (isNaN(userTime)) return 'That is not a valid time'
+  if (isNaN(userTime)) {
+    return 'That is not a valid time'
+  }
 
   if (newMinutes >= 60){
     hours += Math.floor(newMinutes / 60)
@@ -70,9 +74,31 @@ function itemAdded(event) {
       $('div#item-errors').delay(5000).fadeOut('slow').html(response.responseText)
     }
   });
-  // Stop submit from happening
-  // Ajaxically check the controller, see if item is valid.
-  // If valid, add the item to the html.
-  // If invalid, show an error on the page instead.
-  // Items need to be in their own div.
+}
+
+function createOrderTimer() {
+  var expires = $('#order-expiration').val();
+  var myInterval = setInterval(myTimer, 1000);
+  function myTimer() {
+    if (expires > 0) {
+      $('h3#time-remaining').html("Time until ordered: " + secondsToTimeString(expires));
+    } else {
+      $('h3#time-remaining').html("The order has been placed.")
+    }
+    expires--
+    // console.log(expires)
+    if (expires < 0) window.clearInterval(myInterval);
+  };
+}
+
+function secondsToTimeString(seconds) {
+  // var hours = Math.floor(seconds / (60*60));
+  var minutes = Math.floor(seconds / 60) % 60;
+  seconds %= 60;
+  if (seconds < 10) seconds = "0" + seconds;
+  if (minutes > 5) {
+    return minutes + " minutes";
+  } else {
+    return minutes + ":" + seconds;
+  }
 }

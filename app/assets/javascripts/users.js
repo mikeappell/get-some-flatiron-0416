@@ -17,7 +17,7 @@ function onGroupSelect() {
 
         if ($(this).attr('group-id') === selected){
           $(this).show(500)
-        } else {
+        } else {s
           $(this).hide(350)
         }
       })
