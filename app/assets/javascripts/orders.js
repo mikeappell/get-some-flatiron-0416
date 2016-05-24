@@ -1,8 +1,10 @@
 $(document).ready(function(){
   onExpirationTimeChanged()
   itemAddedListener();
-  if ($('#order-expiration').length) createOrderTimer();
-
+  if ($('#order-expiration').length) {
+    createOrderTimer();
+    deleteItemListener();
+  }
 });
 
 function onExpirationTimeChanged() {
@@ -67,7 +69,8 @@ function itemAdded(event) {
       order_id: orderId
     },
     success: function(response) {
-      $('div#item-list').append("<li>" + response.item_name + " - $" + response.item_cost + "</li>" )
+      var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete'>Delete</button>"
+      $('div#item-list').append("<li>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</li>")
     },
     error: function(response) {
       $('div#item-errors').html(response.responseText).show()
@@ -79,16 +82,22 @@ function itemAdded(event) {
 function createOrderTimer() {
   var expires = $('#order-expiration').val();
   var myInterval = setInterval(myTimer, 1000);
+  setItemTimeToOrder(expires)
+
   function myTimer() {
-    if (expires > 0) {
-      $('h3#time-remaining').html("Time until ordered: " + secondsToTimeString(expires));
-    } else {
-      $('h3#time-remaining').html("The order has been placed.")
-    }
+    setItemTimeToOrder(expires)
     expires--
     // console.log(expires)
     if (expires < 0) window.clearInterval(myInterval);
   };
+}
+
+function setItemTimeToOrder(expires) {
+  if (expires > 0) {
+    $('h3#time-remaining').html("Time until ordered: " + secondsToTimeString(expires));
+  } else {
+    $('h3#time-remaining').html("The order has been placed.")
+  }
 }
 
 function secondsToTimeString(seconds) {
@@ -96,9 +105,23 @@ function secondsToTimeString(seconds) {
   var minutes = Math.floor(seconds / 60) % 60;
   seconds %= 60;
   if (seconds < 10) seconds = "0" + seconds;
-  if (minutes > 5) {
+  if (minutes >= 5) {
     return minutes + " minutes";
   } else {
     return minutes + ":" + seconds;
   }
+}
+
+function deleteItemListener() {
+  $("button.item-delete").on("click", function() {
+    var id = this.id.match(/\d+/);
+    $.ajax({
+      context: this,
+      method: "delete",
+      url: "/items/" + id,
+      success: function(response) {
+        $('li#item-' + id).remove();
+      }
+    });
+  });
 }
