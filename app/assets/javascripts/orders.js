@@ -96,7 +96,10 @@ function setItemTimeToOrder(expires) {
   if (expires > 0) {
     $('h3#time-remaining').html("Time until ordered: " + secondsToTimeString(expires));
   } else {
-    $('h3#time-remaining').html("The order has been placed.")
+    $('h3#time-remaining').html("The order has expired.")
+    $('input#item-name').prop('disabled', true);
+    $('input#item-cost').prop('disabled', true);
+    $("button.item-delete").remove();
   }
 }
 
