@@ -1,6 +1,6 @@
 <div class="col-lg-8">
-  <h1><%= @order.restaurant.name %></h1>
-  <h3>Description: "<%= @order.description %>"</h3>
+  <h1>Ordering from <%= @order.restaurant.name %></h1>
+  <h3>"<%= @order.description %>"</h3>
   <br>
   <h5>Created by: <%= @order.admin.name %></h5>
   <div class='group-name'>
@@ -15,8 +15,6 @@
     </h4>
     <h3>Minimum order amount: $<%= @order.minimum_cost_formatted %></h3>
      <br>
-    </h4>
-    <h3>Minimum order size: $<%= @order.minimum_cost_formatted %></h3>
     <h3 id="current-order-amount">Current order size: $<%= @order.item_total %></h3>
     <% if @order.minimum_cost - @order.item_total <= 0 %>
       <h3>We Reached the Minimum Order Size!!</h3>
@@ -45,6 +43,11 @@
   <span id='item-content-reset'>
     Item name: <%= f.text_field :name, id: 'item-name' %>
     Cost: <%= f.text_field :cost, id: 'item-cost' %>
+  </span>
+  <span class="pull-right">
+    <% if @current_user == @order.admin %>
+      <button id="order-create-btn" class="alert alert-danger"><strong>Place Order</strong></button> 
+    <% end %>
   </span>
     <%= f.submit "GetSome!", :id => 'item-create-btn' %>
     <% end %>
