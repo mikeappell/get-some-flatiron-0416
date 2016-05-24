@@ -1,7 +1,7 @@
+
 App.items = App.cable.subscriptions.create('ItemsChannel', {
   received: function(data) {
     return $(data.element).append(this.renderSwitch(data));
-    // return $("div#item-list").append(this.renderItem(data));
   },
   renderSwitch: function(data) {
     switch (data.action) {
@@ -13,7 +13,15 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
        return "<li> " + data.name + " - " + "$" + data.cost + "</li>";
        break;
     }
-  // renderItem: function(data) {
-  //   return "<li> " + data.name + " - " + "$" + data.cost + "</li>";
    }
 });
+
+//  ------ below is the original code we had when we had two different channels ----
+// App.items = App.cable.subscriptions.create('ItemsChannel', {
+//   received: function(data) {
+//     return $("div#item-list").append(this.renderItem(data));
+//   },
+//   renderItem: function(data) {
+//     return "<li> " + data.name + " - " + "$" + data.cost + "</li>";
+//   }
+// });
