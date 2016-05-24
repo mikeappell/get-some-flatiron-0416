@@ -65,6 +65,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def current_user_id
+    user_id = session[:user_id]
+    render json: { id: user_id }
+  end
 
   private
 

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   delete 'logout', to: 'sessions#destroy'
 
+  get 'current_user_id', to: 'users#current_user_id'
   get 'signup', to: 'registrations#new'
   post 'signup', to: 'registrations#create'
   get '/registration/:confirmation_token' => 'users#confirm_email', as: 'registration_confirmation'

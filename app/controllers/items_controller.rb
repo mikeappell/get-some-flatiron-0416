@@ -5,8 +5,9 @@ class ItemsController < ApplicationController
     if @item.save
       ActionCable.server.broadcast 'items',
         name: @item.name,
-        cost: @item.cost,
-        id: @item.id
+        cost: @item.cost_formatted,
+        id: @item.id,
+        owner: current_user.id
       head :ok
       # render json: {
       #   item_name: @item.name, 
