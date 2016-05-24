@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post 'messages/create', to: 'messages#create', as: 'messages'
 
   root 'home#home'
 
@@ -28,4 +30,5 @@ Rails.application.routes.draw do
   patch '/groups/:id/toggle' => 'groups#handle_toggle'
 
   get '/groups/:organization_id' => 'groups#organization_groups'
+  mount ActionCable.server => '/cable'
 end

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :items
   has_many :user_groups
   has_many :groups, through: :user_groups
+  has_many :messages
 
   has_secure_password
   accepts_nested_attributes_for :email_addresses

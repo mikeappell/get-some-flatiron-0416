@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160522182752) do
+ActiveRecord::Schema.define(version: 20160523190147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,17 +24,15 @@ ActiveRecord::Schema.define(version: 20160522182752) do
     t.integer  "organization_id"
     t.boolean  "confirmed"
     t.string   "confirm_token"
+    t.index ["organization_id"], name: "index_email_addresses_on_organization_id", using: :btree
+    t.index ["user_id"], name: "index_email_addresses_on_user_id", using: :btree
   end
-
-  add_index "email_addresses", ["organization_id"], name: "index_email_addresses_on_organization_id", using: :btree
-  add_index "email_addresses", ["user_id"], name: "index_email_addresses_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string  "name"
     t.integer "organization_id"
+    t.index ["organization_id"], name: "index_groups_on_organization_id", using: :btree
   end
-
-  add_index "groups", ["organization_id"], name: "index_groups_on_organization_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
@@ -43,10 +41,19 @@ ActiveRecord::Schema.define(version: 20160522182752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.index ["order_id"], name: "index_items_on_order_id", using: :btree
+    t.index ["user_id"], name: "index_items_on_user_id", using: :btree
   end
 
-  add_index "items", ["order_id"], name: "index_items_on_order_id", using: :btree
-  add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
+  create_table "messages", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_messages_on_order_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
 
   create_table "orders", force: :cascade do |t|
     t.integer  "organization_id"
@@ -58,11 +65,10 @@ ActiveRecord::Schema.define(version: 20160522182752) do
     t.datetime "updated_at",      null: false
     t.string   "description"
     t.decimal  "minimum_cost"
+    t.index ["admin_id"], name: "index_orders_on_admin_id", using: :btree
+    t.index ["organization_id"], name: "index_orders_on_organization_id", using: :btree
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
   end
-
-  add_index "orders", ["admin_id"], name: "index_orders_on_admin_id", using: :btree
-  add_index "orders", ["organization_id"], name: "index_orders_on_organization_id", using: :btree
-  add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "domain_name"
@@ -81,20 +87,18 @@ ActiveRecord::Schema.define(version: 20160522182752) do
   create_table "user_groups", force: :cascade do |t|
     t.integer "user_id"
     t.integer "group_id"
+    t.index ["group_id"], name: "index_user_groups_on_group_id", using: :btree
+    t.index ["user_id"], name: "index_user_groups_on_user_id", using: :btree
   end
-
-  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
-  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
 
   create_table "user_orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_user_orders_on_order_id", using: :btree
+    t.index ["user_id"], name: "index_user_orders_on_user_id", using: :btree
   end
-
-  add_index "user_orders", ["order_id"], name: "index_user_orders_on_order_id", using: :btree
-  add_index "user_orders", ["user_id"], name: "index_user_orders_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -108,6 +112,8 @@ ActiveRecord::Schema.define(version: 20160522182752) do
   end
 
   add_foreign_key "groups", "organizations"
+  add_foreign_key "messages", "orders"
+  add_foreign_key "messages", "users"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
 end
