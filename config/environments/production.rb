@@ -36,7 +36,9 @@ Rails.application.configure do
 
   # Action Cable endpoint configuration
   # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+
+  config.action_cable.allowed_request_origins = [ 'https://getsome-lunch.herokuapp.com', 'http://getsome-lunch.herokuapp.com' ]
+  config.web_socket_server_url = "wss://https://getsome-lunch.herokuapp.com" 
 
   # Don't mount Action Cable in the main server process.
   # config.action_cable.mount_path = nil

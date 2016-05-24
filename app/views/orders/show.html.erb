@@ -1,25 +1,30 @@
 <div class="col-lg-8">
   <h1>Order from <%= @order.restaurant.name %></h1>
+  <h3>"<%= @order.description %>"</h3>
   <h5>Created by: <%= @order.admin.name %></h5>
   <div class='well'>
-  <h4>Order description: <%= @order.description %></h4>
-  <br>
-  <h3>Order was created at <%= (@order.date_ordered + Time.now.utc_offset).strftime('%l:%M %p') %></h3>
-  <h3>Order will be placed at <%= (@order.expiration + Time.now.utc_offset).strftime('%l:%M %p') %></h3>
-  <br>
-  <h2>Minimum order Amount: $<%= @order.minimum_cost %></h2>
-  <br>
-  <ol>
-    <div id="item-list">
-      <h2>Items: <% @order.items.each do |item| %></h2>
-      <li><%= item.name %> - $<%= item.cost %></li>
-      <% end %>
+    <h4>
+      <span class>Order was created at <%= (@order.date_ordered + Time.now.utc_offset).strftime('%l:%M %p') %></span>
+      <span class="pull-right">Order will be placed at <%= (@order.expiration + Time.now.utc_offset).strftime('%l:%M %p') %>
+      </span>
+    </h4>
+    <h3>Minimum order amount: $<%= @order.minimum_cost_formatted %></h3>
+    <br>
+    <ol>
+      <div id="item-list">
+        <h2>Items:</h2>
+        <% @order.items.each do |item| %>
+        <li id="item-<%= item.id %>"><%= item.name %> - $<%= item.cost_formatted %>
+         <%= button_tag("Delete", :id => "item-delete-#{item.id}", class: "item-delete" ) if (item.user == @current_user) && !@order.expired? %>
+        </li>
+        <% end %>
+      </div>
+    </ol>
+    <div id="item-errors">
     </div>
-  </ol>
-  <div id="item-errors">
-  </div>
-  <br>
-  <h3>Time until ordered: <%= ((@order.expiration - @order.date_ordered) / 60).round %> minutes</h3></div>
+    <br>
+    <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.now).round) %>
+    <h3 id="time-remaining">Time until ordered: </h3></div>
 
   <%= form_for @item, remote: true do |f| %>
     <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
@@ -28,25 +33,25 @@
     Cost: <%= f.text_field :cost, id: 'item-cost' %>
   </span>
     <%= f.submit "Add Item", :id => 'item-create-btn' %>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 
-<div class="col-lg-4">
-  <h1> Chat </h1>
+  <div class="col-lg-4">
+    <h1> Chat </h1>
 
-Messages:
-<div id="messages" style="overflow:auto; height:400px;">
-  <% @order.messages.each do |message| %>
-    <p><b><%= message.user.username %>:</b> <%= message.content %></p>
-  <% end %>
-</div>
-
-      <%= form_for @message, remote: true do |f| %>
-        <%= f.hidden_field :user_id, value: @current_user.id %>
-        <%= f.hidden_field :order_id, value: @order.id %>
-      <span id="message-content-reset">
-        <%= f.text_field :content %>
-      </span>
-        <%= f.submit %>
+    Messages:
+    <div id="messages" style="overflow:auto; height:400px;">
+      <% @order.messages.each do |message| %>
+      <p><b><%= message.user.username %>:</b> <%= message.content %></p>
       <% end %>
-</div>
+    </div>
+
+    <%= form_for @message, remote: true do |f| %>
+    <%= f.hidden_field :user_id, value: @current_user.id %>
+    <%= f.hidden_field :order_id, value: @order.id %>
+    <span id="message-content-reset">
+      <%= f.text_field :content %>
+    </span>
+    <%= f.submit %>
+    <% end %>
+  </div>
