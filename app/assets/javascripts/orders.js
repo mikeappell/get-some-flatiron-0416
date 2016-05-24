@@ -1,6 +1,5 @@
 $(document).ready(function(){
   onExpirationTimeChanged()
-  // itemAddedListener commented out because it's being replaced by the item channel
   // itemAddedListener();
 
   if ($('#order-expiration').length) {
@@ -50,12 +49,12 @@ function formatTimeStr(){
   return timeStr
 }
 
-function itemAddedListener() {
-  $('#item-create-btn').on('click', function(event) {
-    event.preventDefault();
-    itemAdded(event);
-  });
-}
+// function itemAddedListener() {
+//   $('#item-create-btn').on('click', function(event) {
+//     event.preventDefault();
+//     itemAdded(event);
+//   });
+// }
 
 function itemAdded(event) {
 
@@ -130,7 +129,7 @@ function deleteItemListener() {
       method: "delete",
       url: "/items/" + id,
       success: function(response) {
-        $('li#item-' + id).remove();
+        $('li#item-' + response.id).remove();
       }
     });
   });
