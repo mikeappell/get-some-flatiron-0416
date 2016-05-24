@@ -19,9 +19,11 @@ class Order < ActiveRecord::Base
     self.expiration = expiration
   end
 
-  # def minimum_cost=(cost)
-
-  # end
+  def minimum_cost_formatted
+    split_cost = self.minimum_cost.to_s.split(".")
+    split_cost[1] = split_cost[1].ljust(2,"0")
+    split_cost.join(".")
+  end
 
 private
   def set_date_ordered
@@ -31,4 +33,5 @@ private
   def set_admin(current_user)
     self.admin_id = current_user.id
   end
+
 end
