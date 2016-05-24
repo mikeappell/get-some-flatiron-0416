@@ -15,7 +15,7 @@
         <h2>Items:</h2>
         <% @order.items.each do |item| %>
         <li id="item-<%= item.id %>"><%= item.name %> - $<%= item.cost_formatted %>
-         <%= button_tag("Delete", :id => "item-delete-#{item.id}", class: "item-delete" ) if item.user == @current_user %>
+         <%= button_tag("Delete", :id => "item-delete-#{item.id}", class: "item-delete" ) if (item.user == @current_user) && !@order.expired? %>
         </li>
         <% end %>
       </div>
