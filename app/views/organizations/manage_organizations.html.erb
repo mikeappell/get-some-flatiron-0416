@@ -5,7 +5,7 @@
       <div class="panel-heading"><h2>Manage Your Groups</h2></div>
         <div class="panel-body">
           <div class="container">
-
+          <input type="hidden" value="<%= @current_org.domain_name %>" >
 
             <div class="row">
               <div class="col-lg-6">
@@ -13,18 +13,18 @@
                 <% if !@user_organizations.empty? %>
                 <div class="thumbnail">
                    <div class="caption text-center">
-                    <h3>Your Organizations</h3>
                       <% @user_organizations.each do |organization| %>
-                        <h4>Organization Domain: <strong>@<%= organization.domain_name %></strong></h4>
-                        <h4>Groups: </h4>
+                      <div class="domain-group">
+                        <h4 class="domains">@<%= organization.domain_name %></h4>
                         <% organization.groups.each do |group| %>
-                        <% if group.users.include?(@current_user) %>
-                        <h4>&emsp;&emsp;&emsp; <%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) &emsp;&ensp; <%= check_box_tag 'member', group.id, true , class: 'member' %></h4>
-                        <% else %>
-                        <h4>&emsp;&emsp;&emsp; <%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) &emsp;&ensp; <%= check_box_tag 'member', group.id, false , class: 'member' %></h4>
-                        <% end %>
+                          <% if group.users.include?(@current_user) %>
+                            <h4 class="groups"><%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) <%= check_box_tag 'member', group.id, true , class: 'member' %></h4>
+                          <% else %>
+                            <h4 class="groups"><%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) <%= check_box_tag 'member', group.id, false , class: 'member' %></h4>
+                          <% end %>
                         <% end %>
                         <br>
+                      </div>
                         <% end %>
                         <p class="text-right">
                           <%= link_to "Create a Group", new_group_path, class: "btn btn-default" %>

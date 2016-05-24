@@ -7,7 +7,8 @@ class ItemsController < ApplicationController
         name: @item.name,
         cost: @item.cost,
         element: "div#item-list",
-        action: "add-item"
+        action: "add-item",
+        id: @item.id
       head :ok
       # render json: {
       #   item_name: @item.name, 

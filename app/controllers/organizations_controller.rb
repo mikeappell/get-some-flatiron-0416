@@ -14,6 +14,7 @@ class OrganizationsController < ApplicationController
 
   def manage_organizations
     @user_organizations = current_user.organizations
+    @current_org = Organization.find_by(id: session[:current_org].to_i) || current_user.organizations.first
   end
 
   def find_org_names
