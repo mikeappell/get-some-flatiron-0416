@@ -26,10 +26,12 @@
     <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.now).round) %>
     <h3 id="time-remaining">Time until ordered: </h3></div>
 
-    <%= form_for @item do |f| %>
+  <%= form_for @item, remote: true do |f| %>
     <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
+  <span id='item-content-reset'>
     Item name: <%= f.text_field :name, id: 'item-name' %>
     Cost: <%= f.text_field :cost, id: 'item-cost' %>
+  </span>
     <%= f.submit "Add Item", :id => 'item-create-btn' %>
     <% end %>
   </div>

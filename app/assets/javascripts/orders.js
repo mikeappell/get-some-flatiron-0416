@@ -1,11 +1,13 @@
 $(document).ready(function(){
   onExpirationTimeChanged()
-  itemAddedListener();
+  // itemAddedListener commented out because it's being replaced by the item channel
+  // itemAddedListener();
   if ($('#order-expiration').length) {
     createOrderTimer();
     deleteItemListener();
   }
 });
+
 
 function onExpirationTimeChanged() {
   $('input#expiration-time').focusout(function() {

@@ -16,4 +16,5 @@
 //= require bootstrap-switch
 // require jquery.session
 // require turbolinks
+//= require_tree ./channels
 //= require_tree .
