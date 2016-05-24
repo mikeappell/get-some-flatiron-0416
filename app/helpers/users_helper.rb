@@ -11,7 +11,7 @@ module UsersHelper
 
   def user_select_logic
     if session[:current_org].nil?
-      org_collection = current_user.groups.select { |group| group.organization == Organization.first }
+      org_collection = @current_user.groups.select { |group| group.organization == Organization.first }
       collection_select(:user, :group_ids, org_collection, :id, :name, {include_blank: "All Groups", selected: 0 })
     else
       organization = Organization.find(session[:current_org].to_i)
