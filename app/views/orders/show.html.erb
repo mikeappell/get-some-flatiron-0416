@@ -14,6 +14,15 @@
     <br>
     </h4>
     <h3>Minimum order amount: $<%= @order.minimum_cost_formatted %></h3>
+     <br>
+    </h4>
+    <h3>Minimum order size: $<%= @order.minimum_cost_formatted %></h3>
+    <h3 id="current-order-amount">Current order size: $<%= @order.item_total %></h3>
+    <% if @order.minimum_cost - @order.item_total <= 0 %>
+      <h3>We Reached the Minimum Order Size!!</h3>
+    <% else %>
+      <h3 id="minimum-amount-needed">Minimum Amount Needed: $<%= @order.minimum_cost - @order.item_total %></h3>
+    <% end %>
     <br>
     <ol>
       <div id="item-list">

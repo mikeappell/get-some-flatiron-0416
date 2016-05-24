@@ -27,6 +27,10 @@ class Order < ActiveRecord::Base
     split_cost.join(".")
   end
 
+  def item_total
+    items.sum(:cost).to_f
+  end
+
 private
   def set_date_ordered
     self.date_ordered = Time.zone.now
