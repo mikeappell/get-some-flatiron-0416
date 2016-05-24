@@ -26,9 +26,10 @@ class GroupsController < ApplicationController
   def organization_groups
     organization = Organization.find(params[:organization_id].to_i)
     session[:current_org] = params[:current_org]
-    groups = organization.groups
+    groups = current_user.groups.select { |group| group.organization == organization }
+    org = organization.domain_name
 
-    render json: { groups: groups }
+    render json: { groups: groups, organization: org }
   end
 
   private

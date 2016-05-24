@@ -38,11 +38,7 @@
         <h3>Orders You Can Join</h3>
         <div id='group-select'>
           <h5>Select your groups</h5>
-          <% if session[:current_org].nil? %>
-          <%= collection_select(:user, :group_ids, Organization.find(@current_user.organizations.first.id).groups, :id, :name, {include_blank: "All Groups", selected: 0 }) %>
-          <% else %>
-          <%= collection_select(:user, :group_ids, Organization.find(session[:current_org]).groups, :id, :name, {include_blank: "All Groups", selected: 0 }) %>
-          <% end %>
+          <%= user_select_logic %>
         </div>
         <% end %>
         <br>

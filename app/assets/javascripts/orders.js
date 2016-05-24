@@ -1,6 +1,7 @@
 $(document).ready(function(){
   onExpirationTimeChanged()
   // itemAddedListener();
+
   if ($('#order-expiration').length) {
     createOrderTimer();
     deleteItemListener();
@@ -128,7 +129,7 @@ function deleteItemListener() {
       method: "delete",
       url: "/items/" + id,
       success: function(response) {
-        $('li#item-' + id).remove();
+        $('li#item-' + response.id).remove();
       }
     });
   });
