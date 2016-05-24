@@ -1,6 +1,6 @@
 $(document).ready(function(){
   onExpirationTimeChanged()
-  itemAddedListener();
+  // itemAddedListener();
 })
 
 function onExpirationTimeChanged() {
