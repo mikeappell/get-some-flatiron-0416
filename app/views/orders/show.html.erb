@@ -12,8 +12,11 @@
     <br>
     <ol>
       <div id="item-list">
-        <h2>Items: <% @order.items.each do |item| %></h2>
-        <li><%= item.name %> - $<%= item.cost_formatted %></li>
+        <h2>Items:</h2>
+        <% @order.items.each do |item| %>
+        <li id="item-<%= item.id %>"><%= item.name %> - $<%= item.cost_formatted %>
+         <%= button_tag("Delete", :id => "item-delete-#{item.id}", class: "item-delete" ) if item.user == @current_user %>
+        </li>
         <% end %>
       </div>
     </ol>
