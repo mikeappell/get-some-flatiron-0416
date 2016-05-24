@@ -93,10 +93,14 @@ function createOrderTimer() {
 }
 
 function setItemTimeToOrder(expires) {
-  if (expires > 0) {
-    $('h3#time-remaining').html("Time until ordered: " + secondsToTimeString(expires));
+  if (expires > 5*60) {
+    $('h3#time-remaining').html("<div class='list-group-item list-group-item-success'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
+  } else if (expires >= 60) {
+    $('h3#time-remaining').html("<div class='list-group-item list-group-item-warning'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
+  } else if (expires > 0) {
+    $('h3#time-remaining').html("<div class='list-group-item list-group-item-danger'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
   } else {
-    $('h3#time-remaining').html("The order has expired.")
+    $('h3#time-remaining').html("<div class='list-group-item list-group-item-danger'>The order has expired.</div>")
     $('input#item-name').prop('disabled', true);
     $('input#item-cost').prop('disabled', true);
     $("button.item-delete").remove();
