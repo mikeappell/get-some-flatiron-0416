@@ -2,9 +2,11 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     if @message.save
-      ActionCable.server.broadcast 'messages',
+      ActionCable.server.broadcast 'items',
         message: @message.content,
-        user: @message.user.username
+        user: @message.user.username,
+        element: '#messages',
+        action: "add-message"
       head :ok
     else
       

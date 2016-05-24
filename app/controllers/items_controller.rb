@@ -6,6 +6,8 @@ class ItemsController < ApplicationController
       ActionCable.server.broadcast 'items',
         name: @item.name,
         cost: @item.cost,
+        element: "div#item-list",
+        action: "add-item",
         id: @item.id
       head :ok
       # render json: {

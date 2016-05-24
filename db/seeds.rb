@@ -29,9 +29,9 @@ EmailAddress.create(user: u3, organization: o2, email_address: Faker::Internet.e
 EmailAddress.create(user: u4, organization: o2, email_address: Faker::Internet.email(u4.name), confirmed: true)
 EmailAddress.create(user: u5, organization: o3, email_address: Faker::Internet.email(u5.name), confirmed: true)
 
-order1 = Order.create(organization: o1, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin: u1, restaurant: r1, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2))
-order2 = Order.create(organization: o1, date_ordered: DateTime.new(2015, 8, 29, 3, 55, 5), expiration: DateTime.new(2015, 8, 29, 4, 20, 4), admin: u2, restaurant: r2, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2))
-order3 = Order.create(organization: o2, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin: u3, restaurant: r3, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2))
+order1 = Order.create(organization: o1, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin: u1, restaurant: r1, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2), group: g1)
+order2 = Order.create(organization: o1, date_ordered: DateTime.new(2015, 8, 29, 3, 55, 5), expiration: DateTime.new(2015, 8, 29, 4, 20, 4), admin: u2, restaurant: r2, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2), group: g2)
+order3 = Order.create(organization: o2, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin: u3, restaurant: r3, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2), group: g3)
 order4 = Order.create(organization: o3, date_ordered: DateTime.new(2015, 8, 29, 4, 55, 5), expiration: DateTime.new(2015, 8, 29, 5, 2, 4), admin: u5, restaurant: r4, description: Faker::Hipster.sentence, minimum_cost: Faker::Number.decimal(2, 2))
 
 item1 = Item.create(name: Faker::Beer.name, cost: Faker::Number.decimal(2, 2), order: order1, user: u1)
