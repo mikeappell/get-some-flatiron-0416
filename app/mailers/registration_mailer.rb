@@ -11,4 +11,12 @@ class RegistrationMailer < ApplicationMailer
     mail(:to => "#{user.name} <#{email.email_address}>", :subject => "New Email Confirmation")
   end
 
+  def order_placed(recipients, admin)
+    @admin = admin
+    
+    mail(
+      bcc: recipients
+      subject: "Your Order Has Been Placed!"
+    )
+  end
 end
