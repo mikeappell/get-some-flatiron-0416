@@ -14,7 +14,6 @@ function onGroupSelect() {
       all_orders.show(500)
     } else {
       $(all_orders).each(function() {
-
         if ($(this).attr('group-id') === selected){
           $(this).show(500)
         } else {
