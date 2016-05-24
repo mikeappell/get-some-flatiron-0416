@@ -12,8 +12,11 @@
     <br>
     <ol>
       <div id="item-list">
-        <h2>Items: <% @order.items.each do |item| %></h2>
-        <li><%= item.name %> - $<%= item.cost_formatted %></li>
+        <h2>Items:</h2>
+        <% @order.items.each do |item| %>
+        <li id="item-<%= item.id %>"><%= item.name %> - $<%= item.cost_formatted %>
+         <%= button_tag("Delete", :id => "item-delete-#{item.id}", class: "item-delete" ) if (item.user == @current_user) && !@order.expired? %>
+        </li>
         <% end %>
       </div>
     </ol>
@@ -23,10 +26,12 @@
     <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.now).round) %>
     <h3 id="time-remaining">Time until ordered: </h3></div>
 
-    <%= form_for @item do |f| %>
+  <%= form_for @item, remote: true do |f| %>
     <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
+  <span id='item-content-reset'>
     Item name: <%= f.text_field :name, id: 'item-name' %>
     Cost: <%= f.text_field :cost, id: 'item-cost' %>
+  </span>
     <%= f.submit "Add Item", :id => 'item-create-btn' %>
     <% end %>
   </div>

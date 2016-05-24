@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   resources 'orders', only: [:new, :show, :create, :update, :destroy]
   resources 'users', only: [:show, :index, :edit, :create, :update] # Create/new is through registrations
 
-  post '/items', to: 'items#create'
+  # post '/items', to: 'items#create'
+  resources 'items', only: [:create, :destroy]
 
   resources 'groups', only: [:new, :create, :update]
 
