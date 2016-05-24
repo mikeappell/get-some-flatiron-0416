@@ -2,6 +2,7 @@ $(document).ready(function(){
   onExpirationTimeChanged()
   // itemAddedListener commented out because it's being replaced by the item channel
   // itemAddedListener();
+
   if ($('#order-expiration').length) {
     createOrderTimer();
     deleteItemListener();

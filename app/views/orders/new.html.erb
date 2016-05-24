@@ -7,7 +7,8 @@
   <span id="time-until-expire" class="text-right">Order will be placed at:</span>
   <br><br>
   <div class="input-group">
-    <span class="input-group-addon" id="sizing-addon"><%= f.collection_select(:group_id, @user.groups, :id, :name, {include_blank: "Select Group", selected: 0 })%></span>
+    <span class="input-group-addon" id="sizing-addon">Select Group</span>
+    <%= f.collection_select(:group_id, @user.groups, :id, :name)%>
   </div>
   <div class="input-group">
   <span class="input-group-addon" id="sizing-addon1">Order will close in:</span>
