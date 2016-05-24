@@ -5,16 +5,12 @@ class ItemsController < ApplicationController
     if @item.save
       ActionCable.server.broadcast 'items',
         name: @item.name,
-        cost: @item.cost,
+        cost: @item.cost_formatted,
+        id: @item.id,
+        owner: current_user.id,
         element: "div#item-list",
-        action: "add-item",
-        id: @item.id
+        action: "add-item"
       head :ok
-      # render json: {
-      #   item_name: @item.name, 
-      #   item_cost: @item.cost
-      #   item_id: @item.id
-      # }
     else
       error_message = @item.errors.messages
       render partial: 'shared/errors', locals: { errors: flash.now[:alert] = "Item " + error_message[:name][0] }
@@ -24,7 +20,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    render json: { destroyed: true }
+    render json: { id: @item.id }
   end
 
   private
