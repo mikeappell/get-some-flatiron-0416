@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  include Sortable
   has_many :email_addresses
   has_many :organizations, through: :email_addresses
   has_many :items
@@ -24,6 +23,11 @@ class User < ActiveRecord::Base
 
   def available_groups
     self.organizations.groups
+  end
+
+  def user_sorted_recent_orders
+    sorted_orders = (orders.all + admin_orders).uniq.sort_by{|order| order.expiration}.reverse
+    thing = sorted_orders.select { |order| (Time.zone.now - order.expiration) < 12.hours }
   end
 
 

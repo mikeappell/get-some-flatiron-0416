@@ -42,6 +42,10 @@ class Order < ActiveRecord::Base
     split_cost.join(".")
   end
 
+  def order_you_can_join?(current_user)
+    !self.expired? && current_user.groups.include?(self.group) && !current_user.orders.include?(self) && !current_user.admin_orders.include?(self)
+  end
+
 private
   def set_date_ordered
     self.date_ordered = Time.zone.now
