@@ -105,6 +105,7 @@ function setItemTimeToOrder(expires) {
     $('h3#time-remaining').html("<div class='list-group-item list-group-item-danger'>The order has expired.</div>")
     $('input#item-name').prop('disabled', true);
     $('input#item-cost').prop('disabled', true);
+    $('input#item-create-btn').prop('disabled', true);
     $("button.item-delete").remove();
   }
 }
