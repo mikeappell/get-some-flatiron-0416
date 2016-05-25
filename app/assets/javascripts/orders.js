@@ -6,6 +6,13 @@ $(document).ready(function(){
     createOrderTimer();
     deleteItemListener();
   }
+  if ($('button#order-create-btn').length) {
+    placeOrderListener();
+  }
+  if ($('button#alert-users-btn').length) {
+    alertUsersListener();
+  }
+
 });
 
 
@@ -104,10 +111,7 @@ function setItemTimeToOrder(expires) {
     $('h3#time-remaining-timer').html("<div class='list-group-item list-group-item-danger'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
   } else {
     $('h3#time-remaining-timer').html("<div class='list-group-item list-group-item-danger'>This order has expired.</div>")
-    $('input#item-name').prop('disabled', true);
-    $('input#item-cost').prop('disabled', true);
-    $('input#item-create-btn').prop('disabled', true);
-    $("button.item-delete").remove();
+    disableItemElements();
   }
 }
 
@@ -135,4 +139,46 @@ function deleteItemListener() {
       }
     });
   });
+}
+
+function placeOrderListener() {
+  $('button#order-create-btn').on('click', function() {
+    var orderId = $('#order-id').val();
+    disableItemElements();
+    $.ajax({
+      method: "post",
+      url: '/orders/' + orderId + '/place_order',
+      success: function(response) {
+        if (response.success) {
+          // console.log("success")
+          var button = $('button#order-create-btn');
+          button.animate({opacity:'0'},"slow");
+          button.queue(function() {
+            button.html('<strong>Alert Users to Delivery?</strong>');
+            button.dequeue();
+          });
+          button.animate({opacity:'1'},"slow");
+          button.animate({left:'0px'},"slow");
+          button.attr("id", "alert-users-btn")
+          button.off();
+          alertUsersListener();
+        } else {
+          // console.log("failure")
+        }
+      }
+    })
+  })
+}
+
+function alertUsersListener() {
+  $('button#alert-users-btn').on('click', function() {
+
+  });
+}
+
+function disableItemElements() {
+  $('input#item-name').prop('disabled', true);
+  $('input#item-cost').prop('disabled', true);
+  $('input#item-create-btn').prop('disabled', true);
+  $("button.item-delete").remove();
 }

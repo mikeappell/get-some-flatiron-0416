@@ -1,7 +1,6 @@
 class Order < ActiveRecord::Base
-  has_many :user_orders
-  has_many :users, through: :user_orders
   has_many :items
+  has_many :users, through: :items
   has_many :messages
   belongs_to :restaurant
   belongs_to :organization

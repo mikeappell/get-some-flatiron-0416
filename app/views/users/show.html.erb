@@ -49,7 +49,7 @@
               <ul>
 
                 <div class="card-body">
-              <% organization.sorted_recent_orders.each do |order| %>
+              <% @current_user.organizations.find_by(id: session[:current_org].to_i).sorted_recent_orders.each do |order| %>
                 <% if !order.expired? && @current_user.groups.include?(order.group) %> <!-- comment this out for testing purposes. uncomment for production-->
                         <div class='group-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>' group-id='<%= order.group_id %>'>
                           <%= joinOrderButton(order) %>
