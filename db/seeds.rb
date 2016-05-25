@@ -1,7 +1,7 @@
 
 #### note: for optimal demo experience, sign in as: applessed (password: "password")
 
-u_johnny = User.create(name: "John Apple", username: "appleseed", venmo: "mrApple", password: "password", email_confirmed: true)
+u_johnny = User.create(name: "Johnny", username: "appleseed", venmo: "mrApple", password: "password", email_confirmed: true)
 org_flatiron = Organization.create(domain_name: "flatironschool.com")
 e_johnny = EmailAddress.create(user: u_johnny, organization: org_flatiron, email_address: "johnny@flatironschool.com", confirmed: true)
 
