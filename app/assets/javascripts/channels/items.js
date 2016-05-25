@@ -7,6 +7,7 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
       return $(data.element).append("<p> <b>" + data.user + ": </b>" + data.message + "</p>");
       break;
       case "add-item":
+      setNewAmounts(data)
       return this.renderItem(data);
       break;
     }
@@ -32,6 +33,17 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
     });
   }
 });
+
+
+function setNewAmounts(data) {
+  var currentAmount = Number($("#current-order-amount").text().split("$")[1])
+  var newAmount = currentAmount + Number(data.cost)
+  $("#current-order-amount").text("Current order size: $" + newAmount)
+
+  var minimumNeeded = Number($("#minimum-amount-needed").text().split("$")[1])
+  var newMinimumNeeded = minimumNeeded - Number(data.cost)
+  $("#minimum-amount-needed").text("Minimum Amount Needed: $" + newMinimumNeeded)
+}
 //  ------ below is the original code we had when we had two different channels ----
 // App.items = App.cable.subscriptions.create('ItemsChannel', {
 //   received: function(data) {
