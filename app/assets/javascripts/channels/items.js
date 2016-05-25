@@ -41,7 +41,7 @@ function setNewAmounts(data) {
   var newAmount = currentAmount + Number(data.cost)
   $("#current-order-amount").text("Current order size: $" + newAmount)
 
-  var minimumNeeded = Number($("#minimum-amount-needed").text().split("$")[1])
+  var minimumNeeded = Math.round(Number($("#minimum-amount-needed").text().split("$")[1]) *Math.pow(10,2))/Math.pow(10,2).toFixed(2)
   var newMinimumNeeded = minimumNeeded - Number(data.cost)
   $("#minimum-amount-needed").text("Minimum Amount Needed: $" + newMinimumNeeded)
 }
