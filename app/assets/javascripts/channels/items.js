@@ -7,11 +7,13 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
       return $(data.element).append("<p> <b>" + data.user + ": </b>" + data.message + "</p>");
       break;
       case "add-item":
-      setNewAmounts(data)
+      setNewAmounts(data);
+      checkOrderMinimum(data);
       return this.renderItem(data);
       break;
       case "delete-item":
       setNewAmounts(data);
+      checkOrderMinimum(data);
       return $('li#item-' + data.id).remove();
       break;
     }
@@ -48,6 +50,19 @@ function setNewAmounts(data) {
   var minimumNeeded = Math.round(Number($("#minimum-amount-needed").text().split("$")[1]) *Math.pow(10,2))/Math.pow(10,2).toFixed(2)
   var newMinimumNeeded = minimumNeeded - Number(data.cost)
   $("#minimum-amount-needed").text("Minimum Amount Needed: $" + newMinimumNeeded)
+}
+
+function checkOrderMinimum(data) {
+  var currentAmount = $('#current-order-amount');
+  currentAmount.removeClass();
+  currentAmount.addClass('list-group-item')
+  if (data.cost_remaining <= 0) {
+    currentAmount.addClass('list-group-item-success');
+    currentAmount.html('Current order size: ' + data.item_total);
+  } else {
+    currentAmount.addClass('list-group-item-warning');
+    currentAmount.html('Current order size: ' + data.item_total);
+  }
 }
 //  ------ below is the original code we had when we had two different channels ----
 // App.items = App.cable.subscriptions.create('ItemsChannel', {
