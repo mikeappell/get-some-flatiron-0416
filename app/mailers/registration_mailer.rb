@@ -13,9 +13,9 @@ class RegistrationMailer < ApplicationMailer
 
   def order_placed(recipients, admin)
     @admin = admin
-    
+
     mail(
-      bcc: recipients
+      bcc: recipients,
       subject: "Your Order Has Been Placed!"
     )
   end
