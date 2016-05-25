@@ -27,7 +27,7 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
         if (data.owner === response.id) {
           $('#item-content-reset input#item-name').val('')
           $('#item-content-reset input#item-cost').val('')
-          $("div#item-list").append("<li class='list-group-item list-group-item-success' id='item-" + data.id + "''>" + data.name + " - $" + data.cost + deleteButton + "</li>");
+          $("div#item-list").append("<li class='list-group-item list-group-item-success' id='item-" + data.id + "''>" + data.name + " - $" + data.cost + " " + deleteButton + "</li>");
           // This is being called from orders.js
           deleteItemListener();
         } else {

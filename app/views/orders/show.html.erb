@@ -3,9 +3,7 @@
   <h3>"<%= @order.description %>"</h3>
   <br>
   <span class="pull-right">
-    <% if @current_user == @order.admin %>
-    <button id="order-create-btn" class="alert alert-danger"><strong>Place Order</strong></button> 
-    <% end %>
+    <%= placeOrderButton if @current_user == @order.admin %>
   </span>
   <h5>Created by: <%= @order.admin.name %></h5>
   <div class='group-name'>
