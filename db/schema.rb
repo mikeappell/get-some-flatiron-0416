@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525170824) do
+ActiveRecord::Schema.define(version: 20160525180133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160525170824) do
     t.integer  "group_id"
     t.boolean  "placed",          default: false
     t.string   "image_url"
+    t.boolean  "alerted",         default: false
     t.index ["admin_id"], name: "index_orders_on_admin_id", using: :btree
     t.index ["organization_id"], name: "index_orders_on_organization_id", using: :btree
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree

@@ -79,7 +79,7 @@ function itemAdded(event) {
       order_id: orderId
     },
     success: function(response) {
-      var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete'>Delete</button>"
+      var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete' style='float: right; transform: translateY(-15%);'>Delete</button>"
       $('div#item-list').append("<p>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</p>")
     },
     error: function(response) {
@@ -150,7 +150,13 @@ function placeOrderListener() {
       url: '/orders/' + orderId + '/place_order',
       success: function(response) {
         if (response.success) {
-          // console.log("success")
+
+          // second ajax call to send email #1
+          $.ajax({
+            method: "post",
+            url: "/email/" + orderId + "/placed"
+          });
+
           var button = $('button#order-create-btn');
           button.animate({opacity:'0'},"slow");
           button.queue(function() {
@@ -172,7 +178,39 @@ function placeOrderListener() {
 
 function alertUsersListener() {
   $('button#alert-users-btn').on('click', function() {
-
+    var orderId = $('#order-id').val();
+    var choice = confirm("Send email to all users?");
+    if (choice) {
+      $.ajax({
+        method: "post",
+        url: '/orders/' + orderId + '/alert_users',
+        success: function(response) {
+          if (response.success) {
+          // second ajax call to send email #2
+            $.ajax({
+              method: "post",
+              url: "/email/" + orderId + "/arrived",
+              success: (function(response) {
+                console.log("User alerts sent successfully");
+              })
+            });
+            var button = $('button#alert-users-btn');
+            button.off();
+            button.prop('disabled', true);
+            button.attr("id", "users-alerted")
+            button.animate({opacity:'0'},"slow");
+            button.queue(function() {
+              button.html('<strong>You got some ;)</strong>');
+              button.removeClass();
+              button.addClass('alert alert-success')
+              button.dequeue();
+            });
+            button.animate({opacity:'1'},"slow");
+            button.animate({left:'0px'},"slow");
+          }
+        }
+      });
+    }
   });
 }
 
