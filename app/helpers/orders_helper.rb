@@ -21,4 +21,12 @@ module OrdersHelper
       "<li class='list-group-item list-group-item-info' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted} (#{@current_user.username})</li>".html_safe
     end
   end
+
+  def placeOrderButton
+    if @order.placed
+      button_tag("Alert Users to Delivery?", id: "alert-users-btn", class: "alert alert-danger", data: { confirm: "Are you sure?" })
+    else
+      button_tag("Place Order", id: "order-create-btn", class: "alert alert-danger")
+    end
+  end
 end
