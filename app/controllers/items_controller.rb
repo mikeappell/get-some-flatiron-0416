@@ -9,7 +9,8 @@ class ItemsController < ApplicationController
         id: @item.id,
         owner: current_user.id,
         element: "div#item-list",
-        action: "add-item"
+        action: "add-item",
+        username: current_user.username
       head :ok
     else
       error_message = @item.errors.messages
