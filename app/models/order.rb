@@ -8,6 +8,10 @@ class Order < ActiveRecord::Base
   belongs_to :admin, class_name: "User"
   belongs_to :group
   validates :minimum_cost, numericality: true, :format => { :with => /\A\d{1,6}(\.\d{0,2})?\z/ }
+  validates :organization_id, presence: true
+  validates :expiration, presence: true
+  validates :minimum_cost, presence: true
+  validates :restaurant, presence: true
   # validates :group_id, presence: true
 
   def expired?

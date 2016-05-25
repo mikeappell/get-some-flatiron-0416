@@ -1,39 +1,76 @@
-<div class="col-md-8">
-<%= render partial: 'shared/errors' %>
-<%= form_for @order do |f| %>
+<div class="container">
+  <div class="form-horizontal">
+    <h1 class="text-center" style="font-size: 350%;">Create your Order</h1>
 
-  Organization: <%= order_organizations(f) %>
-  <br><br>
-  <span id="time-until-expire" class="text-right">Order will be placed at:</span>
-  <br><br>
-  <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon1">Order will close in:</span>
-  <%= f.number_field :expiration, id: "expiration-time", class: "form-control", placeholder: "Minutes until close" %>
-  </div>
+    <%= render partial: 'shared/errors' %>
 
-  <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon1">Restaurant:</span>
-  <%= f.text_field :restaurant, list: 'restaurant-name', class: "form-control", placeholder: "Restaurant name" %>
-  <datalist id="restaurant-name">
-    <% Restaurant.all.each do |restaurant| %>
-      <option value="<%= restaurant.name %>"></option>
+    <%= form_for @order do |f| %>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label"> Organization: </label>
+          <div class="col-lg-10">
+            <div class="form-control">
+              <%= order_organizations(f) %>
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Order will be placed at:</label>
+            <div class="col-lg-10">
+              <div class="form-control" id="time-until-expire">
+
+              </div>
+            </div>
+      </div>
+
+      <div class="form-group">
+        <label for="select" class="col-lg-2 control-label">Select Group</label>
+          <div class="col-lg-10">
+            <div id="select">
+              <%= f.collection_select :group_id, @user.groups, :id, :name, {class: "btn btn-default"} %>
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Order will close in:</label>
+          <div class="col-lg-10">
+              <%= f.number_field :expiration, id: "expiration-time", class: "form-control", placeholder: "Minutes until close" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Restaurant:</label>
+          <div class="col-lg-10">
+            <%= f.text_field :restaurant, list: 'restaurant-name', class: "form-control", placeholder: "Restaurant name" %>
+              <datalist id="restaurant-name">
+                <% Restaurant.all.each do |restaurant| %>
+                  <option value="<%= restaurant.name %>"></option>
+                <% end %>
+              </datalist>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Order description:</label>
+          <div class="col-lg-10">
+            <%= f.text_area :description, class: "form-control", placeholder: "Description of your order" %>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Order's minimum cost:</label>
+          <div class="col-lg-10">
+            <%= f.text_field :minimum_cost, class: "form-control", placeholder: "Minimum cost to place order" %>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= f.submit "Create an Order", class: "btn btn-primary" %>
+        </div>
+      </div>
     <% end %>
-  </datalist>
   </div>
-
-  <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon1">Order description:</span>
-  <%= f.text_area :description, class: "form-control", placeholder: "Description of your order" %>
-  </div>
-
-  <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon1">Order's minimum cost:</span>
-  <%= f.text_field :minimum_cost, class: "form-control", placeholder: "Minimum cost to place order" %>
-  </div>
-  <br>
-
-  <%= f.submit %>
-<% end %>
-
-
 </div>

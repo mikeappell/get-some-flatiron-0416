@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 function onExpirationTimeChanged() {
   $('input#expiration-time').focusout(function() {
-    $('span#time-until-expire').html(formatTimeStr())
+    $('div#time-until-expire').html(formatTimeStr())
   })
 }
 
@@ -45,7 +45,8 @@ function formatTimeStr(){
     hours = '0' + hours
   }
 
-  timeStr = 'Order will be placed at: ' + hours + ':' + newMinutes + ' ' + amPM
+  // timeStr = 'Order will be placed at: ' + hours + ':' + newMinutes + ' ' + amPM
+  timeStr = hours + ':' + newMinutes + ' ' + amPM
   return timeStr
 }
 
