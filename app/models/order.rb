@@ -31,6 +31,18 @@ class Order < ActiveRecord::Base
     items.sum(:cost).to_f
   end
 
+  def item_total_formatted
+    split_cost = self.items.sum(:cost).to_s.split(".")
+    split_cost[1] = split_cost[1].ljust(2,"0")
+    split_cost.join(".")
+  end
+
+  def cost_remaining
+    split_cost = (self.minimum_cost - self.item_total).to_s.split(".")
+    split_cost[1] = split_cost[1].ljust(2,"0")
+    split_cost.join(".")
+  end
+
 private
   def set_date_ordered
     self.date_ordered = Time.zone.now
