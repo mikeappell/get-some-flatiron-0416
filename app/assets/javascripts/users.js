@@ -29,7 +29,6 @@ function onOrganizationSelect() {
   var select = $('#user_organization_ids')
   select.on('change', function() {
     var organizationId = parseInt(select.val())
-
     $.ajax({
 	    url: "/groups/" + organizationId,
 	    type: 'GET',
@@ -41,6 +40,7 @@ function onOrganizationSelect() {
           htmlString += '<option value="' + group.id + '">' + group.name + '</option>'
         })
         $('#user_group_ids').html(htmlString)
+        location.reload()
     	}
     })
   })
