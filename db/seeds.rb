@@ -28,6 +28,7 @@ g_flatironBrooklyn.users << u_johnny << u_camille << u_james
 r_bento = Restaurant.create(name: "Bento", url: Faker::Internet.url)
 o_bento = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 2.hours), admin: u_johnny, restaurant: r_bento, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_flatironNYC, image_url: "bento.png")
 
+o_bento.users << u_johnny << u_george << u_cindy
 johnny_item = Item.create(name: "medium brocoli chicken (no sesame please)", cost: 5.50, order: o_bento, user: u_johnny)
 george_item = Item.create(name: "small brown rice", cost: 2.25, order: o_bento, user: u_george)
 cindy_item = Item.create(name: "large vegetarians sushi roll", cost: 6.00, order: o_bento, user: u_cindy)
@@ -36,6 +37,7 @@ cindy_item = Item.create(name: "large vegetarians sushi roll", cost: 6.00, order
 r_jamaicanstand = Restaurant.create(name: "The Jamaican Stand", url: Faker::Internet.url)
 o_jamaicanstand = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 3.hours), admin: u_george, restaurant: r_jamaicanstand, description: Faker::Hipster.sentence, minimum_cost: 10, group: g_flatironNYC, image_url: "jamaican.png")
 
+o_jamaicanstand.users << u_johnny << u_camille
 johnny_item = Item.create(name: "large jamaican beef platter", cost: 10.00, order: o_jamaicanstand, user: u_johnny)
 camille_item = Item.create(name: "small spicy fries", cost: 2.50, order: o_jamaicanstand, user: u_camille)
 
@@ -47,6 +49,7 @@ o_tgifridays = Order.create(organization: org_flatiron , date_ordered: DateTime.
 r_kfc = Restaurant.create(name: "KFC", url: Faker::Internet.url)
 o_kfc = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 5.hours), admin: u_camille, restaurant: r_kfc, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_flatironBrooklyn, image_url: "kfc.jpg")
 
+o_kfc.users << u_james << u_camille
 james_item = Item.create(name: "small fried chicken", cost: 5.00, order: o_kfc, user: u_james)
 camille_item = Item.create(name: "large fountain diet coke", cost: 3.00, order: o_kfc, user: u_camille)
 
@@ -64,6 +67,8 @@ g_chase115fifth.users << u_johnny << u_bob
 #### note: order by bob for chase bank
 r_bento_chase = Restaurant.create(name: "Bento", url: Faker::Internet.url)
 o_bento_chase = Order.create(organization: org_chasebank, date_ordered: DateTime.now, expiration: (DateTime.now + 5.hours), admin: u_bob, restaurant: r_bento_chase, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_chase115fifth, image_url: "bento-chase.jpg")
+
+o_bento_chase.users << u_bob
 bob_item = Item.create(name: "small white fish sushi roll", cost: 3.00, order: o_bento_chase, user: u_bob)
 
 
@@ -81,6 +86,9 @@ e_mike = EmailAddress.create(user: u_mike, organization: org_flatiron, email_add
 g_flatironNYC.users << u_steve << u_jj << u_shmuel << u_mike
 g_flatironBrooklyn.users << u_steve << u_jj << u_shmuel << u_mike
 
+#### test order for recent orders
+r_carvels = Restaurant.create(name: "Carvels", url: Faker::Internet.url)
+o_carvels = Order.create(organization: org_flatiron , date_ordered: (DateTime.now - 30.minutes), expiration: (DateTime.now - 1.minutes), admin: u_johnny, restaurant: r_carvels, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_flatironNYC)
 
 =begin
 names = []
