@@ -23,7 +23,7 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
       method: "GET",
       dataType: "json",
       success: function(response) {
-        var deleteButton = "<button name='button' type='submit' id='item-delete-" + data.id + "' class='item-delete btn btn-default'>Delete</button>"
+        var deleteButton = "<button name='button' type='submit' id='item-delete-" + data.id + "' class='item-delete btn btn-default' style='float: right; transform: translateY(-15%);'>Delete</button>"
         if (data.owner === response.id) {
           $('#item-content-reset input#item-name').val('')
           $('#item-content-reset input#item-cost').val('')
