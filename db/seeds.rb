@@ -1,3 +1,4 @@
+=begin
 names = []
 5.times { names << Faker::Name.name }
 
@@ -6,6 +7,76 @@ u2 = User.create(name: names.pop, username: "bawbby82", venmo: "mrbob", password
 u3 = User.create(name: names.pop, username: "daunte29", venmo: "daunting", password: "bananna", email_confirmed: true)
 u4 = User.create(name: names.pop, username: "mcGrowler", venmo: "growlerFace", password: "123456", email_confirmed: true)
 u5 = User.create(name: names.pop, username: "Roxanna", venmo: "FoxyRoxy", password: "password", email_confirmed: true)
+=end
+
+
+u_johnny = User.create(name: "John Apple", username: "appleseed", venmo: "mrApple", password: "password", email_confirmed: true)
+org_flatiron = Organization.create(domain_name: "flatironschool.com", address: "11 Broadway")
+e_johnny = EmailAddress.create(user: u_johnny, organization: org_flatiron, email_address: "johnny@flatironschool.com", confirmed: true)
+
+u_george = User.create(name: "George Mason", username: "georgeofjungle", venmo: "JungleBoy", password: "password", email_confirmed: true)
+e_george = EmailAddress.create(user: u_george, organization: org_flatiron, email_address: "george@flatironschool.com", confirmed: true)
+
+u_cindy = User.create(name: "Cindy Cinder", username: "burntocinder", venmo: "cinderwoman", password: "password", email_confirmed: true)
+e_cindy = EmailAddress.create(user: u_cindy, organization: org_flatiron, email_address: "cindy@flatironschool.com", confirmed: true)
+
+u_camille = User.create(name: "Camille Beef", username: "chameleon", venmo: "beef", password: "password", email_confirmed: true)
+e_camille = EmailAddress.create(user: u_camille, organization: org_flatiron, email_address: "camille@flatironschool.com", confirmed: true)
+
+u_james = User.create(name: "James Bond", username: "doubleoh7", venmo: "007", password: "password", email_confirmed: true)
+e_james = EmailAddress.create(user: u_james, organization: org_flatiron, email_address: "james@flatironschool.com", confirmed: true)
+
+#### groups for flatiron organization
+g_flatironNYC = Group.create(name: "FlatironNYC", organization: org_flatiron)
+g_flatironNYC.users << u_johnny << u_george << u_cindy << u_camille << u_james
+
+g_flatironBrooklyn = Group.create(name: "FlatironBrooklyn", organization: org_flatiron)
+g_flatironBrooklyn.users << u_johnny << u_camille << u_james
+
+####note: order by johnny for flatiron school NYC--
+r_bento = Restaurant.create(name: "Bento", url: Faker::Internet.url)
+o_bento = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 4.hours), admin: u_johnny, restaurant: r_bento, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_flatironNYC)
+
+johnny_item = Item.create(name: "medium brocoli chicken (no sesame please)", cost: 5.50, order: o_bento, user: u_johnny)
+george_item = Item.create(name: "small brown rice", cost: 2.25, order: o_bento, user: u_george)
+cindy_item = Item.create(name: "large vegetarians sushi roll", cost: 6.00, order: o_bento, user: u_cindy)
+
+####note: order by george for flatiron school NYC
+r_jamaicanstand = Restaurant.create(name: "The Jamaican Stand", url: Faker::Internet.url)
+o_jamaicanstand = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 6.hours), admin: u_george, restaurant: r_jamaicanstand, description: Faker::Hipster.sentence, minimum_cost: 10, group: g_flatironNYC)
+
+johnny_item = Item.create(name: "large jamaican beef platter", cost: 10.00, order: o_jamaicanstand, user: u_johnny)
+camille_item = Item.create(name: "small spicy fries", cost: 2.50, order: o_jamaicanstand, user: u_camille)
+
+####note: order by johhny for flatiron school Brooklyn --
+r_tgifridays = Restaurant.create(name: "TGI Fridays", url: Faker::Internet.url)
+o_tgifridays = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 6.hours), admin: u_johnny, restaurant: r_tgifridays, description: Faker::Hipster.sentence, minimum_cost: 25, group: g_flatironBrooklyn)
+
+####note: order by camille for flatiron school Brooklyn --
+r_kfc = Restaurant.create(name: "KFC", url: Faker::Internet.url)
+o_kfc = Order.create(organization: org_flatiron , date_ordered: DateTime.now, expiration: (DateTime.now + 6.hours), admin: u_camille, restaurant: r_kfc, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_flatironBrooklyn)
+
+james_item = Item.create(name: "small fried chicken", cost: 5.00, order: o_kfc, user: u_james)
+camille_item = Item.create(name: "large fountain diet coke", cost: 3.00, order: o_kfc, user: u_camille)
+
+###note: new org: chase bank
+org_chasebank = Organization.create(domain_name: "chase.com", address: "115 Fifth Avenue")
+e_johnny_chase = EmailAddress.create(user: u_johnny, organization: org_chasebank, email_address: "johnny@chase.com", confirmed: true)
+
+u_bob = User.create(name: "Bob Bob", username: "bobby", venmo: "bobbybob", password: "password", email_confirmed: true)
+e_bob_chase = EmailAddress.create(user: u_bob, organization: org_chasebank, email_address: "bob@chase.com", confirmed: true)
+
+####note: groups for chase bank
+g_chase115fifth = Group.create(name: "Chase115Fifth", organization: org_chasebank)
+g_chase115fifth.users << u_johnny << u_bob
+
+#### note: order by bob for chase bank
+r_bento_chase = Restaurant.create(name: "Bento", url: Faker::Internet.url)
+o_bento_chase = Order.create(organization: org_chasebank, date_ordered: DateTime.now, expiration: (DateTime.now + 5.hours), admin: u_bob, restaurant: r_bento_chase, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_chase115fifth)
+bob_item = Item.create(name: "small white fish sushi roll", cost: 3.00, order: o_bento_chase, user: u_bob)
+
+=begin
+
 
 r1 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
 r2 = Restaurant.create(name: Faker::Name.first_name.pluralize, url: Faker::Internet.url)
@@ -53,3 +124,4 @@ u5.orders << order4
 u1.groups << g1 << g2
 u2.groups << g3 << g1
 u4.groups << g4
+=end
