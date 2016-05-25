@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 20160525144329) do
     t.string   "domain_name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "address"
   end
 
   create_table "restaurants", force: :cascade do |t|
