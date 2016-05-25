@@ -1,5 +1,3 @@
-<div class="container">
-
 <div class="col-md-8">
 <%= render partial: 'shared/errors' %>
 <%= form_for @order do |f| %>
@@ -8,10 +6,6 @@
   <br><br>
   <span id="time-until-expire" class="text-right">Order will be placed at:</span>
   <br><br>
-  <div class="input-group">
-    <span class="input-group-addon" id="sizing-addon">Select Group</span>
-    <%= f.collection_select(:group_id, @user.groups, :id, :name)%>
-  </div>
   <div class="input-group">
   <span class="input-group-addon" id="sizing-addon1">Order will close in:</span>
   <%= f.number_field :expiration, id: "expiration-time", class: "form-control", placeholder: "Minutes until close" %>
@@ -42,5 +36,4 @@
 <% end %>
 
 
-</div>
 </div>
