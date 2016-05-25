@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:user][:password])
       if @user.email_confirmed
         session[:user_id] = @user.id
-        # session[:current_org] ||= @user.organizations.first.id
         redirect_to root_path
       else
         flash[:alert] = "Please activate your account using the link in your email."
