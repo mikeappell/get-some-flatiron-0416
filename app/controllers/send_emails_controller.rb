@@ -10,6 +10,16 @@ class SendEmailsController < ApplicationController
     RegistrationMailer.order_placed(recipients, admin).deliver_now
   end
 
+  def order_arrived
+    order = Order.find(params[:order_id])
+    users = order.users
+    organization = order.organization
+    admin = order.admin
+
+    recipients = recipients(users, organization)
+    RegistrationMailer.order_arrived(recipients, admin).deliver_now
+  end
+
   private
 
     def recipients(users, organization)
