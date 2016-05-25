@@ -13,12 +13,12 @@ module OrdersHelper
 
   def isUserItemOwner(item)
     if (item.user == @current_user) && !@order.expired?
-      deleteButton = button_tag('Delete', :id => "item-delete-#{item.id}", class: 'item-delete')
-      "<li class='list-group-item list-group-item-success' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted} #{deleteButton}</li>".html_safe
+      deleteButton = button_tag('Delete', :id => "item-delete-#{item.id}", class: 'item-delete btn btn-default', style: "float:right; transform: translateY(-15%);")
+      "<p class='list-group-item list-group-item-success' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted} #{deleteButton}</p>".html_safe
     elsif (item.user == @current_user)
-      "<li class='list-group-item list-group-item-success' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted}</li>".html_safe
+      "<p class='list-group-item list-group-item-success' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted}</p>".html_safe
     else
-      "<li class='list-group-item list-group-item-info' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted} (#{@current_user.username})</li>".html_safe
+      "<p class='list-group-item list-group-item-info' id='item-#{item.id}'>#{item.name} - $#{item.cost_formatted} (#{@current_user.username})</p>".html_safe
     end
   end
 

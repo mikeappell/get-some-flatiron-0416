@@ -1,66 +1,93 @@
-<div class="col-lg-8">
-  <h1>Ordering from <%= @order.restaurant.name %></h1>
-  <h3>"<%= @order.description %>"</h3>
-  <br>
-  <span class="pull-right"><strong>
-    <%= placeOrderButton if @current_user == @order.admin %>
-  </strong></span>
-  <h5>Created by: <%= @order.admin.name %></h5>
-  <div class='group-name'>
-    <h5>Group: <%= @order.group.name %></h5>
+<div class="container">
+  <div class=".col-lg-12">
+    <div class="panel panel-default panel-primary" style="border-color: rgb(186,136,79);">
+      <div class="panel-heading" style="background-color: rgb(68,189,191);"><h2>Ordering from <%= @order.restaurant.name %></h2></div>
+        <div class="panel-body">
+          <!-- <div class="container"> -->
+          <div class="col-lg-8">
+            <!-- <h1>Ordering from <%#= @order.restaurant.name %></h1> -->
+
+            <div class="col-lg-9" style="height: 30px;"><h3>"<%= @order.description %>"</h3></div>
+            <span class="text-right">
+
+            <h5>Created by: <%= @order.admin.name %></h5>
+
+            <div class='group-name'>
+              <h5>Group: <%= @order.group.name %></h5>
+            </div>
+          </span>
+
+            <div class='well' style="background-color: rgba(243,243,243,0.6); padding-top: 6px;">
+
+                  <%= placeOrderButton if @current_user == @order.admin %>
+                <h4 class="pull-right">Order will be placed at <%= (@order.expiration + Time.now.utc_offset).strftime('%l:%M %p') %>
+                </h4>
+
+
+              <h2>Items:</h2>
+                <div id="item-list" style="overflow:auto; height:150px;">
+                  <% @order.items.each do |item| %>
+                    <%= isUserItemOwner(item) %>
+                 <% end %>
+               </div>
+
+             <span style="vertical-align: bottom; display: inline-block;"><h4>Minimum order amount: $<%= @order.minimum_cost_formatted %></h4></span>
+
+             <span class='pull-right'>
+             <h4 id="current-order-amount" class="list-group-item <%= @order.cost_remaining.to_f <= 0 ? 'list-group-item-success' : 'list-group-item-warning' %>">Current order size: $<%= @order.item_total_formatted %></h4>
+             </span>
+
+             <div id="item-errors">
+             </div>
+
+             <br>
+
+             <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.now).round) %>
+
+             <h3 id="time-remaining-timer"></h3></div>
+
+             <%= form_for @item, remote: true do |f| %>
+               <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
+
+              <span id='item-content-reset'>
+                <div class="form-group">
+                <label for="name" class="control-label col-lg-1">Item: </label>
+                  <span class="col-lg-5"><%= f.text_field :name, id: 'item-name', class: "form-control", placeholder: "Item" %></span>
+                </div>
+
+                <div class="form-group">
+                <label for="cost" class="control-label col-lg-1">Cost: </label>
+                  <span class="col-lg-3"><%= f.text_field :cost, id: 'item-cost', class: "form-control", placeholder: "Cost" %></span>
+                </div>
+              </span>
+
+              <div class="col-lg-2">
+                <%= f.submit "GetSome!", :id => 'item-create-btn', class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="col-lg-4">
+            <h1> Chat </h1>
+
+            Messages:
+            <div id="messages" style="overflow:auto; height:400px;">
+              <% @order.messages.each do |message| %>
+              <p><b><%= message.user.username %>:</b> <%= message.content %></p>
+              <% end %>
+            </div>
+
+            <%= form_for @message, remote: true do |f| %>
+            <%= f.hidden_field :user_id, value: @current_user.id %>
+            <%= f.hidden_field :order_id, value: @order.id %>
+            <span id="message-content-reset">
+              <%= f.text_field :content %>
+            </span>
+            <%= f.submit %>
+            <% end %>
+          <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
   </div>
-  <div class='well'>
-    <h4>
-      <span>Order was created at <%= (@order.date_ordered + Time.now.utc_offset).strftime('%l:%M %p') %></span>
-      <span class="pull-right">Order will be placed at <%= (@order.expiration + Time.now.utc_offset).strftime('%l:%M %p') %>
-      </span>
-      <br>
-    </h4>
-    <ol>
-      <div id="item-list">
-        <h2>Items:</h2>
-        <% @order.items.each do |item| %>
-          <%= isUserItemOwner(item) %>
-       <% end %>
-     </div>
-   </ol>
-   <span style="vertical-align: bottom; display: inline-block;"><h4>Minimum order amount: $<%= @order.minimum_cost_formatted %></h4></span>
-   <span class='pull-right'>
-   <h4 id="current-order-amount" class="list-group-item <%= @order.cost_remaining.to_f <= 0 ? 'list-group-item-success' : 'list-group-item-warning' %>">Current order size: $<%= @order.item_total_formatted %></h4>
-   </span>
-   
-   <div id="item-errors">
-   </div>
-   <br>
-   <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.now).round) %>
-   <h3 id="time-remaining-timer"></h3></div>
-
-   <%= form_for @item, remote: true do |f| %>
-   <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
-   <span id='item-content-reset'>
-    Item name: <%= f.text_field :name, id: 'item-name', disabled: (@order.placed ? true : false) %>
-    Cost: <%= f.text_field :cost, id: 'item-cost', disabled: (@order.placed ? true : false) %>
-  </span>
-  <%= f.submit "GetSome!", :id => 'item-create-btn', disabled: (@order.placed ? true : false) %>
-  <% end %>
-</div>
-
-<div class="col-lg-4">
-  <h1> Chat </h1>
-
-  Messages:
-  <div id="messages" style="overflow:auto; height:400px;">
-    <% @order.messages.each do |message| %>
-    <p><b><%= message.user.username %>:</b> <%= message.content %></p>
-    <% end %>
-  </div>
-
-  <%= form_for @message, remote: true do |f| %>
-  <%= f.hidden_field :user_id, value: @current_user.id %>
-  <%= f.hidden_field :order_id, value: @order.id %>
-  <span id="message-content-reset">
-    <%= f.text_field :content %>
-  </span>
-  <%= f.submit %>
-  <% end %>
 </div>

@@ -1,26 +1,134 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>GetSome</title>
-  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= action_cable_meta_tag %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GetSome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <% if @current_user %>
-    <%= render 'layouts/logged_in_nav' %>
-  <% else %>
-    <%= render 'layouts/logged_out_nav' %>
-  <% end %>
+    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <%= action_cable_meta_tag %>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
-  <div class="container">
-    <%= yield %>
-  </div>
+    <!-- Le styles -->
+    <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+    <!-- <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> -->
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
+    <![endif]-->
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
 
-</body>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/respond.src.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/sample/logo-144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/sample/logo-114.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/sample/logo-72.png">
+                    <link rel="apple-touch-icon-precomposed" href="img/sample/logo-57.png">
+                                   <link rel="shortcut icon" href="img/sample/logo.png">
+
+  </head>
+
+  <body>
+
+
+    <!-- <div class="wrapper">
+      <div class="row"> -->
+        <% if @current_user %>
+        <%= render 'layouts/logged_in_nav' %>
+        <% else %>
+        <%= render 'layouts/logged_out_nav' %>
+        <% end %>
+
+        <!-- <div class="container"> -->
+          <%= yield %>
+        <!-- </div> -->
+
+    <footer class="hidden-xs">
+      <p class="pull-left">&copy; Copyright 2016. GetSome.</p>
+      <p class="pull-right"><a href="#none">GetSome</a> by Mike A., Steve G., Shmuel L., JJ S. <a href="documentation.html">Documentation</a>.</p>
+    </footer>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- <script src="js/bootstrap.js"></script>
+    <script src="js/rebound.js"></script>
+    <script src="js/jquery.isotope.min.js"></script> -->
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+
+        $('.dropdown-toggle').dropdown();
+
+        var $container = $('.portfolio-wrapper');
+
+        $container.imagesLoaded( function(){
+          $container.isotope({
+            itemSelector : '.card',
+            layoutMode : 'fitRows'
+          });
+        });
+
+        // Needed functions
+        var getColWidth = function() {
+          var width,
+          windowWidth = $(window).width();
+          if( windowWidth <= 480 ) {
+            width = Math.floor( $container.width() );
+          } else if( windowWidth <= 768 ) {
+            width = Math.floor( $container.width() );
+          } else {
+            width = Math.floor( 250 );
+          }
+          return width;
+        }
+
+        function setWidths() {
+          var colWidth = getColWidth();
+          $container.children().css({ width: colWidth });
+        }
+
+
+        $(window).smartresize(function() {
+          setWidths();
+          $container.isotope({
+            masonry: {
+              columnWidth: getColWidth()
+            }
+          });
+        });
+
+        $('.filter-portfolio li a').click(function(){
+          $('.filter-portfolio li.active').removeClass('active');
+          $(this).parent('li').addClass('active');
+          var selector = $(this).attr('data-filter');
+          $container.isotope({
+            filter: selector,
+            masonry: {  }
+          });
+          return false;
+        });
+        // update columnWidth on window resize
+        $(window).smartresize(function(){
+          $container.isotope({
+            // update columnWidth to a percentage of container width
+            masonry: {  }
+          });
+        });
+
+      });
+
+    </script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  </body>
 </html>
