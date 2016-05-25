@@ -15,6 +15,11 @@
 //= require jquery_ujs
 //= require bootstrap-switch
 // require jquery.session
-// require turbolinks
+//= require turbolinks
+
+// require jquery-1.11.3.min
+//= require bootstrap.min
+//= require rebound
+//= require jquery.isotope.min
 //= require_tree ./channels
 //= require_tree .

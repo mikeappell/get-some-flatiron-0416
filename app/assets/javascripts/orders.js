@@ -18,7 +18,7 @@ $(document).ready(function(){
 
 function onExpirationTimeChanged() {
   $('input#expiration-time').focusout(function() {
-    $('span#time-until-expire').html(formatTimeStr())
+    $('div#time-until-expire').html(formatTimeStr())
   })
 }
 
@@ -52,7 +52,8 @@ function formatTimeStr(){
     hours = '0' + hours
   }
 
-  timeStr = 'Order will be placed at: ' + hours + ':' + newMinutes + ' ' + amPM
+  // timeStr = 'Order will be placed at: ' + hours + ':' + newMinutes + ' ' + amPM
+  timeStr = hours + ':' + newMinutes + ' ' + amPM
   return timeStr
 }
 
@@ -63,30 +64,31 @@ function formatTimeStr(){
 //   });
 // }
 
-function itemAdded(event) {
-
-  var itemName = $('#item-name').val();
-  var itemCost = $('#item-cost').val();
-  var orderId = $('#order-id').val();
-  $.ajax({
-    method: "post",
-    dataType: "json",
-    url: "/items",
-    data: {
-      name: itemName,
-      cost: itemCost,
-      order_id: orderId
-    },
-    success: function(response) {
-      var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete'>Delete</button>"
-      $('div#item-list').append("<li>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</li>")
-    },
-    error: function(response) {
-      $('div#item-errors').html(response.responseText).show()
-      $('div#item-errors').delay(5000).fadeOut('slow').html(response.responseText)
-    }
-  });
-}
+// function itemAdded(event) {
+//
+//   var itemName = $('#item-name').val();
+//   var itemCost = $('#item-cost').val();
+//   var orderId = $('#order-id').val();
+//   $.ajax({
+//     method: "post",
+//     dataType: "json",
+//     url: "/items",
+//     data: {
+//       name: itemName,
+//       cost: itemCost,
+//       order_id: orderId
+//     },
+//     success: function(response) {
+//       debugger;
+//       var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete' style='float: right; transform: translateY(-15%);'>Delete</button>"
+//       $('div#item-list').append("<p>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</p>")
+//     },
+//     error: function(response) {
+//       $('div#item-errors').html(response.responseText).show()
+//       $('div#item-errors').delay(5000).fadeOut('slow').html(response.responseText)
+//     }
+//   });
+// }
 
 function createOrderTimer() {
   var expires = $('#order-expiration').val();
@@ -134,7 +136,7 @@ function deleteItemListener() {
       method: "delete",
       url: "/items/" + id,
       success: function(response) {
-        $('li#item-' + response.id).remove();
+        $('p#item-' + response.id).remove();
       }
     });
   });
@@ -149,13 +151,14 @@ function placeOrderListener() {
       url: '/orders/' + orderId + '/place_order',
       success: function(response) {
         if (response.success) {
+
           // second ajax call to send email #1
           $.ajax({
             method: "post",
             url: "/email/" + orderId + "/placed"
           });
 
-          var button = $('button#order-create-btn');  
+          var button = $('button#order-create-btn');
           button.animate({opacity:'0'},"slow");
           button.queue(function() {
             button.html('<strong>Alert Users to Delivery?</strong>');
@@ -192,7 +195,7 @@ function alertUsersListener() {
                 console.log("User alerts sent successfully");
               })
             });
-            var button = $('button#alert-users-btn');  
+            var button = $('button#alert-users-btn');
             button.off();
             button.prop('disabled', true);
             button.attr("id", "users-alerted")
