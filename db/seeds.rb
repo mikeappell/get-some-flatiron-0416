@@ -77,10 +77,10 @@ bob_item = Item.create(name: "small white fish sushi roll", cost: 3.00, order: o
 
 
 #### note: Shmuel, Steve, JJ, Mike user profiles
-u_steve = User.create(name: "Stevie Gonazalez", username: "Sgon", venmo: "ImRich", password: "asdf", email_confirmed: true)
-u_jj = User.create(name: "JJJ Seabird", username: "JJJ", venmo: "JayJayJay", password: "asdf", email_confirmed: true)
-u_shmuel = User.create(name: "Shmwell Lambda", username: "Shmoo", venmo: "ChaChing", password: "asdf", email_confirmed: true)
-u_mike = User.create(name: "Mikall Appleseed", username: "Mikall", venmo: "ShowMeTheMoney", password: "asdf", email_confirmed: true)
+u_steve = User.create(name: "Stevie Gonazalez", username: "Sgon", venmo: "ImRich", password: "password", email_confirmed: true)
+u_jj = User.create(name: "JJJ Seabird", username: "JJJ", venmo: "JayJayJay", password: "password", email_confirmed: true)
+u_shmuel = User.create(name: "Shmwell Lambda", username: "Shmoo", venmo: "ChaChing", password: "password", email_confirmed: true)
+u_mike = User.create(name: "Mikall Appleseed", username: "Mikall", venmo: "ShowMeTheMoney", password: "password", email_confirmed: true)
 
 e_steve = EmailAddress.create(user: u_steve, organization: org_flatiron, email_address: "steven.goodstein@flatironschool.com", confirmed: true )
 e_jj = EmailAddress.create(user: u_jj, organization: org_flatiron, email_address: "jj.seymour@flatironschool.com", confirmed: true )

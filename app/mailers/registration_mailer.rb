@@ -15,7 +15,7 @@ class RegistrationMailer < ApplicationMailer
     @admin = admin
     
     mail(
-      bcc: recipients
+      bcc: recipients,
       subject: "Your Order Has Been Placed!"
     )
   end
