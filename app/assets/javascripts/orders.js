@@ -149,7 +149,8 @@ function placeOrderListener() {
       url: '/orders/' + orderId + '/place_order',
       success: function(response) {
         if (response.success) {
-          // console.log("success")
+          // Second Ajax call to send email#1
+
           var button = $('button#order-create-btn');  
           button.animate({opacity:'0'},"slow");
           button.queue(function() {
@@ -171,7 +172,31 @@ function placeOrderListener() {
 
 function alertUsersListener() {
   $('button#alert-users-btn').on('click', function() {
+    var orderId = $('#order-id').val();
+    var choice = confirm("Send email to all users?");
+    if (choice) {
+      $.ajax({
+        method: "post",
+        url: '/orders/' + orderId + '/alert_users',
+        success: function(response) {
+          // Second Ajax call to send email#2
+          var button = $('button#alert-users-btn');  
+          button.off();
+          button.prop('disabled', true);
+          button.attr("id", "users-alerted")
+          button.animate({opacity:'0'},"slow");
+          button.queue(function() {
+            button.html('<strong>You got some ;)</strong>');
+            button.removeClass();
+            button.addClass('alert alert-success')
+            button.dequeue();
+          });
+          button.animate({opacity:'1'},"slow");
+          button.animate({left:'0px'},"slow");
+        }
 
+      });
+    }
   });
 }
 

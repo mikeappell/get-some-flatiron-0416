@@ -35,6 +35,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def alert_users
+    @order = Order.find_by(id: params[:id])
+    if @order
+      @order.alerted = true
+      @order.save
+      render json: { success: true }
+    else 
+      render json: { success: false }
+    end
+  end
+
   private
 
   def set_order
