@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
     self.email_confirmed = true
     email.confirmed = true
     self.confirm_token = nil
+    save
   end
 
 end
