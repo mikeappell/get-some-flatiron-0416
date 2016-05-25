@@ -1,3 +1,5 @@
+<div class="container">
+
 <div class="col-lg-8">
   <h1>Ordering from <%= @order.restaurant.name %></h1>
   <h3>"<%= @order.description %>"</h3>
@@ -46,7 +48,7 @@
   </span>
   <span class="pull-right">
     <% if @current_user == @order.admin %>
-      <button id="order-create-btn" class="alert alert-danger"><strong>Place Order</strong></button> 
+      <button id="order-create-btn" class="alert alert-danger"><strong>Place Order</strong></button>
     <% end %>
   </span>
     <%= f.submit "GetSome!", :id => 'item-create-btn' %>
@@ -72,3 +74,4 @@
     <%= f.submit %>
     <% end %>
   </div>
+</div>
