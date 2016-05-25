@@ -2,13 +2,13 @@
 <%= render partial: 'shared/errors' %>
 <%= form_for @order do |f| %>
 
-  Organization: <%= order_organizations(f) %>
+  <%= f.hidden_field(:organization_id, value: session[:current_org].to_i) %>
   <br><br>
   <span id="time-until-expire" class="text-right">Order will be placed at:</span>
   <br><br>
   <div class="input-group">
     <span class="input-group-addon" id="sizing-addon">Select Group</span>
-    <%= f.collection_select(:group_id, @user.groups, :id, :name)%>
+    <%= f.collection_select(:group_id, @user.organizations.find_by(id: session[:current_org].to_i).groups, :id, :name)%>
   </div>
   <div class="input-group">
   <span class="input-group-addon" id="sizing-addon1">Order will close in:</span>
