@@ -35,5 +35,5 @@ Rails.application.routes.draw do
 
   post '/:order_id/confirmation' => 'send_emails#order_confirmation', as: 'order_confirmation'
 
-  # mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable'
 end
