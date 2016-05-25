@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
   end
 
   def booleans_set(email)
-    session[:current_org] = organizations.first.id if session[:current_org].nil?
     self.email_confirmed = true
     email.confirmed = true
     self.confirm_token = nil

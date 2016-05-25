@@ -23,8 +23,10 @@ module OrdersHelper
   end
 
   def placeOrderButton
-    if @order.placed
-      button_tag("Alert Users to Delivery?", id: "alert-users-btn", class: "alert alert-danger", data: { confirm: "Are you sure?" })
+    if @order.placed && @order.alerted
+      button_tag("You got some ;)", id: "users-alerted", class: "alert alert-success", disabled: true)
+    elsif @order.placed
+      button_tag("Alert Users to Delivery?", id: "alert-users-btn", class: "alert alert-danger")
     else
       button_tag("Place Order", id: "order-create-btn", class: "alert alert-danger")
     end

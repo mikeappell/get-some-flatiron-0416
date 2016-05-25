@@ -2,9 +2,9 @@
   <h1>Ordering from <%= @order.restaurant.name %></h1>
   <h3>"<%= @order.description %>"</h3>
   <br>
-  <span class="pull-right">
+  <span class="pull-right"><strong>
     <%= placeOrderButton if @current_user == @order.admin %>
-  </span>
+  </strong></span>
   <h5>Created by: <%= @order.admin.name %></h5>
   <div class='group-name'>
     <h5>Group: <%= @order.group.name %></h5>

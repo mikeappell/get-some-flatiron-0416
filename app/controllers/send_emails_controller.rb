@@ -1,35 +1,38 @@
 class SendEmailsController < ApplicationController
 
-  def order_confirmation
+  def order_placed
+    # binding.pry
     order = Order.find(params[:order_id])
     users = order.users
     organization = order.organization
     admin = order.admin
 
-    recipients = recipients(users, organization)
-    RegistrationMailer.order_placed(recipients, admin).deliver_now
+    recipient_list = recipients(users, organization)
+    RegistrationMailer.order_placed(recipient_list, admin).deliver_now
   end
 
   def order_arrived
+    # binding.pry
     order = Order.find(params[:order_id])
     users = order.users
     organization = order.organization
     admin = order.admin
 
-    recipients = recipients(users, organization)
-    RegistrationMailer.order_arrived(recipients, admin).deliver_now
+    recipient_list = recipients(users, organization)
+    RegistrationMailer.order_arrived(recipient_list, admin).deliver_now
   end
 
   private
 
-    def recipients(users, organization)
-      users.each do |user|
-        user.email_addresses do |email_address|
-          if email_address.email_address.split('@')[1] == organization.domain_name
-            recipients << email_address.email_address
-          end
+  def recipients(users, organization)
+    recipient_list = []
+    users.each do |user|
+      user.email_addresses.each do |email_address|
+        if email_address.email_address.split('@')[1] == organization.domain_name
+          recipient_list << email_address.email_address
         end
       end
-      recipients
     end
+    recipient_list
+  end
 end
