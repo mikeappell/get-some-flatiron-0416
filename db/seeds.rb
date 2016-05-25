@@ -64,6 +64,7 @@ g_chase115fifth.users << u_johnny << u_bob
 #### note: order by bob for chase bank
 r_bento_chase = Restaurant.create(name: "Bento", url: Faker::Internet.url)
 o_bento_chase = Order.create(organization: org_chasebank, date_ordered: DateTime.now, expiration: (DateTime.now + 5.hours), admin: u_bob, restaurant: r_bento_chase, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_chase115fifth, image_url: "bento-chase.jpg")
+
 bob_item = Item.create(name: "small white fish sushi roll", cost: 3.00, order: o_bento_chase, user: u_bob)
 
 
@@ -81,6 +82,9 @@ e_mike = EmailAddress.create(user: u_mike, organization: org_flatiron, email_add
 g_flatironNYC.users << u_steve << u_jj << u_shmuel << u_mike
 g_flatironBrooklyn.users << u_steve << u_jj << u_shmuel << u_mike
 
+#### test order for recent orders
+r_carvels = Restaurant.create(name: "Carvels", url: Faker::Internet.url)
+o_carvels = Order.create(organization: org_flatiron , date_ordered: (DateTime.now - 30.minutes), expiration: (DateTime.now - 1.minutes), admin: u_johnny, restaurant: r_carvels, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_flatironNYC)
 
 =begin
 names = []
