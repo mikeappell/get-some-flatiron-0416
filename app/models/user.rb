@@ -2,10 +2,9 @@ class User < ActiveRecord::Base
   include Sortable
   has_many :email_addresses
   has_many :organizations, through: :email_addresses
-  has_many :user_orders
-  has_many :orders, through: :user_orders
-  has_many :admin_orders, class_name: "Order", foreign_key: "admin_id"
   has_many :items
+  has_many :orders, through: :items
+  has_many :admin_orders, class_name: "Order", foreign_key: "admin_id"
   has_many :user_groups
   has_many :groups, through: :user_groups
   has_many :messages
@@ -16,10 +15,11 @@ class User < ActiveRecord::Base
   before_create :confirmation_token
 
   def email_activate
-    self.email_confirmed = true
-    self.email_addresses.first.confirmed = true
-    self.confirm_token = nil
-    save
+    email = self.email_addresses.last
+    organization = Organization.find_or_create_by(domain_name: email.email_address.split('@')[1] )
+
+    booleans_set(email)
+    associate(email, organization)
   end
 
   def available_groups
@@ -28,9 +28,23 @@ class User < ActiveRecord::Base
 
 
   private
+
   def confirmation_token
-       if self.confirm_token.blank?
-          self.confirm_token = SecureRandom.urlsafe_base64.to_s
-      end
+    if self.confirm_token.blank?
+      self.confirm_token = SecureRandom.urlsafe_base64.to_s
+    end
   end
+
+  def associate(email, organization)
+    email.organization = organization
+    email.save
+  end
+
+  def booleans_set(email)
+    self.email_confirmed = true
+    email.confirmed = true
+    self.confirm_token = nil
+    save
+  end
+
 end

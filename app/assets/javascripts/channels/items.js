@@ -1,4 +1,3 @@
-
 App.items = App.cable.subscriptions.create('ItemsChannel', {
   received: function(data) {
     switch (data.action) {
@@ -63,6 +62,7 @@ function checkOrderMinimum(data) {
     currentAmount.html('Current order size: ' + data.item_total);
   }
 }
+
 //  ------ below is the original code we had when we had two different channels ----
 // App.items = App.cable.subscriptions.create('ItemsChannel', {
 //   received: function(data) {

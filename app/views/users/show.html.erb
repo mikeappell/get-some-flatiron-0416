@@ -44,19 +44,16 @@
         <br>
         <div id='group-orders'>
           <ul>
-            <% @current_user.organizations.each do |organization| %>
-              <% organization.sorted_recent_orders.each do |order| %>
-              
-                <% if !order.expired? && @current_user.groups.include?(order.group) %> <!-- comment this out for testing purposes. uncomment for production-->
-                  <div class='group-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>' group-id='<%= order.group_id %>'>
-                    <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
-                    Description: <%= order.description %><br>
-                    Expires In: <%= (order.expiration - Time.current).to_i/60 %> minutes (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
-                    Reached: $<%= order.item_total %> out of $<%= order.minimum_cost.to_i %> minimum needed <br>
-                    Group: <%= order.group.name %>
-                    <%= joinOrderButton(order) %></li><br>
-                  </div>
-                <% end %>
+            <% @current_user.organizations.find_by(id: session[:current_org].to_i).sorted_recent_orders.each do |order| %>
+              <% if !order.expired? && @current_user.groups.include?(order.group) %> <!-- comment this out for testing purposes. uncomment for production-->
+                <div class='group-order' id='<%= order.id %>' organization-id='<%= order.organization_id %>' group-id='<%= order.group_id %>'>
+                  <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
+                  Description: <%= order.description %><br>
+                  Expires In: <%= (order.expiration - Time.current).to_i/60 %> minutes (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
+                  Reached: $<%= order.item_total %> out of $<%= order.minimum_cost.to_i %> minimum needed <br>
+                  Group: <%= order.group.name %>
+                  <%= joinOrderButton(order) %></li><br>
+                </div>
               <% end %>
             <% end %>
             </ul>
