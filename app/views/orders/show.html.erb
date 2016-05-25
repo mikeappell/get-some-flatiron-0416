@@ -38,10 +38,10 @@
    <%= form_for @item, remote: true do |f| %>
    <%= f.hidden_field :order_id, value: @order.id, id: "order-id" %>
    <span id='item-content-reset'>
-    Item name: <%= f.text_field :name, id: 'item-name' %>
-    Cost: <%= f.text_field :cost, id: 'item-cost' %>
+    Item name: <%= f.text_field :name, id: 'item-name', disabled: (@order.placed ? true : false) %>
+    Cost: <%= f.text_field :cost, id: 'item-cost', disabled: (@order.placed ? true : false) %>
   </span>
-  <%= f.submit "GetSome!", :id => 'item-create-btn' %>
+  <%= f.submit "GetSome!", :id => 'item-create-btn', disabled: (@order.placed ? true : false) %>
   <% end %>
 </div>
 
