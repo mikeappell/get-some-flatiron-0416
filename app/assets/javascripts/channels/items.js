@@ -13,7 +13,7 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
       case "delete-item":
       setNewAmounts(data);
       checkOrderMinimum(data);
-      return $('li#item-' + data.id).remove();
+      return $('p#item-' + data.id).remove();
       break;
     }
   },
@@ -23,15 +23,15 @@ App.items = App.cable.subscriptions.create('ItemsChannel', {
       method: "GET",
       dataType: "json",
       success: function(response) {
-        var deleteButton = "<button name='button' type='submit' id='item-delete-" + data.id + "' class='item-delete'>Delete</button>"
+        var deleteButton = "<button name='button' type='submit' id='item-delete-" + data.id + "' class='item-delete btn btn-default'>Delete</button>"
         if (data.owner === response.id) {
           $('#item-content-reset input#item-name').val('')
           $('#item-content-reset input#item-cost').val('')
-          $("div#item-list").append("<li class='list-group-item list-group-item-success' id='item-" + data.id + "''>" + data.name + " - $" + data.cost + " " + deleteButton + "</li>");
+          $("div#item-list").append("<p class='list-group-item list-group-item-success' id='item-" + data.id + "''>" + data.name + " - $" + data.cost + " " + deleteButton + "</p>");
           // This is being called from orders.js
           deleteItemListener();
         } else {
-          $("div#item-list").append("<li class='list-group-item list-group-item-info' id='item-" + data.id + "''>" + data.name + " - $" + data.cost + " (" + data.username + ")</li>");
+          $("div#item-list").append("<p class='list-group-item list-group-item-info' id='item-" + data.id + "''>" + data.name + " - $" + data.cost + " (" + data.username + ")</p>");
         }
       }
     });

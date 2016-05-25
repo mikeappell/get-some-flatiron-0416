@@ -80,7 +80,7 @@ function itemAdded(event) {
     },
     success: function(response) {
       var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete'>Delete</button>"
-      $('div#item-list').append("<li>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</li>")
+      $('div#item-list').append("<p>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</p>")
     },
     error: function(response) {
       $('div#item-errors').html(response.responseText).show()
@@ -135,7 +135,7 @@ function deleteItemListener() {
       method: "delete",
       url: "/items/" + id,
       success: function(response) {
-        $('li#item-' + response.id).remove();
+        $('p#item-' + response.id).remove();
       }
     });
   });
