@@ -33,9 +33,12 @@ Rails.application.routes.draw do
 
   get '/groups/:organization_id' => 'groups#organization_groups'
 
-  post '/:order_id/confirmation' => 'send_emails#order_confirmation', as: 'order_confirmation'
+  #Order officially place: send email
+  post '/:order_id/confirmation' => 'send_emails#order_confirmation', as: 'order_confirmation_email'
+  #Order arrived: send email
+  post '/:order_id/arrived' => 'send_emails#order_confirmation', as: "order_placed_email"
 
   post '/orders/:id/place_order' => 'orders#place_order', as: 'place_order'
-  
+
   mount ActionCable.server => '/cable'
 end
