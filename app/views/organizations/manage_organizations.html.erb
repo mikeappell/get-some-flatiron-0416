@@ -10,32 +10,33 @@
             <div class="row">
               <div class="col-lg-6">
 
-                <% if !@user_organizations.empty? %>
-                <div class="thumbnail">
-                   <div class="caption text-center">
-                      <% @user_organizations.each do |organization| %>
-                      <div class="domain-group">
-                        <h4 class="domains">@<%= organization.domain_name %></h4>
-                        <% organization.groups.each do |group| %>
-                          <% if group.users.include?(@current_user) %>
-                            <h4 class="groups"><%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) <%= check_box_tag 'member', group.id, true , class: 'member' %></h4>
-                          <% else %>
-                            <h4 class="groups"><%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) <%= check_box_tag 'member', group.id, false , class: 'member' %></h4>
+                <% unless @current_org.groups.empty? %>
+                  <div class="thumbnail">
+                     <div class="caption text-center">
+                        <% @user_organizations.each do |organization| %>
+                        <div class="domain-group">
+                          <h4 class="domains">@<%= organization.domain_name %></h4>
+                          <% organization.groups.each do |group| %>
+                            <% if group.users.include?(@current_user) %>
+                              <h4 class="groups"><%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) <%= check_box_tag 'member', group.id, true , class: 'member' %></h4>
+                            <% else %>
+                              <h4 class="groups"><%= group.name %> (Members: <span class="member_count"><%= group.users.length %></span>) <%= check_box_tag 'member', group.id, false , class: 'member' %></h4>
+                            <% end %>
                           <% end %>
-                        <% end %>
-                        <br>
+                          <br>
+                        </div>
+                          <% end %>
+                          <p class="text-right">
+                            <%= link_to "Create a Group", new_group_path, class: "btn btn-default" %>
+                          </p>
                       </div>
-                        <% end %>
-                        <p class="text-right">
-                          <%= link_to "Create a Group", new_group_path, class: "btn btn-default" %>
-                        </p>
                     </div>
-                  </div>
 
                 <% else %>
-                <h1>Please Create a Group!!</h1>
-                <br>
-                <%= link_to "Create a Group", new_group_path, class: "btn btn-default" %>
+                  <h1>Please Create a Group!!</h1>
+                  <h3>Your organization currently has no groups</h3>
+                  <br>
+                  <%= link_to "Create a Group", new_group_path, class: "btn btn-default" %>
                 <% end %>
               </div>
 
