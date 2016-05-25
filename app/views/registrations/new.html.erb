@@ -1,32 +1,60 @@
 <div class="container">
+  <div class="form-horizontal">
+    <h1 class="text-center" style="font-size: 350%;">Create your account</h1>
 
-<h1>Create your account</h1>
+    <%= render 'shared/errors' %>
 
-<%= render 'shared/errors' %>
+    <%= form_for @user do |f| %>
 
-<%= form_for @user do |f| %>
+      <div class="form-group">
+        <strong><%= f.label :username, class: "col-lg-2 control-label" %></strong>
+        <div class="col-lg-10">
+          <%= f.text_field :username, class: "form-control", id: "inputEmail", placeholder: "Username" %>
+        </div>
+      </div>
 
-  <%= f.label :username %>
-  <%= f.text_field :username %>
-  <br>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <br>
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
-  <br>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <br>
-  <%= f.fields_for :email_addresses do |email| %>
-    <%= email.label :email_address %>
-    <%= email.text_field :email_address %>
-  <% end %>
-  <br>
-  <%= f.label :venmo %>
-  <%= f.text_field :venmo %>
-  <br>
-  <%= f.submit "Create Account" %>
+      <div class="form-group">
+        <%= f.label :password, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.password_field :password, class: "form-control", id: "inputPassword", placeholder: "Password" %>
+        </div>
+      </div>
 
-<% end %>
+      <div class="form-group">
+        <%= f.label :password_confirmation, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.password_field :password_confirmation, class: "form-control", id: "inputPassword", placeholder: "Confirm Password" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :name, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.text_field :name, class: "form-control", id: "inputEmail", placeholder: "Name" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.fields_for :email_addresses do |email| %>
+          <%= email.label :email_address, class: "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= email.text_field :email_address, class: "form-control", id: "inputEmail", placeholder: "Email" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :venmo, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.text_field :venmo, class: "form-control", id: "inputEmail", placeholder: "Venmo" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= f.submit "Create Account", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
