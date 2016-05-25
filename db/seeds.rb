@@ -11,7 +11,7 @@ u5 = User.create(name: names.pop, username: "Roxanna", venmo: "FoxyRoxy", passwo
 
 
 u_johnny = User.create(name: "John Apple", username: "appleseed", venmo: "mrApple", password: "password", email_confirmed: true)
-org_flatiron = Organization.create(domain_name: "flatironschool.com", address: "11 Broadway")
+org_flatiron = Organization.create(domain_name: "flatironschool.com")
 e_johnny = EmailAddress.create(user: u_johnny, organization: org_flatiron, email_address: "johnny@flatironschool.com", confirmed: true)
 
 u_george = User.create(name: "George Mason", username: "georgeofjungle", venmo: "JungleBoy", password: "password", email_confirmed: true)
@@ -27,10 +27,10 @@ u_james = User.create(name: "James Bond", username: "doubleoh7", venmo: "007", p
 e_james = EmailAddress.create(user: u_james, organization: org_flatiron, email_address: "james@flatironschool.com", confirmed: true)
 
 #### groups for flatiron organization
-g_flatironNYC = Group.create(name: "FlatironNYC", organization: org_flatiron)
+g_flatironNYC = Group.create(name: "Flatiron NYC", organization: org_flatiron)
 g_flatironNYC.users << u_johnny << u_george << u_cindy << u_camille << u_james
 
-g_flatironBrooklyn = Group.create(name: "FlatironBrooklyn", organization: org_flatiron)
+g_flatironBrooklyn = Group.create(name: "Flatiron Brooklyn", organization: org_flatiron)
 g_flatironBrooklyn.users << u_johnny << u_camille << u_james
 
 ####note: order by johnny for flatiron school NYC--
@@ -60,7 +60,7 @@ james_item = Item.create(name: "small fried chicken", cost: 5.00, order: o_kfc, 
 camille_item = Item.create(name: "large fountain diet coke", cost: 3.00, order: o_kfc, user: u_camille)
 
 ###note: new org: chase bank
-org_chasebank = Organization.create(domain_name: "chase.com", address: "115 Fifth Avenue")
+org_chasebank = Organization.create(domain_name: "chase.com")
 e_johnny_chase = EmailAddress.create(user: u_johnny, organization: org_chasebank, email_address: "johnny@chase.com", confirmed: true)
 
 u_bob = User.create(name: "Bob Bob", username: "bobby", venmo: "bobbybob", password: "password", email_confirmed: true)
@@ -75,6 +75,20 @@ r_bento_chase = Restaurant.create(name: "Bento", url: Faker::Internet.url)
 o_bento_chase = Order.create(organization: org_chasebank, date_ordered: DateTime.now, expiration: (DateTime.now + 5.hours), admin: u_bob, restaurant: r_bento_chase, description: Faker::Hipster.sentence, minimum_cost: 30, group: g_chase115fifth)
 bob_item = Item.create(name: "small white fish sushi roll", cost: 3.00, order: o_bento_chase, user: u_bob)
 
+
+#### note: Shmuel, Steve, JJ, Mike user profiles
+u_steve = User.create(name: "Stevie Gonazalez", username: "Sgon", venmo: "ImRich", password: "asdf", email_confirmed: true)
+u_jj = User.create(name: "JJJ Seabird", username: "JJJ", venmo: "JayJayJay", password: "asdf", email_confirmed: true)
+u_shmuel = User.create(name: "Shmwell Lambda", username: "Shmoo", venmo: "ChaChing", password: "asdf", email_confirmed: true)
+u_mike = User.create(name: "Mikall Appleseed", username: "Mikall", venmo: "ShowMeTheMoney", password: "asdf", email_confirmed: true)
+
+e_steve = EmailAddress.create(user: u_steve, organization: org_flatiron, email_address: "steven.goodstein@flatironschool.com", confirmed: true )
+e_jj = EmailAddress.create(user: u_jj, organization: org_flatiron, email_address: "jj.seymour@flatironschool.com", confirmed: true )
+e_shmuel = EmailAddress.create(user: u_shmuel, organization: org_flatiron, email_address: "samuel.lamm@flatironschool.com", confirmed: true )
+e_mike = EmailAddress.create(user: u_mike, organization: org_flatiron, email_address: "michael.alpert-appell@flatironschool.com", confirmed: true )
+
+g_flatironNYC.users << u_steve << u_jj << u_shmuel << u_mike
+g_flatironBrooklyn.users << u_steve << u_jj << u_shmuel << u_mike
 =begin
 
 
