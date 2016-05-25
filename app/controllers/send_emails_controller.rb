@@ -27,7 +27,7 @@ class SendEmailsController < ApplicationController
   def recipients(users, organization)
     recipient_list = []
     users.each do |user|
-      user.email_addresses do |email_address|
+      user.email_addresses.each do |email_address|
         if email_address.email_address.split('@')[1] == organization.domain_name
           recipient_list << email_address.email_address
         end

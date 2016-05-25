@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
-    session[:current_org] ||= @current_user.organizations.first.id
+    # session[:current_org] ||= @current_user.organizations.first.id
     if @current_user.nil? && session[:user_id]
       session[:user_id] = nil
       redirect_to login_path
