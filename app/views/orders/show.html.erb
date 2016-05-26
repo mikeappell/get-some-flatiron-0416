@@ -21,7 +21,7 @@
             <div class='well' style="background-color: rgba(243,243,243,0.6); padding-top: 6px;">
 
                   <%= placeOrderButton if @current_user == @order.admin %>
-                <h4 class="pull-right">Order will be placed at <%= (@order.expiration + Time.now).strftime('%l:%M %p') %>
+                <h4 class="pull-right">Order will be placed at <%= (@order.expiration).strftime('%l:%M %p') %>
                 </h4>
 
 
@@ -42,8 +42,7 @@
              </div>
 
              <br>
-
-             <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.now).round) %>
+             <%= hidden_field_tag "order-expiration", ((@order.expiration - Time.current).round) %>
 
              <h3 id="time-remaining-timer"></h3></div>
 
