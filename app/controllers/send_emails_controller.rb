@@ -1,7 +1,6 @@
 class SendEmailsController < ApplicationController
 
   def order_placed
-    # binding.pry
     order = Order.find(params[:order_id])
     users = order.users
     organization = order.organization
@@ -12,7 +11,6 @@ class SendEmailsController < ApplicationController
   end
 
   def order_arrived
-    # binding.pry
     order = Order.find(params[:order_id])
     users = order.users
     organization = order.organization
