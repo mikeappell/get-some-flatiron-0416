@@ -1,8 +1,6 @@
 $(document).on('ready', function() {
-  // setOrganizationToDefault()
-  onOrganizationSelect()
+  handleNavChange()
   onGroupSelect()
-  // onOrderCreate()
 })
 
 function onGroupSelect() {
@@ -24,25 +22,27 @@ function onGroupSelect() {
   })
 }
 
-$(".dropdown-menu.organizations").on("ajax:success",function(data, status, xhr){
-  var pageUrl = document.URL
-  var string = status.organization + '<span class="caret"></span>'
-  $('#dropdownMenu1').html(string)
+function handleNavChange() {
+  $(".dropdown-menu.organizations").on("ajax:success",function(data, status, xhr){
+    var pageUrl = document.URL
+    var string = status.organization + '<span class="caret"></span>'
+    $('#dropdownMenu1').html(string)
 
-  if (pageUrl.match(/users/)) {
-    location.reload()
-  } else {
-
-    var pageDomain = status.organization
-    $('.domains').each(function(index) {
-      var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
-      if (domainName === pageDomain) {
-        $('.domain-group').hide()
-        $(this).parent().show()
-      }
-    })
-  }
-})
+    debugger;
+    if (pageUrl.match(/users\/\d+$/)) {
+      location.reload()
+    } else if (pageUrl.match(/organizations$/)) {
+      var pageDomain = status.organization
+      $('.domains').each(function(index) {
+        var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
+        if (domainName === pageDomain) {
+          $('.domain-group').hide()
+          $(this).parent().show()
+        }
+      })
+    }
+  })
+}
 
 function onOrganizationSelect() {
   var select = $('#user_organization_ids')
@@ -59,6 +59,7 @@ function onOrganizationSelect() {
           htmlString += '<option value="' + group.id + '">' + group.name + '</option>'
         })
         $('#user_group_ids').html(htmlString)
+        location.reload()
     	}
     })
   })
