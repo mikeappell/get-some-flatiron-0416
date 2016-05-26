@@ -35,8 +35,9 @@
                   <% @current_user.organizations.find_by(id: session[:current_org].to_i).org_sorted_recent_orders.each do |order| %>
                     <% if order.order_you_can_join?(@current_user) %> <!-- comment this out for testing purposes. uncomment for production-->
                       <div class="card film art isotope-item">
-                        <a href="portfolio-item.html" class="thumb">
-                          <%= image_tag "panini.jpeg" %>
+                        <!-- <a href="portfolio-item.html" class="thumb"> -->
+                        <%= link_to (image_tag "panini.jpeg"), order_path(order), class: "thumb" %>
+                          <%#= image_tag "panini.jpeg" %>
                           <span class="overlay"><span class="fa fa-search"></span></span>
                         </a>
 
@@ -63,8 +64,9 @@
             <div id='my-orders card film art isotope-item' style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">
                 <% @current_user.user_sorted_recent_orders.each do |order| %>
                 <div class="card film art isotope-item">
-                  <a href="portfolio-item.html" class="thumb">
-                    <%= image_tag "panini.jpeg" %>
+                  <!-- <a href="portfolio-item.html" class="thumb"> -->
+                  <%= link_to (image_tag "panini.jpeg"), order_path(order), class: "thumb" %>
+                    <%#= image_tag "panini.jpeg" %>
                     <span class="overlay"><span class="fa fa-search"></span></span>
                   </a>
 
