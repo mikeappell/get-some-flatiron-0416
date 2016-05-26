@@ -68,7 +68,7 @@ function hideNShowOnSwitch() {
           var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
           if (domainName === pageDomain) {
             $('.domain-group').hide()
-            $(this).parent().show()
+            $(this).parent().show(500)
           }
         })
       }
