@@ -1,6 +1,7 @@
 App.items = App.cable.subscriptions.create('ItemsChannel', {
   received: function(data) {
     switch (data.action) {
+      // data already being sent here multiple times
       case "add-message":
       $("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
       return $(data.element).append("<p> <b>" + data.user + ": </b>" + data.message + "</p>");
