@@ -19,7 +19,8 @@
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">
               <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :domain_name, { selected: session[:current_org] }, {class: "btn selectpicker show-menu-arrow"}) %>
-            <span class="caret"></span></a>
+            <span class="caret"></span>
+            </a>
           </li>
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
