@@ -52,7 +52,6 @@
                 <div class='user-order-<%= order.expired? ? 'expired' : 'active' %>' id='<%= order.id %>'>
                   <li><strong>Restaurant: <%= order.restaurant.name %></strong><br>
                     <% if order.expired? %>
-                    <%= binding.pry %>
                       <b>EXPIRED <%= distance_of_time_in_words((order.expiration - Time.current).to_i) %> ago</b><br>
                     <% end %>
                     Description: <%= order.description %><br>
