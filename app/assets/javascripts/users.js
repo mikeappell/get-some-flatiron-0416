@@ -1,5 +1,4 @@
 $(document).on('ready', function() {
-  handleNavChange()
   onGroupSelect()
 })
 
@@ -22,41 +21,7 @@ function onGroupSelect() {
   })
 }
 
-function handleNavChange() {
-  $(".dropdown-menu.organizations").on("ajax:success",function(data, response, xhr){
-    var pageUrl = document.URL
-    var string = response.organization + '<span class="caret"></span>'
-    $('#dropdownMenu1').html(string)
 
-    if (pageUrl.match(/users\/\d+$/)) {
-      userPageNav(response)
-    } else if (pageUrl.match(/organizations$/)) {
-      groupPageNav(response)
-    }
-  })
-}
-
-function groupPageNav(response) {
-  var pageDomain = response.organization
-  $('.domains').each(function(index) {
-    var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
-    if (domainName === pageDomain) {
-      $('.domain-group').hide()
-      $(this).parent().show()
-    }
-  })
-}
-
-function userPageNav(response) {
-    var htmlString = '<option value="">All Groups</option>'
-
-    $.each(response.groups, function(index, group) {
-      htmlString += '<option value="' + group.id + '">' + group.name + '</option>'
-    })
-
-    $('#user_group_ids').html(htmlString)
-    location.reload()
-}
 
 // function onOrganizationSelect() {
 //   var select = $('#user_organization_ids')
