@@ -32,9 +32,9 @@
             <div class="portfolio-wrapper isotope" style="position: relative; overflow: hidden; height: 1960px;">
               <% @current_user.organizations.each do |organization| %>
                 <div id='group-orders card film art isotope-item' style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">
-                <%= puts "session: #{session[:current_org]}" %>
+                <%= puts "session: #{session[:current_org].nil?}" %>
                   <%= puts "current user org: #{@current_user.organizations.find_by(id: session[:current_org]).to_i}"; %>
-                   <%=  puts "current user orgs: #{@current_user.organizations}"; %>
+                   <%=  puts "current user orgs: #{@current_user.organizations.map{|i|i.name}}"; %>
                   <% @current_user.organizations.find_by(id: @current_org.to_i).org_sorted_recent_orders.each do |order| %>
                     <% if order.order_you_can_join?(@current_user) %> <!-- comment this out for testing purposes. uncomment for production-->
                       <div class="card film art isotope-item">
