@@ -7,7 +7,6 @@ function onGroupSelect() {
   $('div#group-select').on('change', function(e) {
     var selected = $('select#user_group_ids').val()
     var all_orders = $('.group-order')
-
     if (selected === "") {
       all_orders.show(500)
     } else {
