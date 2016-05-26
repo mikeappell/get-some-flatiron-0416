@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   def set_default_organization
     if @current_user
       session[:current_org] ||= @current_user.organizations.first.id
+      @current_org ||= session[:current_org]
     end
   end
 
