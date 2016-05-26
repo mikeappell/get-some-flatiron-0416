@@ -1,7 +1,6 @@
 $(document).ready(function() {
   switchToggle()
   hideNShowOrg()
-  hideNShowOnSwitch()
 })
 
 
@@ -52,6 +51,8 @@ function hideNShowOrg() {
   })
 }
 
+
+
 function hideNShowOnSwitch() {
   var select = $('#user_organization_ids')
   select.on('change', function() {
@@ -67,7 +68,7 @@ function hideNShowOnSwitch() {
           var domainName = $($('.domains')[index]).html().split(" ")[0].slice(1)
           if (domainName === pageDomain) {
             $('.domain-group').hide()
-            $(this).parent().show()
+            $(this).parent().show(500)
           }
         })
       }

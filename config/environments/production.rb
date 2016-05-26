@@ -43,6 +43,8 @@ Rails.application.configure do
   # Don't mount Action Cable in the main server process.
   # config.action_cable.mount_path = nil
 
+  config.assets.paths << Rails.root.join("app", "assets", "images")
+  
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 

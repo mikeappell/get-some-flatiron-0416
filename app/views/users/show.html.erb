@@ -33,14 +33,14 @@
                 <div id='group-orders card film art isotope-item' style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">
                   <% @current_user.organizations.find_by(id: session[:current_org].to_i).org_sorted_recent_orders.each do |order| %>
                     <% if order.order_you_can_join?(@current_user) %> <!-- comment this out for testing purposes. uncomment for production-->
-                      <div class="card film art isotope-item">
+                      <div class="card film art isotope-item group-order" group-id='<%= order.group_id %>'>
                         <!-- <a href="portfolio-item.html" class="thumb"> -->
                         <%= link_to (image_tag order.image_url), order_path(order), class: "thumb" %>
                           <%#= image_tag "panini.jpeg" %>
                           <span class="overlay"><span class="fa fa-search"></span></span>
                         </a>
 
-                        <div class="card-body group-order" id='<%= order.id %>' organization-id='<%= order.organization_id %>' group-id='<%= order.group_id %>'>
+                        <div class="card-body" id='<%= order.id %>' organization-id='<%= order.organization_id %>' >
                           <strong>Restaurant: <%= order.restaurant.name %></strong><br>
                           Description: <%= order.description %><br>
                           Expires In: <%= distance_of_time_in_words((order.expiration - Time.current).to_i) %> (<%= order.expiration.strftime("%b %e at %l:%M %p ") %>)<br>
