@@ -20,6 +20,9 @@ class ApplicationController < ActionController::Base
     # puts "Current user is: " + @current_user.name
     # puts "Session is: " + session[:current_org].to_s
       session[:current_org] ||= @current_user.organizations.first.id
+      puts "In Application Controller"
+      puts "Current organization: #{session[:current_org]}"
+      puts "And: #{@current_user.organizations.find_by(id: session[:current_org].to_i)}"
       # @current_org ||= session[:current_org]
     end
   end
