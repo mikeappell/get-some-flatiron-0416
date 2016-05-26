@@ -1,16 +1,28 @@
 <div class="container">
+  <div class="form-horizontal">
+    <h1 class="text-center" style="font-size: 350%;">Create a new group</h1>
 
-<h1>Create a new group</h1>
+      <%= form_for @group do |f| %>
 
-<%= form_for @group do |f| %>
+        <div class="form-group">
+          <label class="col-lg-2 control-label"> Domain: </label>
+            <div class="col-lg-10">
+                <%= f.collection_select :organization_id, @organizations, :id, :domain_name %>
+            </div>
+        </div>
 
-  Domain:
-  <%= f.collection_select :organization_id, @organizations, :id, :domain_name %>
-  <br>
-  <br>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <br>
-  <%= f.submit %>
-<% end %>
+          <div class="form-group">
+            <div class="col-lg-2 control-label"><%= f.label :name %></div>
+              <div class="col-lg-10">
+                <%= f.text_field :name, class: "form-control", placeholder: "Group Name" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+              <%= f.submit "Create a Group", class: "btn btn-default" %>
+            </div>
+          </div>
+    <% end %>
+  </div>
 </div>
