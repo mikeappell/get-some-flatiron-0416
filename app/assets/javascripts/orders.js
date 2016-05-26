@@ -117,11 +117,13 @@ function setItemTimeToOrder(expires) {
 }
 
 function secondsToTimeString(seconds) {
-  // var hours = Math.floor(seconds / (60*60));
+  var hours = Math.floor(seconds / (60*60));
   var minutes = Math.floor(seconds / 60) % 60;
   seconds %= 60;
   if (seconds < 10) seconds = "0" + seconds;
-  if (minutes >= 5) {
+  if (hours > 0) {
+    return hours + " hours, " + minutes + " minutes";
+  } else if (minutes >= 5) {
     return minutes + " minutes";
   } else {
     return minutes + ":" + seconds;
