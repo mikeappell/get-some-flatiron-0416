@@ -57,38 +57,6 @@ function formatTimeStr(){
   return timeStr
 }
 
-// function itemAddedListener() {
-//   $('#item-create-btn').on('click', function(event) {
-//     event.preventDefault();
-//     itemAdded(event);
-//   });
-// }
-
-// function itemAdded(event) {
-//
-//   var itemName = $('#item-name').val();
-//   var itemCost = $('#item-cost').val();
-//   var orderId = $('#order-id').val();
-//   $.ajax({
-//     method: "post",
-//     dataType: "json",
-//     url: "/items",
-//     data: {
-//       name: itemName,
-//       cost: itemCost,
-//       order_id: orderId
-//     },
-//     success: function(response) {
-//       debugger;
-//       var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete' style='float: right; transform: translateY(-15%);'>Delete</button>"
-//       $('div#item-list').append("<p>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</p>")
-//     },
-//     error: function(response) {
-//       $('div#item-errors').html(response.responseText).show()
-//       $('div#item-errors').delay(5000).fadeOut('slow').html(response.responseText)
-//     }
-//   });
-// }
 
 function createOrderTimer() {
   var expires = $('#order-expiration').val();
@@ -223,3 +191,37 @@ function disableItemElements() {
   $('input#item-create-btn').prop('disabled', true);
   $("button.item-delete").remove();
 }
+
+
+// function itemAddedListener() {
+//   $('#item-create-btn').on('click', function(event) {
+//     event.preventDefault();
+//     itemAdded(event);
+//   });
+// }
+
+// function itemAdded(event) {
+//
+//   var itemName = $('#item-name').val();
+//   var itemCost = $('#item-cost').val();
+//   var orderId = $('#order-id').val();
+//   $.ajax({
+//     method: "post",
+//     dataType: "json",
+//     url: "/items",
+//     data: {
+//       name: itemName,
+//       cost: itemCost,
+//       order_id: orderId
+//     },
+//     success: function(response) {
+//       debugger;
+//       var deleteButton = "<button name='button' type='submit' id='item-delete-" + response.item_id + " class='item-delete' style='float: right; transform: translateY(-15%);'>Delete</button>"
+//       $('div#item-list').append("<p>" + response.item_name + " - $" + response.item_cost + " " + deleteButton + "</p>")
+//     },
+//     error: function(response) {
+//       $('div#item-errors').html(response.responseText).show()
+//       $('div#item-errors').delay(5000).fadeOut('slow').html(response.responseText)
+//     }
+//   });
+// }
