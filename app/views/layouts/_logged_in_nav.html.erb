@@ -9,18 +9,24 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
 
-      <!-- <a class="navbar-brand" href="#">Get Some</a> -->
-      <!-- <span style="padding-right: 15px;"><%#= image_tag "logo.jpeg", width: '150', height: '50'%></span> -->
+
     <div class="collapse navbar-collapse">
       <ul class="nav nav-pills">
         <li><%= link_to "Orders", @current_user%></li>
         <li><%= link_to "Organizations", manage_organizations_path(@current_user.username) %></li>
         <ul class="nav nav-tabs pull-right">
+
+
           <li role="presentation" class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">
-              <%= collection_select(:user, :organization_ids, @current_user.organizations, :id, :domain_name, { selected: session[:current_org] }, {class: "btn selectpicker show-menu-arrow"}) %>
-            <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <%= Organization.find(session[:current_org]).domain_name %><span class="caret"></span></a>
+              <ul class="dropdown-menu organizations">
+                <% @current_user.organizations.each do |org| %>
+                <li><%= link_to org.domain_name, "/groups/#{org.id}", remote: true  %></li>
+                <% end %>
+              </ul>
           </li>
+
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                <%= @current_user.name%> <span class="caret"></span></a>

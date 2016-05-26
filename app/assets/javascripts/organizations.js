@@ -52,6 +52,8 @@ function hideNShowOrg() {
   })
 }
 
+
+
 function hideNShowOnSwitch() {
   var select = $('#user_organization_ids')
   select.on('change', function() {
