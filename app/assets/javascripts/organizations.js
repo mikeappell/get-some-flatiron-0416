@@ -1,7 +1,6 @@
 $(document).ready(function() {
   switchToggle()
   hideNShowOrg()
-  hideNShowOnSwitch()
 })
 
 
