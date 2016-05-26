@@ -1,7 +1,6 @@
 class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
-    # message hits here once but prints out twice. issue not here. 
     if @message.save
       ActionCable.server.broadcast 'items',
         message: @message.content,
