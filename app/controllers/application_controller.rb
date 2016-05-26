@@ -16,8 +16,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_default_organization
-    puts @current_user
     if @current_user
+    puts "Current user is: " + @current_user.name
+    puts "Session is: " + session[:current_org]
       session[:current_org] ||= @current_user.organizations.first.id
       @current_org ||= session[:current_org]
     end
