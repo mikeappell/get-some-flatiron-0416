@@ -13,10 +13,15 @@ class Order < ActiveRecord::Base
   validates :restaurant, presence: true
   # validates :group_id, presence: true
 
+  def self.seed_image 
+    image_array = Dir["app/assets/images/*"].select {|image| image.include?("order-image")}
+    select_random_image = /.+\/(.+)/.match(image_array[rand(image_array.size)])[1]
+  end
+
   def random_image
     image_array = Dir["app/assets/images/*"].select {|image| image.include?("order-image")}
-    random_image = /.+\/(.+)/.match(image_array[rand(image_array.size)])[1]
-    self.image_url = random_image
+    select_random_image = /.+\/(.+)/.match(image_array[rand(image_array.size)])[1]
+    self.image_url = select_random_image
   end
   def expired?
     (Time.zone.now - expiration) > 0
