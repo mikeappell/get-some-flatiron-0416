@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="form-horizontal">
     <h1 class="text-center" style="font-size: 350%;">Create your Order</h1>
@@ -5,22 +6,8 @@
     <%= render partial: 'shared/errors' %>
 
     <%= form_for @order do |f| %>
-
-      <div class="form-group">
-        <label class="col-lg-2 control-label"> Organization: </label>
-        <% if @current_user.organizations.count == 1 %>
-          <div class="col-lg-10">
-            <div class="form-control">
-              <%= order_organizations(f) %>
-            </div>
-          </div>
-          <% else %>
-          <div class="col-lg-10">
-            <%= order_organizations(f) %>
-          </div>
-          <% end %>
-      </div>
-
+      <%= f.hidden_field(:organization_id, value: session[:current_org].to_i) %>
+    
       <div class="form-group">
         <label class="col-lg-2 control-label">Order will be placed at:</label>
             <div class="col-lg-10">
@@ -34,7 +21,7 @@
         <label for="select" class="col-lg-2 control-label">Select Group</label>
           <div class="col-lg-10">
             <div id="select">
-              <%= f.collection_select :group_id, @user.groups, :id, :name, {class: "btn btn-default"} %>
+              <%= f.collection_select :group_id, @user.organizations.find_by(id: session[:current_org].to_i).groups, :id, :name, {class: "btn btn-default"} %>
             </div>
           </div>
       </div>
