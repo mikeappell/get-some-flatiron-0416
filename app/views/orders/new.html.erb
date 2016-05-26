@@ -7,20 +7,11 @@
 
     <%= form_for @order do |f| %>
       <%= f.hidden_field(:organization_id, value: session[:current_org].to_i) %>
-    
-      <div class="form-group">
-        <label class="col-lg-2 control-label">Order will be placed at:</label>
-            <div class="col-lg-10">
-              <div class="form-control" id="time-until-expire" placeholder="<%= DateTime.now %>">
-
-              </div>
-            </div>
-      </div>
 
       <div class="form-group">
         <label for="select" class="col-lg-2 control-label">Select Group</label>
           <div class="col-lg-10">
-            <div id="select">
+            <div id="select" style="transform: translateY(7px)">
               <%= f.collection_select :group_id, @user.organizations.find_by(id: session[:current_org].to_i).groups, :id, :name, {class: "btn btn-default"} %>
             </div>
           </div>
@@ -31,6 +22,15 @@
           <div class="col-lg-10">
               <%= f.number_field :expiration, id: "expiration-time", class: "form-control", placeholder: "Minutes until close" %>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Order will be placed at:</label>
+            <div class="col-lg-10"><strong>
+              <div id="time-until-expire" style="transform: translateY(10px); position:relative; right:-5px;" placeholder="<%= DateTime.now %>">
+
+              </div></strong>
+            </div>
       </div>
 
       <div class="form-group">

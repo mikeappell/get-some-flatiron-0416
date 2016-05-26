@@ -52,17 +52,33 @@
               <span id='item-content-reset'>
                 <div class="form-group">
                 <label for="name" class="control-label col-lg-1">Item: </label>
-                  <span class="col-lg-5"><%= f.text_field :name, id: 'item-name', class: "form-control", placeholder: "Item" %></span>
+                  <span class="col-lg-5">
+                  <% if @order.placed || @order.alerted %>
+                  <%= f.text_field :name, id: 'item-name', class: "form-control", placeholder: "Item", disabled: true %>
+                    <% else %>
+                    <%= f.text_field :name, id: 'item-name', class: "form-control", placeholder: "Item" %>
+                    <% end %>
+                  </span>
                 </div>
 
                 <div class="form-group">
                 <label for="cost" class="control-label col-lg-1">Cost: </label>
-                  <span class="col-lg-3"><%= f.text_field :cost, id: 'item-cost', class: "form-control", placeholder: "Cost" %></span>
+                  <span class="col-lg-3">
+                  <% if @order.placed || @order.alerted %>
+                  <%= f.text_field :cost, id: 'item-cost', class: "form-control", placeholder: "Cost", disabled: true %>
+                  <% else %>
+                  <%= f.text_field :cost, id: 'item-cost', class: "form-control", placeholder: "Cost" %>
+                  <% end %>
+                  </span>
                 </div>
               </span>
 
               <div class="col-lg-2">
+              <% if @order.placed || @order.alerted %>
+                <%= f.submit "GetSome!", :id => 'item-create-btn', class: "btn btn-primary", disabled: true if @order.placed || @order.alerted %>
+                <% else %>
                 <%= f.submit "GetSome!", :id => 'item-create-btn', class: "btn btn-primary" %>
+                <% end %>
               </div>
             <% end %>
           </div>
