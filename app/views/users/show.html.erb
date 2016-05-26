@@ -35,7 +35,7 @@
                     <% if order.order_you_can_join?(@current_user) %> <!-- comment this out for testing purposes. uncomment for production-->
                       <div class="card film art isotope-item">
                         <!-- <a href="portfolio-item.html" class="thumb"> -->
-                        <%= link_to (image_tag "panini.jpeg"), order_path(order), class: "thumb" %>
+                        <%= link_to (image_tag "panini.jpg"), order_path(order), class: "thumb" %>
                           <%#= image_tag "panini.jpeg" %>
                           <span class="overlay"><span class="fa fa-search"></span></span>
                         </a>
@@ -63,7 +63,7 @@
                 <% @current_user.user_sorted_recent_orders.each do |order| %>
                 <div class="card film art isotope-item">
                   <!-- <a href="portfolio-item.html" class="thumb"> -->
-                  <%= link_to (image_tag "panini.jpeg"), order_path(order), class: "thumb" %>
+                  <%= link_to (image_tag "panini.jpg"), order_path(order), class: "thumb" %>
                     <%#= image_tag "panini.jpeg" %>
                     <span class="overlay"><span class="fa fa-search"></span></span>
                   </a>
