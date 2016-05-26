@@ -43,7 +43,7 @@
 ****************************************************/
 body {
   font-family: 'PT Sans', Helvetica, Arial, ans-serif;
-  background: image-url(bg.jpg) 0 0 repeat #efefef;
+  background: image-url("bg.jpg") 0 0 repeat #efefef;
   color: #555;
 }
 a {
@@ -2003,7 +2003,7 @@ label.radio span {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: image-url(checkbox-2x.png) -90px 0 no-repeat;
+  background: image-url("checkbox-2x.png") -90px 0 no-repeat;
   background-size: 110px 110px;
 }
 label.checkbox input[type="radio"]:checked + span,
@@ -2027,7 +2027,7 @@ label.radio input[type="checkbox"]:disabled:checked + span {
   cursor: not-allowed;
 }
 label.radio span {
-  background-image: image-url(radio-2x.png);
+  background-image: image-url("radio-2x.png");
 }
 label.checkbox:hover,
 label.radio:hover {
@@ -2059,12 +2059,12 @@ label.checkbox.inline {
 .checkbox .icon,
 .checkbox .icon-to-fade {
   top: 0;
-  background-image: image-url(checkbox.png);
+  background-image: image-url("checkbox.png");
 }
 .radio .icon,
 .radio .icon-to-fade {
   top: 0;
-  background-image: image-url(radio.png);
+  background-image: image-url("radio.png");
 }
 .help-block,
 .help-inline {
@@ -2112,7 +2112,7 @@ label.checkbox.inline {
 .toggle label.toggle-radio {
   line-height: 21px;
   color: #fff;
-  background-image: image-url(icon-on.png);
+  background-image: image-url("icon-on.png");
 }
 .toggle.toggle-off {
   background: #cbd2d8;
@@ -2123,13 +2123,13 @@ label.checkbox.inline {
   color: #777;
 }
 .toggle.toggle-off label.toggle-radio {
-  background-image: image-url(icon-off.png);
+  background-image: image-url("icon-off.png");
 }
 .toggle.toggle-icon .toggle-radio {
-  background-image: image-url(block-on.png);
+  background-image: image-url("block-on.png");
 }
 .toggle.toggle-icon.toggle-off .toggle-radio {
-  background-image: image-url(block-off.png);
+  background-image: image-url("block-off.png");
 }
 .form-actions {
   margin: 0 0 15px;

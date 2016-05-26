@@ -7,7 +7,7 @@ html, body
     position: relative;
     top: -19.8px;
     height: 94.35%;
-    background: transparent image-url(food-salad-restaurant-person.jpg) no-repeat fixed center;
+    background: transparent image-url("food-salad-restaurant-person.jpg") no-repeat fixed center;
     background-size:cover;
 }
 #home-title{
@@ -29,11 +29,11 @@ html, body
 
 // .wrapper {
 //   width: 90%;
-//   background: url(food-salad-restaurant-person.jpg);
+//   background: image-url("food-salad-restaurant-person.jpg");
 //   /*background: url(../MOCKUP.jpg);*/
 // }
 
 
 // .full-img {
-// 	background-image: url(food-salad-restaurant-person.jpg);
+// 	background-image: image-url("food-salad-restaurant-person.jpg");
 // }
