@@ -8,17 +8,23 @@
 
       <div class="form-group">
         <label class="col-lg-2 control-label"> Organization: </label>
+        <% if @current_user.organizations.count == 1 %>
           <div class="col-lg-10">
             <div class="form-control">
               <%= order_organizations(f) %>
             </div>
           </div>
+          <% else %>
+          <div class="col-lg-10">
+            <%= order_organizations(f) %>
+          </div>
+          <% end %>
       </div>
 
       <div class="form-group">
         <label class="col-lg-2 control-label">Order will be placed at:</label>
             <div class="col-lg-10">
-              <div class="form-control" id="time-until-expire">
+              <div class="form-control" id="time-until-expire" placeholder="<%= DateTime.now %>">
 
               </div>
             </div>
