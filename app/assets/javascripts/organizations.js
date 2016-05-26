@@ -1,7 +1,6 @@
 $(document).ready(function() {
   switchToggle()
   hideNShowOrg()
-  hideNShowOnSwitch()
 })
 
 
@@ -51,6 +50,8 @@ function hideNShowOrg() {
     }
   })
 }
+
+
 
 function hideNShowOnSwitch() {
   var select = $('#user_organization_ids')
