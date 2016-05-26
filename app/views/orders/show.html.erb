@@ -11,8 +11,8 @@
   </div>
   <div class='well'>
     <h4>
-      <span>Order was created at <%= (@order.date_ordered + Time.now.utc_offset).strftime('%l:%M %p') %></span>
-      <span class="pull-right">Order will be placed at <%= (@order.expiration + Time.now.utc_offset).strftime('%l:%M %p') %>
+      <span>Order was created at <%= (@order.date_ordered).strftime('%l:%M %p') %></span>
+      <span class="pull-right">Order will be placed at <%= (@order.expiration).strftime('%l:%M %p') %>
       </span>
       <br>
     </h4>
