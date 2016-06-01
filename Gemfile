@@ -51,6 +51,8 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'letter_opener'
   gem 'rspec-rails'
+  gem 'capybara'
+  gem 'rails-controller-testing'
 end
 
 group :development do
