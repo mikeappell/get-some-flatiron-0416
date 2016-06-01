@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  onExpirationTimeChanged()
+  onExpirationTimeChanged();
   // itemAddedListener();
 
   if ($('#order-expiration').length) {

@@ -50,6 +50,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'dotenv-rails'
   gem 'letter_opener'
+  gem 'rspec-rails'
 end
 
 group :development do
