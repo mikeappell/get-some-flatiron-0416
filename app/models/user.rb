@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   def user_sorted_recent_orders
     sorted_orders = (orders.all + admin_orders).uniq.sort_by{|order| order.expiration}.reverse
-    thing = sorted_orders.select { |order| (Time.zone.now - order.expiration) < 12.hours }
+    sorted_orders.select { |order| (Time.zone.now - order.expiration) < 12.hours }
   end
 
 

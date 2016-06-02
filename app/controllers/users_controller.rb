@@ -35,12 +35,6 @@ class UsersController < ApplicationController
       else
         render 'edit', alert: "The field you entered was incorrect"
       end
-    # elsif params[:user][:email_addresses_attributes]["0"]
-    #   if
-    #     redirect_to edit_user_path
-    #   else
-    #     render 'edit', alert: "The field you entered was incorrect"
-    #   end
     elsif params[:user][:venmo]
       if @current_user.update(venmo: params[:user][:venmo])
         redirect_to edit_user_path

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'current_user_id', to: 'users#current_user_id'
   get 'signup', to: 'registrations#new'
-  post 'signup', to: 'registrations#create'
+  # post 'signup', to: 'registrations#create'
   get '/registration/:confirmation_token' => 'users#confirm_email', as: 'registration_confirmation'
   get '/email/:confirmation_token' => 'users#confirm_email', as: 'email_confirmation'
   get '/email_address/:confirmation_token' => 'email_addresses#confirm_email', as: 'email_address_confirmation'
