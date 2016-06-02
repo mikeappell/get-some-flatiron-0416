@@ -3,21 +3,16 @@ class EmailAddressesController < ApplicationController
   end
 
   def create
-    domain = /@(.+)/.match(params[:email_address][:email_address])
-    @organization = Organization.find_or_create_by(domain_name: domain[1])
-    @email_address = EmailAddress.new(email_address: params[:email_address][:email_address],user_id:
-    current_user.id, organization_id: @organization.id)
+    @organization = OrganizationFinder.find_or_create(email_params)
+    @email_address = EmailAddress.new(email_address: email_params, user_id: current_user.id, organization_id: @organization.id)
     if @email_address.save
       RegistrationMailer.email_confirmation(current_user, @email_address).deliver_now
-      flash[:notice] = "Almost there! Please click the link in your email to complete yourregistration"
+      flash[:notice] = "Almost there! Please click the link in your email to complete your registration"
       redirect_to edit_user_path(current_user)
     else
       render 'users/edit', alert: "That Email is not valid"
     end
   end
-
-
-
 
   def confirm_email
     email = EmailAddress.find_by_confirm_token(params[:confirmation_token])
@@ -33,4 +28,10 @@ class EmailAddressesController < ApplicationController
 
   def edit
   end
+
+  private
+
+    def email_params
+      params.require(:email_address).permit(:email_address)
+    end
 end
