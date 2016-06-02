@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe UsersController, type: :controller do
 
   FIXTURES_PATH = Rails.root.join("spec", "fixtures")
@@ -51,9 +52,11 @@ RSpec.describe UsersController, type: :controller do
 
       it "renders registrations/new" do
         post :create, {user: {name: "Captain Ploonet", username: "IloveGaeo247", venmo: "GuoaFin313" }}
-        binding.pry
+        # binding.pry
         # expect(response).to render_template('registrations/new')
-        expect(current_path).to eq('/signup')
+        # expect(request.fullpath).to eq('/signup')
+        expect(flash.now[:alert]).to eq("Signup Failed")
+        expect(response).to render_template 'registrations/new'
         # expect(flash.now[:alert]).to eq("Signup Failed")
       end
     end

@@ -52,7 +52,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', :git => 'git://github.com/rails/rails-controller-testing.git'
 end
 
 group :development do
