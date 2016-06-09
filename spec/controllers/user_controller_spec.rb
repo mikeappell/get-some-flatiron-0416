@@ -52,13 +52,69 @@ RSpec.describe UsersController, type: :controller do
 
       it "renders registrations/new" do
         post :create, {user: {name: "Captain Ploonet", username: "IloveGaeo247", venmo: "GuoaFin313" }}
-        # binding.pry
-        # expect(response).to render_template('registrations/new')
-        # expect(request.fullpath).to eq('/signup')
         expect(flash.now[:alert]).to eq("Signup Failed")
         expect(response).to render_template 'registrations/new'
-        # expect(flash.now[:alert]).to eq("Signup Failed")
       end
     end
+  end
+
+  describe "#update" do
+    
+    let(:test_user) {User.create(name: "Mr. Test", username: "ipasstests", venmo: "mrApple", password: "password", email_confirmed: true)}
+
+    before(:each) do
+      allow(controller).to receive(:current_user).and_return(test_user)
+    end
+
+    context "changing username" do
+      it "updates the username and redirects user back to edit path on a valid username" do
+        patch :update, {id: test_user.id, user: {username: "BestNewUsername"}}
+        expect(test_user.username).to eq("BestNewUsername")
+        expect(response).to redirect_to("/users/#{test_user.id}/edit")
+        expect(flash[:alert]).to eq("Your username has been changed")
+      end
+
+      it "flashes an alert and re-renders edit on an invalid username" do
+        session[:user_id] = User.last.id
+        second_user = User.create(name: "Mr. Testy", username: "amazingusername", venmo: "mrMapple", password: "password", email_confirmed: true)
+        patch :update, {id: test_user.id, user: {username: "amazingusername"}}
+        expect(flash[:alert]).to eq("The username you entered has already been taken")
+        expect(response).to render_template 'users/edit'
+      end
+    end
+
+    context "changing password" do
+      it "updates the password and redirects user back to edit path on a valid password" do
+        patch :update, {id: test_user.id, user: {password: "BestNewpassword", password_confirmation: "BestNewpassword"}}
+        expect(test_user.validate("BestNewpassword")).to be_truthy
+        expect(response).to redirect_to("/users/#{test_user.id}/edit")
+        expect(flash[:alert]).to eq("Your password has been changed")
+      end
+
+      it "flashes an alert and re-renders edit on an invalid password" do
+        session[:user_id] = User.last.id
+        patch :update, {id: test_user.id, user: {password: "amazingpassword", password_confirmation: "okpassword"}}
+        expect(flash[:alert]).to eq("There was a problem with the password you entered")
+        expect(response).to render_template 'users/edit'
+      end
+    end
+
+    context "changing venmo" do
+      it "updates the venmo and redirects user back to edit path on a valid venmo" do
+        patch :update, {id: test_user.id, user: {venmo: "BestNewvenmo"}}
+        expect(test_user.venmo).to eq("BestNewvenmo")
+        expect(response).to redirect_to("/users/#{test_user.id}/edit")
+        expect(flash[:alert]).to eq("Your Venmo username has been changed")
+      end
+
+      it "flashes an alert and re-renders edit on an invalid venmo" do
+        session[:user_id] = User.last.id
+        second_user = User.create(name: "I.P. Freely", username: "ausername", venmo: "Vroomno", password: "password", email_confirmed: true)
+        patch :update, {id: test_user.id, user: {venmo: "Vroomno"}}
+        expect(flash[:alert]).to eq("There was a problem with your Venmo username")
+        expect(response).to render_template 'users/edit'
+      end
+    end
+
   end
 end

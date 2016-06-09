@@ -1,6 +1,5 @@
 $(document).ready(function(){
   onExpirationTimeChanged();
-  // itemAddedListener();
 
   if ($('#order-expiration').length) {
     createOrderTimer();
@@ -18,20 +17,20 @@ $(document).ready(function(){
 
 function onExpirationTimeChanged() {
   $('input#expiration-time').focusout(function() {
-    $('div#time-until-expire').html(formatTimeStr())
-  })
+    $('div#time-until-expire').html(formatTimeStringForOrderPlacing());
+  });
 }
 
-function formatTimeStr(){
+function formatTimeStringForOrderPlacing(){
   var currentTime = new Date()
   var minutes = currentTime.getMinutes()
   var hours = currentTime.getHours()
-  var userTime = parseInt($('input#expiration-time').val())
-  var newMinutes = userTime + minutes
+  var usersTimeInput = parseInt($('input#expiration-time').val())
+  var newMinutes = usersTimeInput + minutes
   var amPM
-  var timeStr
+  var timeString
 
-  if (isNaN(userTime)) {
+  if (isNaN(usersTimeInput)) {
     return 'That is not a valid time'
   }
 
@@ -52,39 +51,45 @@ function formatTimeStr(){
     hours = '0' + hours
   }
 
-  // timeStr = 'Order will be placed at: ' + hours + ':' + newMinutes + ' ' + amPM
-  timeStr = hours + ':' + newMinutes + ' ' + amPM
-  return timeStr
+  timeString = hours + ':' + newMinutes + ' ' + amPM
+  return timeString
 }
 
 
 function createOrderTimer() {
   var expires = $('#order-expiration').val();
   var myInterval = setInterval(myTimer, 1000);
-  setItemTimeToOrder(expires)
+  displayTimeLeftInOrder(expires)
 
   function myTimer() {
-    setItemTimeToOrder(expires)
+    displayTimeLeftInOrder(expires)
     expires--
-    // console.log(expires)
     if (expires < 0) window.clearInterval(myInterval);
   };
 }
 
-function setItemTimeToOrder(expires) {
+function displayTimeLeftInOrder(expires) {
   if (expires > 5*60) {
-    $('h3#time-remaining-timer').html("<div class='list-group-item list-group-item-success'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
+    $('h3#time-remaining-timer').html(renderOrderTimerHtml('success', secondsToTimeStringForOrderTimer(expires)));
   } else if (expires >= 60) {
-    $('h3#time-remaining-timer').html("<div class='list-group-item list-group-item-warning'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
+    $('h3#time-remaining-timer').html(renderOrderTimerHtml('warning', secondsToTimeStringForOrderTimer(expires)));
   } else if (expires > 0) {
-    $('h3#time-remaining-timer').html("<div class='list-group-item list-group-item-danger'>Time until ordered: " + secondsToTimeString(expires) + "</div>");
+    $('h3#time-remaining-timer').html(renderOrderTimerHtml('danger', secondsToTimeStringForOrderTimer(expires)));
   } else {
-    $('h3#time-remaining-timer').html("<div class='list-group-item list-group-item-danger'>This order has expired.</div>")
+    $('h3#time-remaining-timer').html(renderOrderTimerHtml('closed', null))
     disableItemElements();
   }
 }
 
-function secondsToTimeString(seconds) {
+function renderOrderTimerHtml(alertType, timeString) {
+  if (alertType === 'closed') {
+    return "<div class='list-group-item list-group-item-danger'>This order has expired.</div>";
+  } else {
+    return `<div class='list-group-item list-group-item-${alertType}'>Time until ordered: ${timeString}</div>`
+  }
+}
+
+function secondsToTimeStringForOrderTimer(seconds) {
   var hours = Math.floor(seconds / (60*60));
   var minutes = Math.floor(seconds / 60) % 60;
   seconds %= 60;
@@ -140,7 +145,6 @@ function placeOrderListener() {
           button.off();
           alertUsersListener();
         } else {
-          // console.log("failure")
         }
       }
     })
@@ -158,29 +162,29 @@ function alertUsersListener() {
         success: function(response) {
           if (response.success) {
           // second ajax call to send email #2
-            $.ajax({
-              method: "post",
-              url: "/email/" + orderId + "/arrived",
-              success: (function(response) {
-                console.log("User alerts sent successfully");
-              })
-            });
-            var button = $('button#alert-users-btn');
-            button.off();
-            button.prop('disabled', true);
-            button.attr("id", "users-alerted")
-            button.animate({opacity:'0'},"slow");
-            button.queue(function() {
-              button.html('<strong>You got some ;)</strong>');
-              button.removeClass();
-              button.addClass('alert alert-success')
-              button.dequeue();
-            });
-            button.animate({opacity:'1'},"slow");
-            button.animate({left:'0px'},"slow");
-          }
+          $.ajax({
+            method: "post",
+            url: "/email/" + orderId + "/arrived",
+            success: (function(response) {
+              console.log("User alerts sent successfully");
+            })
+          });
+          var button = $('button#alert-users-btn');
+          button.off();
+          button.prop('disabled', true);
+          button.attr("id", "users-alerted")
+          button.animate({opacity:'0'},"slow");
+          button.queue(function() {
+            button.html('<strong>You got some ;)</strong>');
+            button.removeClass();
+            button.addClass('alert alert-success')
+            button.dequeue();
+          });
+          button.animate({opacity:'1'},"slow");
+          button.animate({left:'0px'},"slow");
         }
-      });
+      }
+    });
     }
   });
 }
