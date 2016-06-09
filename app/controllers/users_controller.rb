@@ -24,25 +24,41 @@ class UsersController < ApplicationController
 
   def update
     if params[:user][:username]
-      if @current_user.update(username: params[:user][:username])
-        redirect_to edit_user_path
+      # updateUsername
+      if current_user.update(username: params[:user][:username])
+        redirect_to edit_user_path, alert: "Your username has been changed"
       else
-        render 'edit', alert: "The username you entered has already been taken"
+        # binding.pry
+        @current_user = User.find(session[:user_id])
+        @email_address = EmailAddress.new
+        # flash.now[:alert] = "The username you entered has already been taken"
+        render 'edit'
       end
     elsif params[:user][:password] && params[:user][:password_confirmation]
-      if @current_user.update(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-        redirect_to edit_user_path
+      # updatePassword
+      if current_user.update(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+        redirect_to edit_user_path, alert: "Your password has been changed"
       else
-        render 'edit', alert: "The field you entered was incorrect"
+        @current_user = User.find(session[:user_id])
+        @email_address = EmailAddress.new
+        flash.now[:alert] = "There was a problem with the password you entered"
+        render 'edit'
       end
     elsif params[:user][:venmo]
-      if @current_user.update(venmo: params[:user][:venmo])
-        redirect_to edit_user_path
+      # updateVenmo
+      if current_user.update(venmo: params[:user][:venmo])
+        redirect_to edit_user_path, alert: "Your Venmo username has been changed"
       else
-        render 'edit', alert: "The field you entered was incorrect"
+        @current_user = User.find(session[:user_id])
+        @email_address = EmailAddress.new
+        flash.now[:alert] = "There was a problem with your Venmo username"
+        render 'edit'
       end
     else
-      render "edit", alert: "The highlighted field was entered incorrectly"
+      @current_user = User.find(session[:user_id])
+      @email_address = EmailAddress.new
+      flash.now[:alert] = "The highlighted field was entered incorrectly"
+      render 'edit'
     end
   end
 
@@ -69,4 +85,29 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :password, :password_confirmation, :username, :venmo, email_addresses_attributes: [:email_address])
   end
+
+  def updateUsername
+    if @current_user.update(username: params[:user][:username])
+      redirect_to edit_user_path
+    else
+      render 'edit', alert: "The username you entered has already been taken"
+    end
+  end
+  
+  def updatePassword
+    if @current_user.update(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+      redirect_to edit_user_path
+    else
+      render 'edit', alert: "The field you entered was incorrect"
+    end
+  end
+  
+  def updateVenmo
+    if @current_user.update(venmo: params[:user][:venmo])
+        redirect_to edit_user_path
+      else
+        render 'edit', alert: "The field you entered was incorrect"
+      end
+  end
+
 end

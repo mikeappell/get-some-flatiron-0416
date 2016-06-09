@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :groups, through: :user_groups
   has_many :messages
 
+  validates :username, presence: true, uniqueness: true
+  validates :venmo, presence: true, uniqueness: true
+
   has_secure_password
   accepts_nested_attributes_for :email_addresses
 
