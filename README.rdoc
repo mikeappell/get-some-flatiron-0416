@@ -5,8 +5,8 @@ Use this app to structure food orders across an entire company to easily meet re
 ------------------------------------------------------------------------------------------
 When to use this app?
 
-Say it's lunch time, and you as an employee want food delivered from a restaurant. Most restaurants require minimum order amounts before they'll deliver. To raise the minimum amount, then, you'll need to approach others in the firm, knock on office doors, send out emails, etc, to get everyone in the loop.
-This is usually repetitive and disruptive, and you won't be able to get everyone in on the action!
+Say it's lunch time, and you as an employee want food delivered from a restaurant. Most restaurants have a minimum order amount before they'll deliver. To raise the minimum amount, you'll need to approach others in your organization, knock on office doors, send out emails/texts etc, to get everyone in the loop.
+This is repetitive and disruptive, and you won't be able to get everyone in on the action!
 
 Enter GetSome-Lunch.
 Employees across an entire company can join and use this app to easily, efficiently create and join restaurant orders, reach delivery minimums, and make sure everyone in the firm can get in on a food opportunity.
@@ -14,15 +14,15 @@ Employees across an entire company can join and use this app to easily, efficien
 ------------------------------------------------------------------------------------------
 To optimize this Rails 5 app for a better user experience, we've implemented:
 
-- Rails 5 Action Cable to enable real-time WebSocket communication for chats and order updates
-- A Postgres database schema with models and associations that fully reflect the dynamic between users, orders, order admins, items, etc.
+- Rails 5 ActionCable to enable real-time WebSocket communication for chats and order updates
+- A Postgres database schema with models and associations that reflect the dynamic between users, orders, order admins, items, etc.
 - A real-time countdown for orders along with validations that lock the order once the countdown expires
 - Extensive ActionMailer features for user authentication and order notifications
-- Authentication with bcrypt and validations using email domains to ensure that only actual firm employees can join the firm's GetSome-Lunch organization
+- Authentication with bcrypt and validations using email domains to ensure that only authorized firm employees can join the firm's GetSome-Lunch organization
 - extensive jQuery and AJAX for a responsive user experience
 - CRUD actions on all models, improving the user's customization options
-- RSpec tests to ensure the functionality of select models and controllers
-- CSS, Bootstrap, and theme to prettify the experience and help ensure users enjoy navigating through the app
+- RSpec tests to ensure the functionality of models and controllers
+- CSS, Bootstrap, and theme to make the user experience a smooth and enjoyable one while navigating the app.
 
 ------------------------------------------------------------------------------------------
 
@@ -31,26 +31,26 @@ To explore this app, fork it and run rake db:create and rake db:migrate. To see 
 Quick tour:
 
 Sign in using our seed user, Appleseed.
-You'll notice that Appleseed is part of two organizations: Chase and Flatiron. How did he get in to these organizations? When he signed up, he entered a chase and flatiron email address (i.e. one ending in the @chase.com and @flatironschool.com email domains). He was automatically associated to the correct organization once he authenticated his email via ActionMailer.
+You'll notice that Appleseed is part of two organizations: Chase and Flatiron. How did he get in to these organizations? When he signed up, he entered a Chase and Flatiron email address (i.e. one ending in the @chase.com and @flatironschool.com email domains). He was automatically associated to the correct organization once he clicked a registration link, which was sent to him via Action Mailer.
 
 Now Appleseed can choose which groups within his organizations he wants to join. In this case, for example, he works at Chase's office at 115Fifth, and so he's joined that group.
 If no group fits his needs, Appleseed can create a new one, and all other users in his organization can join it.
 
-On his order index page, Appleseed can see a list of active orders for all his groups within his active organization and filter them based on the group whose orders he wants to look at. Each order will be listed with its basic information.
+On his order index page, Appleseed can see a list of active orders for all his groups within his active organization, and filter them based on the group whose orders he wants to look at. Each order will be listed with its basic information.
 On the side, he can also see past orders he's joined or created and ones he's part of right now that are still active.
 
-Let's say Appleseed sees a bunch of orders that are active for his Flatiron New York group, none of which he's joined. He can check out an order by clicking on it.
+Let's say Appleseed sees a bunch of orders that are active for his Flatiron New York group, none of which he's joined. He can view an order by clicking on it.
 
-When Appleseed clicks on the order, he goes to the order show page and sees an active countdown until the order expires (i.e. when the order admin will place the order). Because of the Rails 5 ActionCable, Appleseed can see items being added to the order in real-time and have access to real-time chat functionality. He'll also see the order's total amount so far, as well as how far there is to go to in order reach the order's minimum delivery amount.
+When Appleseed clicks on the order, he goes to the order show page and sees an active countdown until the order expires (i.e. when the order admin will place the order). Because of Rails 5's Action Cable, Appleseed can see items being added to the order in real-time and have access to chat functionality. He'll also see the order's total amount so far, as well as how far there is to go to in order reach the order's minimum for delivery.
 
-To join the order, Appleseed can simply add items and watch the order total increase! Similarly, once he's joined, he can delete his item(s) and see the order total adjust in real time.
+To join the order, Appleseed can simply add items and watch the order total increase. Similarly, once he's joined, he can delete his item(s) and see the order total adjust, which all others watching will see in real-time.
 
-Once the order has expired, the order admin will see a button appear. Once clicked, all the users in the order, including Appleseed, will receive an email with information on how to pay the order admin back for their item.
+Once the order has expired, the order admin will see a 'Place Order' button appear. Once clicked, all the users in the order, including Appleseed, will receive an email with information on how to pay the order admin back for their item.
 
-Once the first button is pressed, another automatically replaces it. The order admin will press it once the food arrives. Once pressed, all the users in the order, again including Appleseed, will receive an email notification that the order arrived and it can be picked up from such and such person at such and such location.
-Success.
-You've Got Some Lunch!
+Once this button is pressed, a "Notify of Delivery" button replaces it. This button sends an email to all users on the order, including Appleseed, alerting them that the order has arrived and it can be picked up from the recipient.
+
+Success! You've Got Some Lunch!
 
 
-This is the quick tour, as mentioned. Appleseed can do several more things including, of course, creating his own orders and becoming an admin for those.
-Run the app to explore!!
+This is the quick tour. Appleseed can do several more things including, of course, creating his own orders and becoming an admin for those.
+Run the app to explore!
