@@ -1,28 +1,56 @@
-== README
+==Welcome to GetSome-Lunch!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Use this app to structure food orders across an entire company to easily meet restaurant delivery minimums.
 
-Things you may want to cover:
+------------------------------------------------------------------------------------------
+When to use this app?
 
-* Ruby version
+Say it's lunch time, and you as an employee want food delivered from a restaurant. Most restaurants have a minimum order amount before they'll deliver. To raise the minimum amount, you'll need to approach others in your organization, knock on office doors, send out emails/texts etc, to get everyone in the loop.
+This is repetitive and disruptive, and you won't be able to get everyone in on the action!
 
-* System dependencies
+Enter GetSome-Lunch.
+Employees across an entire company can join and use this app to easily, efficiently create and join restaurant orders, reach delivery minimums, and make sure everyone in the firm can get in on a food opportunity.
 
-* Configuration
+------------------------------------------------------------------------------------------
+To optimize this Rails 5 app for a better user experience, we've implemented:
 
-* Database creation
+- Rails 5 ActionCable to enable real-time WebSocket communication for chats and order updates
+- A Postgres database schema with models and associations that reflect the dynamic between users, orders, order admins, items, etc.
+- A real-time countdown for orders along with validations that lock the order once the countdown expires
+- Extensive ActionMailer features for user authentication and order notifications
+- Authentication with bcrypt and validations using email domains to ensure that only authorized firm employees can join the firm's GetSome-Lunch organization
+- extensive jQuery and AJAX for a responsive user experience
+- CRUD actions on all models, improving the user's customization options
+- RSpec tests to ensure the functionality of models and controllers
+- CSS, Bootstrap, and theme to make the user experience a smooth and enjoyable one while navigating the app.
 
-* Database initialization
+------------------------------------------------------------------------------------------
 
-* How to run the test suite
+To explore this app, fork it and run rake db:create and rake db:migrate. To see it pre-populated as if in an active organization with other users, run rake db:seed and sign in as one of our seed users. Use the username: appleseed password: password.
 
-* Services (job queues, cache servers, search engines, etc.)
+Quick tour:
 
-* Deployment instructions
+Sign in using our seed user, Appleseed.
+You'll notice that Appleseed is part of two organizations: Chase and Flatiron. How did he get in to these organizations? When he signed up, he entered a Chase and Flatiron email address (i.e. one ending in the @chase.com and @flatironschool.com email domains). He was automatically associated to the correct organization once he clicked a registration link, which was sent to him via Action Mailer.
 
-* ...
+Now Appleseed can choose which groups within his organizations he wants to join. In this case, for example, he works at Chase's office at 115Fifth, and so he's joined that group.
+If no group fits his needs, Appleseed can create a new one, and all other users in his organization can join it.
+
+On his order index page, Appleseed can see a list of active orders for all his groups within his active organization, and filter them based on the group whose orders he wants to look at. Each order will be listed with its basic information.
+On the side, he can also see past orders he's joined or created and ones he's part of right now that are still active.
+
+Let's say Appleseed sees a bunch of orders that are active for his Flatiron New York group, none of which he's joined. He can view an order by clicking on it.
+
+When Appleseed clicks on the order, he goes to the order show page and sees an active countdown until the order expires (i.e. when the order admin will place the order). Because of Rails 5's Action Cable, Appleseed can see items being added to the order in real-time and have access to chat functionality. He'll also see the order's total amount so far, as well as how far there is to go to in order reach the order's minimum for delivery.
+
+To join the order, Appleseed can simply add items and watch the order total increase. Similarly, once he's joined, he can delete his item(s) and see the order total adjust, which all others watching will see in real-time.
+
+Once the order has expired, the order admin will see a 'Place Order' button appear. Once clicked, all the users in the order, including Appleseed, will receive an email with information on how to pay the order admin back for their item.
+
+Once this button is pressed, a "Notify of Delivery" button replaces it. This button sends an email to all users on the order, including Appleseed, alerting them that the order has arrived and it can be picked up from the recipient.
+
+Success! You've Got Some Lunch!
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+This is the quick tour. Appleseed can do several more things including, of course, creating his own orders and becoming an admin for those.
+Run the app to explore!
